@@ -1,0 +1,26 @@
+{
+  "name": "wfr-architecture",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "@types/three": "^0.183.1",
+    "autoprefixer": "^10.4.27",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.7.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "three": "^0.183.2"
+  }
+}
