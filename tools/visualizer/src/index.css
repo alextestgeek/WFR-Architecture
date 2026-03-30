@@ -1,18 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-:root {
-  --primary: 193 95% 48%;
-  --accent: 280 84% 52%;
-}
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 body {
-  font-family: 'Clash Display', system-ui, sans-serif;
+  margin: 0;
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: #09090b;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
 }
 
-.mono {
+.font-mono {
   font-family: 'JetBrains Mono', monospace;
+}
+
+input[type="range"] {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.08);
+  outline: none;
+  cursor: pointer;
 }
