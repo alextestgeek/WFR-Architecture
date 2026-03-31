@@ -1,4 +1,4 @@
-# Experiment 04 — Layer Scaling Test
+# Experiment 02 — Layer Scaling Test
 
 **Дата:** 31 марта 2026  
 **Статус:** Завершён  

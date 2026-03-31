@@ -1,0 +1,105 @@
+{
+  "mode": "enhanced",
+  "timestamp": "2026-03-31T16:39:05.026282",
+  "device": "cpu",
+  "config": {
+    "vocab_size": 32,
+    "seq_len": 48,
+    "batch_size": 16,
+    "num_train_batches": 8,
+    "num_val_batches": 3,
+    "epochs": 2,
+    "lr": 0.05,
+    "seed": 42,
+    "alpha": 1.0,
+    "beta": 0.15,
+    "gamma": 0.1,
+    "loss_train": "alpha*CE + beta*(1-RC) + gamma*energy",
+    "task_only_train": false,
+    "strict_learning": false,
+    "phase0_config_module": "experiments/00-smoke-test/phase0_best_config.py"
+  },
+  "val_start": {
+    "total": 6.125994,
+    "ce": 6.125954,
+    "rc_term": 0.000271,
+    "energy": 0.0
+  },
+  "val_end": {
+    "total": 3.81519,
+    "ce": 3.815145,
+    "rc_term": 0.000303,
+    "energy": 0.0
+  },
+  "best_val_ce": 3.815145,
+  "best_epoch_ce": 2,
+  "best_val_total": 3.81519,
+  "best_epoch_total": 2,
+  "train_total_first_epoch": 5.002717,
+  "train_total_last_epoch": 4.161873,
+  "history": {
+    "train_total_per_epoch": [
+      5.002717,
+      4.161873
+    ],
+    "train_rc_term_per_epoch": [
+      0.000408,
+      0.000333
+    ],
+    "train_energy_per_epoch": [
+      0.0,
+      0.0
+    ],
+    "val_total_per_epoch": [
+      4.406919,
+      3.81519
+    ],
+    "val_ce_per_epoch": [
+      4.406858,
+      3.815145
+    ],
+    "val_rc_term_per_epoch": [
+      0.000405,
+      0.000303
+    ],
+    "val_energy_per_epoch": [
+      0.0,
+      0.0
+    ]
+  },
+  "random_baseline_ce_ln_v": 3.465736,
+  "grad_nonzero_after_step0": true,
+  "grad_l2_norm_step0": 4.26771999,
+  "criteria": {
+    "finite_losses": true,
+    "nonzero_grad": true,
+    "learning": true,
+    "strict_learning_best_ce_below_random": null,
+    "learning_breakdown": {
+      "val_total_decreased": true,
+      "val_ce_decreased": true,
+      "val_ce_below_random_at_end": false,
+      "val_ce_below_random_best_epoch": false
+    }
+  },
+  "pass": true,
+  "precheck": {
+    "phase0_params_in_wfr": {
+      "ok": true,
+      "msg": "частоты/пороги/target_mode совпадают с phase0_best_config"
+    },
+    "homeostatic_sign": {
+      "ok": true,
+      "msg": "homeostatic sign OK (порог снизился при r_real < r_target)"
+    },
+    "loss_formula": {
+      "ok": true,
+      "msg": "L formula OK (diff 0.00e+00)"
+    }
+  },
+  "artifacts": {
+    "json": "training_sanity_enhanced_20260331_1639.json",
+    "png_curves": "training_sanity_enhanced_curves_20260331_1639.png",
+    "png_val_components": "training_sanity_enhanced_val_components_20260331_1639.png"
+  }
+}

@@ -1,8 +1,10 @@
 # 07. Experiment Plan — План проверки теории
 
-**Версия:** 0.1  
-**Дата:** 30 марта 2026  
+**Версия:** 0.4  
+**Дата:** 31 марта 2026  
 **Статус:** Утверждён
+
+**Сводный план Phase 0 (цели, соответствие теории, критерии выхода):** [`08-phase-0-plan.md`](08-phase-0-plan.md)
 
 Мы начинаем проверку теории WFR **с логического начала** — с проверки жизнеспособности архитектуры, прежде чем углубляться в сложные механизмы обучения.
 
@@ -52,46 +54,99 @@
 - Время масштабируется лучше O(n)
 - Результаты честно документируются (даже если они опровергают теорию)
 
-**Файл:** `experiments/03-memory-complexity-test/run_memory_test.py`
+**Файл:** `experiments/01-memory-complexity-test/run_memory_test.py`
 
 **Статус:** **Завершён** — O(1) память подтверждена до 100M токенов. Результаты: [`09-memory-complexity-test-plan.md`](09-memory-complexity-test-plan.md)
 
-### Layer Scaling Test (Experiment 04)
+### Layer Scaling Test (Experiment 02)
 
 **Цель:** Проверить масштабирование до 32 фрактальных слоёв с механизмами стабилизации v2.1.
 
 **Статус:** **Завершён** — 32/32 слоёв активны. Критический баг homeostatic найден и исправлен.
 
-**Файл:** `experiments/04-layer-scaling-test/run_layer_scaling_test.py`
+**Файл:** `experiments/02-layer-scaling-test/run_layer_scaling_test.py`
 
 **Результаты:** Все 4 стратегии частот × 5 глубин (4–32) × 3 контекста (512, 8K, 131K). Подробности: [`03-theory.md`](03-theory.md) раздел 8.
 
-### Test 1 — Long Context Stability
+### Test 1 — Long Context Stability (Experiment 03)
 
-**Цель:** Проверить стабильность системы при росте длины контекста (после проверки памяти).
+**Цель:** Проверить стабильность **внутренней структуры** паттернов при росте длины контекста.
+
+**Статус:** **Завершён** — 5/6 суб-тестов пройдены (после исправления методологии). Единственный FAIL (spike distribution) — свойство необученных весов.
+
+**Файл:** `experiments/03-long-context-stability/run_stability_test.py`
+
+**Отличие от Memory Test:** Memory Test измерял агрегированные метрики (общий RC, общее время, память). Этот тест измеряет внутреннюю структуру:
 
 - Тестировать длины: 512 → 4096 → 16384 → 65536 токенов
-- Измерять:
-  - Стабильность паттернов стоячих волн
-  - Количество активных спайков
-  - Поведение Resonance Confidence
+- 6 суб-тестов:
+  1. **Determinism** — один вход → идентичный выход (max Δ < 1e-6)
+  2. **Phase Encoding Stability** — фазы позиции p одинаковы при любом контексте
+  3. **Cross-Context Standing Wave** — стоячая волна для общего префикса (cos sim > 0.95)
+  4. **Windowed RC** — sliding window RC, нет ли мёртвых зон (CV < 0.15)
+  5. **Spike Distribution** — равномерность спайков (max/min ratio < 3.0)
+  6. **Depth Coherence** — RC не деградирует к концу (Q4/Q1 > 0.85)
 
 **Критерии успеха:**
+- Все 6 суб-тестов пройдены
 - Паттерны не разрушаются при увеличении контекста
 - Система остаётся стабильной
 
-### Test 2 — Basic Pattern Formation
+### Test 2 — Basic Pattern Formation (Experiment 04)
 
-**Цель:** Проверить, может ли система устойчиво формировать и сохранять простые паттерны.
+**Цель:** Проверить, что разные синтетические **порядки позиций** дают различимые стоячие волны / сигнатуры ([`03-theory.md`](03-theory.md), раздел 5), без обучения.
 
-- Задача: воспроизведение простых периодических или структурных паттернов
-- Оценка качества стоячих волн и способности к запоминанию
+**Статус:** **Завершён** — различимость и повторяемость по порогам PASS; «STRONG» (<0.995) не достигнут.
+
+**Файл:** `experiments/04-basic-pattern-formation/run_pattern_test.py`
+
+**Метод:** шесть классов паттернов одной длины (linear, reverse, mod, stride, shuffle, two_blocks); сигнатура = профиль стоячей волны по четвертям + спайки + RC; warmup linear + заморозка homeostatic. Опционально: шум по фазам после WPE.
+
+**Критерии (см. README эксперимента):** **PASS** по различимости — максимальный попарный косинус сигнатур разных классов < 0.99999 (нет почти полного совпадения нормированных векторов). **STRONG** — тот же максимум < 0.995; на фиксированном прогоне не выполнен (близкие пары вроде stride/shuffle). PASS не утверждает сильную попарную различимость во всех парах.
+
+**Результаты:** [`experiments/04-basic-pattern-formation/README.md`](../experiments/04-basic-pattern-formation/README.md)
+
+---
+
+## Phase 1 — Обучение и RFP
+
+**Мастер-план:** [`10-phase-1-plan.md`](10-phase-1-plan.md) (цели, критерии успеха, оговорки, реестр экспериментов).
+
+### Test 3 — RFP Training Sanity (Experiment 05)
+
+**Цель:** Проверить, что градиенты проходят через WFR (WPE, резонанс, surrogate spike) и что на toy next-token задаче loss снижается при фиксированных train/val батчах; до обучения — precheck согласованности с Phase 0, знака homeostatic и формулы \(L\).
+
+**Статус:** Пройден — **короткий прогон enhanced** (`--epochs 30`, **2026-03-31**, NVIDIA A100 80GB, удалённый сервер; workflow в локальном `RULES.md`).
+
+**Результаты (короткий тест):**
+
+| Проверка | Итог |
+|----------|------|
+| Precheck (`phase0_params_in_wfr`, `homeostatic_sign`, `loss_formula`) | все OK |
+| Устройство | `cuda` |
+| Val total \(L\) | 6.264 → 3.571 (лучший **3.534** на эпохе 14) |
+| Val CE | 6.264 → 3.571 (лучший **3.534** @ ep 14; \(\ln 32 \approx 3.466\)) |
+| Градиент L2 (первый шаг) | ≈ 4.03 |
+| PASS по критериям README | **да** (снижение val total и val CE) |
+| Критерий `--strict` (лучший val CE < \(\ln V - 0.02\)) | **нет** (лучший CE чуть выше порога) |
+
+**Артефакты:** [`training_sanity_enhanced_20260331_1630.json`](../experiments/05-rfp-training-sanity/outputs/training_sanity_enhanced_20260331_1630.json), `training_sanity_enhanced_curves_20260331_1630.png`, `run_training_sanity_gpu_20260331.log` — см. [`experiments/05-rfp-training-sanity/README.md`](../experiments/05-rfp-training-sanity/README.md).
+
+**Критерии PASS:** см. README эксперимента (конечные метрики, ненулевые градиенты, снижение val loss; опционально `--strict`).
+
+### Test 3b — Полноценный протокол Phase 1 (тот же Experiment 05)
+
+**Цель:** зафиксировать обучение по полной целевой \(L\) из §6 и сравнить с обучением только по CE на идентичных данных ([`run_full_training.py`](../experiments/05-rfp-training-sanity/run_full_training.py), README эксперимента).
+
+**Статус:** реализовано в репозитории; зафиксированный GPU-прогон — по мере выполнения (артефакты `training_full_protocol_*.json` в `outputs/`).
+
+**Запуск:** `python experiments/05-rfp-training-sanity/run_full_training.py` (см. README эксперимента; для отладки: `--epochs 30 --no-strict`).
 
 ---
 
 ## Дальнейшие шаги (после Phase 0)
 
-- Phase 1: Простейшее обучение через RFP
+- Phase 1: обучение и RFP — см. [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 (sanity)
 - Phase 2: Сравнение с baseline-моделями
 - Phase 3: Эмуляция специализированного оборудования
 

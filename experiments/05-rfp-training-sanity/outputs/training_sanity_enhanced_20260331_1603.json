@@ -1,0 +1,47 @@
+{
+  "mode": "enhanced",
+  "timestamp": "2026-03-31T16:03:26.944703",
+  "device": "cpu",
+  "config": {
+    "vocab_size": 32,
+    "seq_len": 48,
+    "batch_size": 16,
+    "num_train_batches": 8,
+    "num_val_batches": 3,
+    "epochs": 25,
+    "lr": 0.05,
+    "seed": 42,
+    "alpha": 1.0,
+    "beta": 0.15,
+    "gamma": 0.1,
+    "loss": "alpha*CE + beta*(1-RC) + gamma*energy"
+  },
+  "val_start": {
+    "total": 6.125994,
+    "ce": 6.125954,
+    "rc_term": 0.000271,
+    "energy": 0.0
+  },
+  "val_end": {
+    "total": 3.552492,
+    "ce": 3.552439,
+    "rc_term": 0.000357,
+    "energy": 0.0
+  },
+  "train_total_first_epoch": 5.002717,
+  "train_total_last_epoch": 3.575951,
+  "random_baseline_ce_ln_v": 3.465736,
+  "grad_nonzero_after_step0": true,
+  "grad_l2_norm_step0": 4.26771999,
+  "criteria": {
+    "finite_losses": true,
+    "nonzero_grad": true,
+    "learning": true,
+    "learning_breakdown": {
+      "val_total_decreased": true,
+      "val_ce_decreased": true,
+      "val_ce_below_random": false
+    }
+  },
+  "pass": true
+}

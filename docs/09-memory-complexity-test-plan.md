@@ -31,7 +31,7 @@
 
 ## План реализации
 
-**Файл:** `experiments/03-memory-complexity-test/run_memory_test.py`
+**Файл:** `experiments/01-memory-complexity-test/run_memory_test.py`
 
 **Что должно быть в тесте:**
 - Использовать одну из лучших конфигураций из Phase 0 (например, Freq-Balanced или Mean-Balanced)
@@ -113,12 +113,12 @@
 | 2048    | 0.8276  | 0.9070  | 0.212         | 0.000         | 0.000         | 0.000         |
 | 8192    | 0.7097  | 0.8461  | 0.439         | 0.062         | 0.000         | 0.007         |
 
-Слои 1–3 малоактивны в этом тесте из-за бага инвертированного знака в Homeostatic regulation (исправлено в v2.1). После исправления — все 32 слоя активны. См. `experiments/04-layer-scaling-test/`.
+Слои 1–3 малоактивны в этом тесте из-за бага инвертированного знака в Homeostatic regulation (исправлено в v2.1). После исправления — все 32 слоя активны. См. `experiments/02-layer-scaling-test/`.
 
 ## Следующие шаги
 
 1. **Phase-Locking подтверждён.** RC на длинных контекстах вырос в десятки раз.
-2. Результаты v1.0 и v2.0 сохранены в `experiments/03-memory-complexity-test/outputs/`.
+2. Результаты v1.0 и v2.0 сохранены в `experiments/01-memory-complexity-test/outputs/`.
 3. Следующий этап — **Phase 1 (RFP)**: реализация обучения, где Homeostatic и Surrogate Gradient покажут себя.
 
 ---

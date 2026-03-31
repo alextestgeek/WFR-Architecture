@@ -1,8 +1,8 @@
 # 00. Overview — Текущая Архитектура WFR
 
-**Версия документа:** 0.5  
+**Версия документа:** 0.6  
 **Дата:** 31 марта 2026  
-**Статус:** Архитектура v2.1 (Homeostatic bugfix + Layer Scaling до 32 слоёв)
+**Статус:** Архитектура v2.1; Phase 0 (viability) завершён
 
 ---
 
@@ -58,7 +58,6 @@
 
 ## 4. Текущий статус проекта
 
-- **Phase 0** завершён: Smoke Test пройден
 - **Phase 0.5 (Memory & Complexity Test)**: тест до **100 000 000 токенов** на NVIDIA A100 80GB
   - Память на токен: **492 байта** (O(1)) — постоянно на всём диапазоне
   - Forward time: 2.71 с на 100M контексте (v2.0)
@@ -69,7 +68,8 @@
   - После исправления: **32/32 слоёв активны** (100%) на контекстах ≥8192
   - RC стабилен и не деградирует при росте глубины (~0.846 на 8K для всех глубин)
   - Все 4 стратегии распределения частот работают одинаково хорошо
-  - Подробные результаты: `experiments/04-layer-scaling-test/`
+  - Подробные результаты: `experiments/02-layer-scaling-test/`
+- **Phase 0 (viability, итог):** Long Context Stability, Basic Pattern Formation — папки `experiments/03-long-context-stability/`, `experiments/04-basic-pattern-formation/`; мастер-план [`08-phase-0-plan.md`](08-phase-0-plan.md)
 
 ---
 
@@ -80,5 +80,7 @@
 - **v0.3** — Обновлена структура проекта, добавлены ссылки на эксперименты
 - **v0.4** — Добавлены механизмы стабильности v2.0, результаты теста до 100M токенов
 - **v0.5** — Layer Scaling Test: 32 слоя, homeostatic bugfix
+- **v0.6** — Phase 0 закрыт: Test 1 (Long Context), Test 2 (Basic Pattern Formation)
+- **v0.7** — Phase 1 открыт: план [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 — короткий прогон **enhanced** на GPU (2026-03-31): precheck OK, снижение val total/CE, **PASS**; детали [`07-experiment-plan.md`](07-experiment-plan.md) Test 3, артефакты в [`experiments/05-rfp-training-sanity/outputs/`](../experiments/05-rfp-training-sanity/README.md)
 
-**Следующий документ:** [07-experiment-plan.md](07-experiment-plan.md)
+**Следующие документы:** [07-experiment-plan.md](07-experiment-plan.md) · [08-phase-0-plan.md](08-phase-0-plan.md) · [10-phase-1-plan.md](10-phase-1-plan.md)

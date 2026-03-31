@@ -1,5 +1,5 @@
 """
-WFR Layer Scaling Test — Experiment 04
+WFR Layer Scaling Test — Experiment 02
 =======================================
 
 Цель: проверить, решают ли механизмы стабилизации v2.0

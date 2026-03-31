@@ -26,6 +26,7 @@ WFR takes a different path: instead of matrix multiplication, information is enc
 - **O(1) memory** — 492 bytes/token from 512 to 100M tokens (a transformer would need terabytes at 100M).
 - **32 active layers** — after fixing a sign bug in homeostatic regulation, all layers stay alive.
 - **Phase-Locking** boosts stability **×42** on long contexts.
+- **Pattern-order signatures (Phase 0, no training)** — six synthetic position orders at fixed length yield **non-collapsed** aggregated signatures (standing-wave quarters + spikes + RC; Experiment 04). Strong pairwise separation everywhere is **not** claimed.
 
 ### What's not proven yet
 
@@ -122,6 +123,31 @@ Critical bug found: sign inversion in homeostatic regulation created **positive 
 
 RC is stable across depths: ~0.97 (512 tokens), ~0.846 (8K), ~0.712 (131K) — independent of layer count.
 
+### Basic Pattern Formation (Experiment 04 — Phase 0, Test 2)
+
+**Question:** With **no training**, do different synthetic **position orders** (same length) produce **different** aggregated “standing wave” fingerprints — as theory predicts for Phase 0 ([`docs/03-theory.md`](docs/03-theory.md), section 5)?
+
+**Protocol:** `WFRNetwork` (Freq-Balanced), linear warmup on `0..L−1` (50 passes), then **homeostatic regulation turned off**; **L = 4096**. Six input patterns: linear, reverse, mod-64, stride-7 mod L, fixed shuffle, two identical half-blocks. **Signature** (10-D, L2-normalized): mean standing wave in **four quarters** along the sequence, `std(sw)`, mean spike rate per layer, RC.
+
+| Stage | What it checks | PASS threshold |
+|-------|----------------|----------------|
+| A | Classwise distinguishability | max pairwise cosine **< 0.99999** |
+| B | Same pattern → same signature | cosine of two `linear` runs **> 1 − 10⁻⁵** |
+| C (optional) | Robustness to phase noise after WPE (σ = 0.02) | cosine(clean, noisy) **> 0.85** |
+
+**STRONG** (stricter separation: max pairwise cosine **< 0.995**) was **not** achieved on the reference run — some pairs (notably stride vs shuffle) stay almost collinear. The **`mod64`** pattern is the main outlier and sets the **minimum** off-diagonal cosine.
+
+**Reference run (2026-03-31):**
+
+| Metric | Value |
+|--------|-------|
+| Max off-diagonal cosine | 0.999934 |
+| Min off-diagonal cosine | 0.897 |
+| Repeatability (`linear`) | 1.0 |
+| Clean vs noisy phases (optional) | ~0.99998 |
+
+**Takeaway:** PASS (A+B) and optional (C) support the Phase 0 claim that class signatures **do not collapse** to a single vector; they do **not** imply strong pairwise separation for every class pair without training. Details, heatmap, and JSON: [`experiments/04-basic-pattern-formation/README.md`](experiments/04-basic-pattern-formation/README.md).
+
 ### What is not confirmed
 
 - **Time complexity** remains ~O(n), not sub-linear as theorized
@@ -135,9 +161,12 @@ Full results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexi
 ```
 docs/               Theory and documentation
 experiments/        Test code and results
-  00-smoke-test/      Smoke Test + core implementation (wfr_core.py)
-  03-memory-test/     Memory & Complexity Test (up to 100M tokens)
-  04-layer-scaling/   Layer Scaling Test (up to 32 layers)
+  00-smoke-test/              Smoke Test + core implementation (wfr_core.py)
+  01-memory-complexity-test/  Memory & Complexity Test (up to 100M tokens)
+  02-layer-scaling-test/      Layer Scaling Test (up to 32 layers)
+  03-long-context-stability/  Long Context Stability Test
+  04-basic-pattern-formation/  Basic Pattern Formation (theory, section 5)
+  05-rfp-training-sanity/      Phase 1: training sanity (precheck, full L; short GPU run 2026-03-31 PASS)
 tools/              Utilities (interactive visualizer)
 ```
 
@@ -145,8 +174,12 @@ tools/              Utilities (interactive visualizer)
 
 1. [`docs/00-overview.md`](docs/00-overview.md) — Architecture overview
 2. [`docs/02-architecture.md`](docs/02-architecture.md) — Components and data flow
-3. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms
-4. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
+3. [`docs/08-phase-0-plan.md`](docs/08-phase-0-plan.md) — Phase 0 master plan (viability, exit criteria)
+4. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms
+5. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
+6. [`experiments/04-basic-pattern-formation/README.md`](experiments/04-basic-pattern-formation/README.md) — Basic Pattern Formation (Phase 0, Test 2): protocol, metrics, verdict
+7. [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) — Phase 1 (training, RFP): criteria, caveats, experiment registry
+8. [`experiments/05-rfp-training-sanity/README.md`](experiments/05-rfp-training-sanity/README.md) — Phase 1 sanity (gradients, full \(L\), val); short run recorded in [`docs/07-experiment-plan.md`](docs/07-experiment-plan.md) Test 3
 
 ## License
 

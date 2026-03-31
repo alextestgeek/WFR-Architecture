@@ -16,14 +16,20 @@
 - Memory & Complexity Test (O(1) память подтверждена до 100M токенов) — **завершён**
 - Механизмы стабильности v2.0 (Phase-Locking, Homeostatic, Surrogate Gradient) — **реализованы**
 - Layer Scaling Test (масштабирование до 32 слоёв) — **завершён** (v2.1 bugfix)
-- Test 1: Long Context Stability
-- Test 2: Basic Pattern Formation
+- Test 1: Long Context Stability — **завершён** (Experiment 03: 5/6 тестов пройдены)
+- Test 2: Basic Pattern Formation — **завершён** (Experiment 04, вердикт: подтверждено по критериям A+B)
 
-→ Memory & Complexity Test и Layer Scaling Test пройдены. Следующий шаг — Phase 1 (RFP).
+→ **Phase 0 (viability & stability) завершён.** Следующий шаг: Phase 1 — RFP ([`08-phase-0-plan.md`](08-phase-0-plan.md)).
 
-## Этап 2: Минимальная реализация обучения (Апрель–Май 2026)
+## Phase 1 — Обучение и RFP (в работе)
 
-- Реализация базового механизма **Resonant Field Plasticity (RFP)**
+**Документ:** [`10-phase-1-plan.md`](10-phase-1-plan.md) — критерии, оговорки, реестр экспериментов.
+
+- **Experiment 05** — [`experiments/05-rfp-training-sanity/`](../experiments/05-rfp-training-sanity/README.md): sanity Phase 1 + **полноценный протокол** [`run_full_training.py`](../experiments/05-rfp-training-sanity/run_full_training.py) (полная \(L\) vs CE-only). Короткий GPU-прогон 2026-03-31 — [`07-experiment-plan.md`](07-experiment-plan.md) Test 3.
+
+## Этап 2 (дорожная карта репозитория): Углубление обучения
+
+- Реализация полного механизма **Resonant Field Plasticity (RFP)** (двухрежимность, полная целевая функция)
 - Обучение на задачах длинного контекста
 - Сравнительные эксперименты
 
@@ -55,4 +61,4 @@
 
 ---
 
-Текущий статус: **Этап 1 (Phase 0–0.7) завершён. Готовы к Phase 1 (RFP)**.
+Текущий статус: **Phase 0 завершён; Phase 1 открыт** — см. [`10-phase-1-plan.md`](10-phase-1-plan.md), Experiment 05.
