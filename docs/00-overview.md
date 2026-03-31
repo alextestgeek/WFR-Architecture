@@ -52,8 +52,11 @@
 
 - Теория и документация хорошо проработаны
 - Есть интерактивный визуализатор (в `tools/visualizer/`)
-- Переходим к **Phase 0**: экспериментальной проверке жизнеспособности архитектуры
-- Первый эксперимент: **Test 0 — Smoke Test** (см. [`07-experiment-plan.md`](07-experiment-plan.md))
+- **Phase 0** завершён: Smoke Test пройден
+- **Phase 0.5 (Memory & Complexity Test)**: успешно пройден на NVIDIA A100
+  - Память на токен: **492 байта** (O(1)) даже при 131072 токенах
+  - Forward time: ~3 мс на 131k контексте
+  - Подтверждено использование GPU (см. [`docs/09-memory-complexity-test-plan.md`](09-memory-complexity-test-plan.md))
 
 ---
 
