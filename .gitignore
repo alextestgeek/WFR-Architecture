@@ -36,6 +36,9 @@ remote-gpu-secrets.*
 .gpu-ssh.env
 .env.local
 
+# Project rules (internal, not for public repo)
+RULES.md
+
 # Logs
 *.log
 
