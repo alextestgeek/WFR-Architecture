@@ -84,7 +84,7 @@ def measure_memory_and_time():
     for i, layer in enumerate(model.resonance_layers):
         if i < len(BEST_CONFIG["frequencies"]):
             layer.frequency.data = torch.tensor(BEST_CONFIG["frequencies"][i], device=DEVICE)
-            layer.threshold.data = torch.tensor(BEST_CONFIG["thresholds"][i], device=DEVICE)
+            layer.spike_threshold.data = torch.tensor(BEST_CONFIG["thresholds"][i], device=DEVICE)
     
     for seq_len in CONTEXT_SIZES:
         print(f"\nTesting context = {seq_len:,}")
