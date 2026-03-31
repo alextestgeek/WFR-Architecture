@@ -4,7 +4,7 @@
 
 ## How It Works — Plain Language
 
-Modern neural networks (GPT, Claude, etc.) are built on **transformers** that multiply huge matrices of numbers. The longer the input text, the more memory and compute they need — often quadratically.
+Modern neural networks  are built on **transformers** that multiply huge matrices of numbers. The longer the input text, the more memory and compute they need — often quadratically.
 
 WFR takes a different path: instead of matrix multiplication, information is encoded as **wave phases** — like radio stations on different frequencies. Processing happens through **resonance**: waves reinforce or cancel each other naturally, without multiplying tables of numbers.
 
