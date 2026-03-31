@@ -1,0 +1,190 @@
+{
+  "timestamp": "20260330_1653",
+  "total_experiments": 3,
+  "good_configs": 2,
+  "results": [
+    {
+      "config": {
+        "name": "Balanced Frequency",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          }
+        ],
+        "description": "Равномерное увеличение частот"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9308,
+          "spike_rates": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 0
+        },
+        "2048": {
+          "rc": 0.83,
+          "spike_rates": [
+            2.7,
+            0.0,
+            0.0,
+            0.3
+          ],
+          "active_layers": 1
+        },
+        "8192": {
+          "rc": 0.7084,
+          "spike_rates": [
+            9.7,
+            0.0,
+            0.0,
+            10.9
+          ],
+          "active_layers": 2
+        }
+      },
+      "summary": {
+        "avg_active_layers": 1.0,
+        "min_rc": 0.7084
+      }
+    },
+    {
+      "config": {
+        "name": "Mean Phase Strategy",
+        "target_mode": "mean",
+        "layers": [
+          {
+            "freq": 0.8,
+            "thresh": 0.15
+          },
+          {
+            "freq": 1.6,
+            "thresh": 0.22
+          },
+          {
+            "freq": 2.8,
+            "thresh": 0.28
+          },
+          {
+            "freq": 4.5,
+            "thresh": 0.35
+          }
+        ],
+        "description": "Использование средней фазы + плавный рост"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9178,
+          "spike_rates": [
+            68.9,
+            7.0,
+            50.4,
+            10.7
+          ],
+          "active_layers": 4
+        },
+        "2048": {
+          "rc": 0.8157,
+          "spike_rates": [
+            64.5,
+            14.7,
+            41.5,
+            17.7
+          ],
+          "active_layers": 4
+        },
+        "8192": {
+          "rc": 0.7,
+          "spike_rates": [
+            56.4,
+            10.6,
+            28.2,
+            14.1
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 4.0,
+        "min_rc": 0.7
+      }
+    },
+    {
+      "config": {
+        "name": "Wider Range",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 0.6,
+            "thresh": 0.12
+          },
+          {
+            "freq": 1.4,
+            "thresh": 0.2
+          },
+          {
+            "freq": 2.7,
+            "thresh": 0.27
+          },
+          {
+            "freq": 6.0,
+            "thresh": 0.45
+          }
+        ],
+        "description": "Более широкий диапазон частот"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9126,
+          "spike_rates": [
+            100.0,
+            6.4,
+            25.8,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "2048": {
+          "rc": 0.8065,
+          "spike_rates": [
+            99.8,
+            5.1,
+            41.7,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "8192": {
+          "rc": 0.6969,
+          "spike_rates": [
+            60.9,
+            22.2,
+            46.8,
+            0.0
+          ],
+          "active_layers": 3
+        }
+      },
+      "summary": {
+        "avg_active_layers": 3.0,
+        "min_rc": 0.6969
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-03-30T17:42:16.047130",
+  "config": {
+    "target_mode": "frequency",
+    "frequencies": [
+      1.0,
+      1.8,
+      3.0,
+      5.0
+    ],
+    "thresholds": [
+      0.2,
+      0.25,
+      0.3,
+      0.4
+    ],
+    "name": "Freq-Balanced"
+  },
+  "contexts": {
+    "512": {
+      "context": 512,
+      "rc": 0.9177,
+      "time_sec": 0.005,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 2,
+      "total_layers": 4
+    },
+    "2048": {
+      "context": 2048,
+      "rc": 0.8165,
+      "time_sec": 0.004,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 2,
+      "total_layers": 4
+    },
+    "8192": {
+      "context": 8192,
+      "rc": 0.7053,
+      "time_sec": 0.0101,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 2,
+      "total_layers": 4
+    },
+    "16384": {
+      "context": 16384,
+      "rc": 0.6474,
+      "time_sec": 0.0171,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 2,
+      "total_layers": 4
+    },
+    "32768": {
+      "context": 32768,
+      "rc": 0.5877,
+      "time_sec": 0.0286,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 3,
+      "total_layers": 4
+    },
+    "65536": {
+      "context": 65536,
+      "rc": 0.5268,
+      "time_sec": 0.0604,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 3,
+      "total_layers": 4
+    },
+    "131072": {
+      "context": 131072,
+      "rc": 0.4652,
+      "time_sec": 0.0906,
+      "memory_bytes": 0,
+      "memory_per_token_bytes": 0,
+      "active_layers": 3,
+      "total_layers": 4
+    }
+  },
+  "summary": {}
+}

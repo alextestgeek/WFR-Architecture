@@ -1,0 +1,209 @@
+[
+  {
+    "config": {
+      "target_mode": "frequency",
+      "frequencies": [
+        1.0,
+        1.5,
+        2.0,
+        2.5
+      ],
+      "thresholds": [
+        0.2,
+        0.25,
+        0.3,
+        0.35
+      ],
+      "decay": 2.0,
+      "description": "Baseline frequency"
+    },
+    "contexts": {
+      "512": {
+        "rc": 0.925473153591156,
+        "spike_rates": [
+          4.3,
+          68.4,
+          0.0,
+          0.0
+        ],
+        "silent_pcts": [
+          95.7,
+          31.6,
+          100.0,
+          100.0
+        ],
+        "active_layers": 2
+      },
+      "2048": {
+        "rc": 0.8283647894859314,
+        "spike_rates": [
+          30.2,
+          41.3,
+          0.0,
+          2.8
+        ],
+        "silent_pcts": [
+          69.8,
+          58.7,
+          100.0,
+          97.2
+        ],
+        "active_layers": 3
+      },
+      "8192": {
+        "rc": 0.6949487924575806,
+        "spike_rates": [
+          43.2,
+          24.8,
+          0.0,
+          2.7
+        ],
+        "silent_pcts": [
+          56.8,
+          75.2,
+          100.0,
+          97.3
+        ],
+        "active_layers": 3
+      }
+    }
+  },
+  {
+    "config": {
+      "target_mode": "mean",
+      "frequencies": [
+        0.8,
+        1.2,
+        1.8,
+        2.4
+      ],
+      "thresholds": [
+        0.15,
+        0.22,
+        0.28,
+        0.35
+      ],
+      "decay": 2.0,
+      "description": "Mean phase + adjusted freqs"
+    },
+    "contexts": {
+      "512": {
+        "rc": 0.9280586838722229,
+        "spike_rates": [
+          72.3,
+          7.6,
+          41.2,
+          0.0
+        ],
+        "silent_pcts": [
+          27.7,
+          92.4,
+          58.8,
+          100.0
+        ],
+        "active_layers": 3
+      },
+      "2048": {
+        "rc": 0.826593279838562,
+        "spike_rates": [
+          46.0,
+          19.4,
+          24.7,
+          0.0
+        ],
+        "silent_pcts": [
+          54.0,
+          80.6,
+          75.3,
+          100.0
+        ],
+        "active_layers": 3
+      },
+      "8192": {
+        "rc": 0.7077321410179138,
+        "spike_rates": [
+          35.7,
+          13.0,
+          19.4,
+          0.0
+        ],
+        "silent_pcts": [
+          64.3,
+          87.0,
+          80.6,
+          100.0
+        ],
+        "active_layers": 3
+      }
+    }
+  },
+  {
+    "config": {
+      "target_mode": "frequency",
+      "frequencies": [
+        0.5,
+        1.2,
+        2.0,
+        3.5
+      ],
+      "thresholds": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "decay": 2.0,
+      "description": "Wider frequency range"
+    },
+    "contexts": {
+      "512": {
+        "rc": 0.926741361618042,
+        "spike_rates": [
+          18.9,
+          4.5,
+          19.3,
+          0.0
+        ],
+        "silent_pcts": [
+          81.1,
+          95.5,
+          80.7,
+          100.0
+        ],
+        "active_layers": 3
+      },
+      "2048": {
+        "rc": 0.8279834389686584,
+        "spike_rates": [
+          49.3,
+          4.4,
+          24.0,
+          0.0
+        ],
+        "silent_pcts": [
+          50.7,
+          95.6,
+          76.0,
+          100.0
+        ],
+        "active_layers": 3
+      },
+      "8192": {
+        "rc": 0.7117460370063782,
+        "spike_rates": [
+          57.8,
+          2.0,
+          33.2,
+          0.0
+        ],
+        "silent_pcts": [
+          42.2,
+          98.0,
+          66.8,
+          100.0
+        ],
+        "active_layers": 3
+      }
+    }
+  }
+]

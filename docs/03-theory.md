@@ -106,7 +106,7 @@ $$
 **Решение:** динамический адаптивный порог (homeostatic plasticity).
 
 $$
-\theta_l(t+1) = \theta_l(t) + \eta \cdot (r_{\text{target}} - r_{\text{real}}(t))
+\theta_l(t+1) = \theta_l(t) + \eta \cdot (r_{\text{real}}(t) - r_{\text{target}})
 $$
 
 Параметры:
@@ -140,7 +140,50 @@ $$
 
 **Реализация:** `SurrogateSpikeFunction` + `surrogate_spike()` в `wfr_core.py`.
 
+## 8. Layer Scaling Test — v2.1 Bugfix (31 марта 2026)
+
+### 8.1 Критический баг в Homeostatic Regulation
+
+В реализации v2.0 знак delta был **инвертирован**:
+
+```python
+# БАГ (v2.0): положительная обратная связь
+delta = η * (r_target - r_real)     # молчит → порог РАСТЁТ → ещё больше молчит
+
+# ИСПРАВЛЕНИЕ (v2.1): отрицательная обратная связь
+delta = η * (r_real - r_target)     # молчит → порог СНИЖАЕТСЯ → легче стрелять
+```
+
+Это была **единственная причина** "мёртвых" слоёв при масштабировании глубины >6–8.
+
+### 8.2 Результаты Layer Scaling Test (NVIDIA A100 80GB)
+
+Протестировано 4 стратегии распределения частот × 5 глубин (4–32) × 3 контекста (512, 8192, 131072).
+
+| Слоёв | ctx=512 | ctx=8192 | ctx=131K |
+|-------|---------|----------|----------|
+| 4     | 100%    | 100%     | 100%     |
+| 8     | 100%    | 100%     | 100%     |
+| 16    | 88–94%  | **100%** | **100%** |
+| 24    | 92–100% | **100%** | **100%** |
+| 32    | 91–97%  | **100%** | **100%** |
+
+**RC не деградирует** при росте глубины: ~0.846 на 8K для всех глубин от 4 до 32.
+
+Homeostatic regulation с 200 warmup passes приводит все пороги к стабильному состоянию.
+
+### 8.3 Стратегии распределения частот
+
+Все 4 стратегии показали сопоставимые результаты:
+- **linear**: f = 1.0 + i × 0.5
+- **logarithmic**: f = 2^(i / (N/4))
+- **harmonic**: f = (i+1) × 0.25
+- **constant**: f = 1.0 для всех слоёв
+
+Вывод: при работающем Homeostatic regulation конкретная стратегия частот не критична.
+
 ---
 
 All formulas and principles documented as of 31.03.2026.
 v2.0 stability mechanisms added after Memory & Complexity Test (100M tokens on A100).
+v2.1 homeostatic bugfix + layer scaling to 32 layers confirmed.
