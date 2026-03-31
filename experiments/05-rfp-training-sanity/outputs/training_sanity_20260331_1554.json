@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-03-31T15:54:19.757134",
+  "device": "cpu",
+  "config": {
+    "vocab_size": 32,
+    "seq_len": 48,
+    "batch_size": 16,
+    "steps": 120,
+    "lr": 0.05,
+    "seed": 42
+  },
+  "loss_initial": 6.300828,
+  "loss_final": 3.458765,
+  "loss_min": 3.427516,
+  "random_baseline_ce_ln_v": 3.465736,
+  "grad_nonzero_after_step0": true,
+  "criteria": {
+    "finite_losses": true,
+    "nonzero_grad": true,
+    "learning": true
+  },
+  "pass": true
+}

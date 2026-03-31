@@ -81,5 +81,6 @@
 - **v0.4** — Добавлены механизмы стабильности v2.0, результаты теста до 100M токенов
 - **v0.5** — Layer Scaling Test: 32 слоя, homeostatic bugfix
 - **v0.6** — Phase 0 закрыт: Test 1 (Long Context), Test 2 (Basic Pattern Formation)
+- **v0.7** — Phase 1 открыт: план [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 — короткий прогон **enhanced** на GPU (2026-03-31): precheck OK, снижение val total/CE, **PASS**; детали [`07-experiment-plan.md`](07-experiment-plan.md) Test 3, артефакты в [`experiments/05-rfp-training-sanity/outputs/`](../experiments/05-rfp-training-sanity/README.md)
 
-**Следующие документы:** [07-experiment-plan.md](07-experiment-plan.md) · [08-phase-0-plan.md](08-phase-0-plan.md)
+**Следующие документы:** [07-experiment-plan.md](07-experiment-plan.md) · [08-phase-0-plan.md](08-phase-0-plan.md) · [10-phase-1-plan.md](10-phase-1-plan.md)

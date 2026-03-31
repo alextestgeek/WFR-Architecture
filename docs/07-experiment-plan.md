@@ -1,6 +1,6 @@
 # 07. Experiment Plan — План проверки теории
 
-**Версия:** 0.2  
+**Версия:** 0.4  
 **Дата:** 31 марта 2026  
 **Статус:** Утверждён
 
@@ -108,9 +108,45 @@
 
 ---
 
+## Phase 1 — Обучение и RFP
+
+**Мастер-план:** [`10-phase-1-plan.md`](10-phase-1-plan.md) (цели, критерии успеха, оговорки, реестр экспериментов).
+
+### Test 3 — RFP Training Sanity (Experiment 05)
+
+**Цель:** Проверить, что градиенты проходят через WFR (WPE, резонанс, surrogate spike) и что на toy next-token задаче loss снижается при фиксированных train/val батчах; до обучения — precheck согласованности с Phase 0, знака homeostatic и формулы \(L\).
+
+**Статус:** Пройден — **короткий прогон enhanced** (`--epochs 30`, **2026-03-31**, NVIDIA A100 80GB, удалённый сервер; workflow в локальном `RULES.md`).
+
+**Результаты (короткий тест):**
+
+| Проверка | Итог |
+|----------|------|
+| Precheck (`phase0_params_in_wfr`, `homeostatic_sign`, `loss_formula`) | все OK |
+| Устройство | `cuda` |
+| Val total \(L\) | 6.264 → 3.571 (лучший **3.534** на эпохе 14) |
+| Val CE | 6.264 → 3.571 (лучший **3.534** @ ep 14; \(\ln 32 \approx 3.466\)) |
+| Градиент L2 (первый шаг) | ≈ 4.03 |
+| PASS по критериям README | **да** (снижение val total и val CE) |
+| Критерий `--strict` (лучший val CE < \(\ln V - 0.02\)) | **нет** (лучший CE чуть выше порога) |
+
+**Артефакты:** [`training_sanity_enhanced_20260331_1630.json`](../experiments/05-rfp-training-sanity/outputs/training_sanity_enhanced_20260331_1630.json), `training_sanity_enhanced_curves_20260331_1630.png`, `run_training_sanity_gpu_20260331.log` — см. [`experiments/05-rfp-training-sanity/README.md`](../experiments/05-rfp-training-sanity/README.md).
+
+**Критерии PASS:** см. README эксперимента (конечные метрики, ненулевые градиенты, снижение val loss; опционально `--strict`).
+
+### Test 3b — Полноценный протокол Phase 1 (тот же Experiment 05)
+
+**Цель:** зафиксировать обучение по полной целевой \(L\) из §6 и сравнить с обучением только по CE на идентичных данных ([`run_full_training.py`](../experiments/05-rfp-training-sanity/run_full_training.py), README эксперимента).
+
+**Статус:** реализовано в репозитории; зафиксированный GPU-прогон — по мере выполнения (артефакты `training_full_protocol_*.json` в `outputs/`).
+
+**Запуск:** `python experiments/05-rfp-training-sanity/run_full_training.py` (см. README эксперимента; для отладки: `--epochs 30 --no-strict`).
+
+---
+
 ## Дальнейшие шаги (после Phase 0)
 
-- Phase 1: Простейшее обучение через RFP
+- Phase 1: обучение и RFP — см. [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 (sanity)
 - Phase 2: Сравнение с baseline-моделями
 - Phase 3: Эмуляция специализированного оборудования
 
