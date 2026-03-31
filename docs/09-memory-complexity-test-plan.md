@@ -31,7 +31,9 @@
 
 ## План реализации
 
-**Файл:** `experiments/02-memory-complexity-test/run_memory_test.py`
+**Файл:** `experiments/03-memory-complexity-test/run_memory_test.py`
+
+**Запуск на удалённой GPU-машине:** см. [](./).
 
 **Что должно быть в тесте:**
 - Использовать одну из лучших конфигураций из Phase 0 (например, Freq-Balanced или Mean-Balanced)

@@ -24,6 +24,17 @@ node_modules/
 Thumbs.db
 desktop.ini
 
+# GPU / SSH — локальные учётные данные и заметки к удалённой машине (не коммитить)
+SSH_*.txt
+**/SSH_*.txt
+*.ppk
+id_rsa
+id_ed25519
+id_ecdsa
+remote-gpu-secrets.*
+.gpu-ssh.env
+.env.local
+
 # Logs
 *.log
 

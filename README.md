@@ -49,6 +49,8 @@
 2. [`docs/strategy-fractal-layers.md`](docs/strategy-fractal-layers.md) ← **текущий статус**
 3. [`docs/03-theory.md`](docs/03-theory.md)
 
+Удалённая машина с GPU (SSH, куда копировать файлы, как запускать тесты): [`docs/`](docs/).
+
 ---
 
 Разработано в марте 2026 совместно с Grok.  
