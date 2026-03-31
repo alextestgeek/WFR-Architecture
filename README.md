@@ -139,6 +139,7 @@ experiments/        Test code and results
   01-memory-complexity-test/  Memory & Complexity Test (up to 100M tokens)
   02-layer-scaling-test/      Layer Scaling Test (up to 32 layers)
   03-long-context-stability/  Long Context Stability Test
+  04-basic-pattern-formation/  Basic Pattern Formation (theory §5)
 tools/              Utilities (interactive visualizer)
 ```
 
@@ -146,8 +147,9 @@ tools/              Utilities (interactive visualizer)
 
 1. [`docs/00-overview.md`](docs/00-overview.md) — Architecture overview
 2. [`docs/02-architecture.md`](docs/02-architecture.md) — Components and data flow
-3. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms
-4. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
+3. [`docs/08-phase-0-plan.md`](docs/08-phase-0-plan.md) — Phase 0 master plan (viability, exit criteria)
+4. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms
+5. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
 
 ## License
 

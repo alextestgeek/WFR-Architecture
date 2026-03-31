@@ -17,9 +17,9 @@
 - Механизмы стабильности v2.0 (Phase-Locking, Homeostatic, Surrogate Gradient) — **реализованы**
 - Layer Scaling Test (масштабирование до 32 слоёв) — **завершён** (v2.1 bugfix)
 - Test 1: Long Context Stability — **завершён** (Experiment 03: 5/6 тестов пройдены)
-- Test 2: Basic Pattern Formation
+- Test 2: Basic Pattern Formation — **завершён** (Experiment 04, вердикт: подтверждено по критериям A+B)
 
-→ Memory & Complexity Test, Layer Scaling Test и Long Context Stability завершены. Осталось: Test 2 (Basic Pattern Formation).
+→ **Phase 0 (viability & stability) завершён.** Следующий шаг: Phase 1 — RFP ([`08-phase-0-plan.md`](08-phase-0-plan.md)).
 
 ## Этап 2: Минимальная реализация обучения (Апрель–Май 2026)
 
@@ -55,4 +55,4 @@
 
 ---
 
-Текущий статус: **Этап 1 (Phase 0). Test 1 завершён (5/6). Осталось: Test 2 (Basic Pattern Formation)**.
+Текущий статус: **Phase 0 завершён; готовы к Phase 1 (минимальное обучение RFP)**.
