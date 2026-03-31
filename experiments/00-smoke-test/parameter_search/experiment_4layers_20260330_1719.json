@@ -1,0 +1,452 @@
+{
+  "timestamp": "20260330_1719",
+  "total_experiments": 5,
+  "good_configs": 3,
+  "results": [
+    {
+      "config": {
+        "name": "4-Layers-Freq",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          }
+        ],
+        "description": "Честный тест на 4 слоёв"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9137,
+          "spike_rates": [
+            1.2,
+            84.6,
+            25.6,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "2048": {
+          "rc": 0.8228,
+          "spike_rates": [
+            9.0,
+            50.7,
+            44.9,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "8192": {
+          "rc": 0.7009,
+          "spike_rates": [
+            15.0,
+            20.3,
+            43.2,
+            0.0
+          ],
+          "active_layers": 3
+        }
+      },
+      "summary": {
+        "avg_active_layers": 3.0,
+        "min_rc": 0.7009
+      }
+    },
+    {
+      "config": {
+        "name": "6-Layers-Freq",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          },
+          {
+            "freq": 7.0,
+            "thresh": 0.45
+          },
+          {
+            "freq": 9.0,
+            "thresh": 0.5
+          }
+        ],
+        "description": "Честный тест на 6 слоёв"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9365,
+          "spike_rates": [
+            0.0,
+            0.8,
+            0.0,
+            0.0,
+            2.3,
+            0.0
+          ],
+          "active_layers": 1
+        },
+        "2048": {
+          "rc": 0.8294,
+          "spike_rates": [
+            5.7,
+            20.5,
+            0.0,
+            0.0,
+            4.8,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "8192": {
+          "rc": 0.7095,
+          "spike_rates": [
+            4.3,
+            35.0,
+            0.0,
+            0.0,
+            2.4,
+            0.0
+          ],
+          "active_layers": 3
+        }
+      },
+      "summary": {
+        "avg_active_layers": 2.33,
+        "min_rc": 0.7095
+      }
+    },
+    {
+      "config": {
+        "name": "8-Layers-Freq",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          },
+          {
+            "freq": 7.0,
+            "thresh": 0.45
+          },
+          {
+            "freq": 9.0,
+            "thresh": 0.5
+          },
+          {
+            "freq": 12.0,
+            "thresh": 0.55
+          },
+          {
+            "freq": 15.0,
+            "thresh": 0.6
+          }
+        ],
+        "description": "Честный тест на 8 слоёв"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9295,
+          "spike_rates": [
+            81.8,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 1
+        },
+        "2048": {
+          "rc": 0.8279,
+          "spike_rates": [
+            39.2,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 1
+        },
+        "8192": {
+          "rc": 0.7124,
+          "spike_rates": [
+            31.6,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 1
+        }
+      },
+      "summary": {
+        "avg_active_layers": 1.0,
+        "min_rc": 0.7124
+      }
+    },
+    {
+      "config": {
+        "name": "10-Layers-Freq",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          },
+          {
+            "freq": 7.0,
+            "thresh": 0.45
+          },
+          {
+            "freq": 9.0,
+            "thresh": 0.5
+          },
+          {
+            "freq": 12.0,
+            "thresh": 0.55
+          },
+          {
+            "freq": 15.0,
+            "thresh": 0.6
+          },
+          {
+            "freq": 18.0,
+            "thresh": 0.65
+          },
+          {
+            "freq": 22.0,
+            "thresh": 0.7
+          }
+        ],
+        "description": "Честный тест на 10 слоёв"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9294,
+          "spike_rates": [
+            0.0,
+            14.8,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 1
+        },
+        "2048": {
+          "rc": 0.8073,
+          "spike_rates": [
+            2.9,
+            25.5,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "8192": {
+          "rc": 0.6919,
+          "spike_rates": [
+            4.6,
+            26.2,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.4
+          ],
+          "active_layers": 2
+        }
+      },
+      "summary": {
+        "avg_active_layers": 1.67,
+        "min_rc": 0.6919
+      }
+    },
+    {
+      "config": {
+        "name": "12-Layers-Freq",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          },
+          {
+            "freq": 7.0,
+            "thresh": 0.45
+          },
+          {
+            "freq": 9.0,
+            "thresh": 0.5
+          },
+          {
+            "freq": 12.0,
+            "thresh": 0.55
+          },
+          {
+            "freq": 15.0,
+            "thresh": 0.6
+          },
+          {
+            "freq": 18.0,
+            "thresh": 0.65
+          },
+          {
+            "freq": 22.0,
+            "thresh": 0.7
+          },
+          {
+            "freq": 26.0,
+            "thresh": 0.75
+          },
+          {
+            "freq": 30.0,
+            "thresh": 0.8
+          }
+        ],
+        "description": "Честный тест на 12 слоёв"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9257,
+          "spike_rates": [
+            2.1,
+            0.0,
+            16.6,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "2048": {
+          "rc": 0.8172,
+          "spike_rates": [
+            6.0,
+            0.0,
+            30.6,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "8192": {
+          "rc": 0.7032,
+          "spike_rates": [
+            13.0,
+            7.4,
+            45.7,
+            0.0,
+            0.0,
+            0.0,
+            1.7,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 2.67,
+        "min_rc": 0.7032
+      }
+    }
+  ]
+}

@@ -27,7 +27,6 @@ desktop.ini
 # GPU / SSH — локальные учётные данные и заметки к удалённой машине (не коммитить)
 SSH_*.txt
 **/SSH_*.txt
-docs/
 *.ppk
 id_rsa
 id_ed25519

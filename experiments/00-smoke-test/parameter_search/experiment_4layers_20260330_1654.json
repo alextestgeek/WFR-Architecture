@@ -1,0 +1,312 @@
+{
+  "timestamp": "20260330_1654",
+  "total_experiments": 5,
+  "good_configs": 5,
+  "results": [
+    {
+      "config": {
+        "name": "Mean-Balanced",
+        "target_mode": "mean",
+        "layers": [
+          {
+            "freq": 0.8,
+            "thresh": 0.15
+          },
+          {
+            "freq": 1.6,
+            "thresh": 0.22
+          },
+          {
+            "freq": 2.8,
+            "thresh": 0.28
+          },
+          {
+            "freq": 4.5,
+            "thresh": 0.35
+          }
+        ],
+        "description": "Mean phase + плавный рост частот"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9329,
+          "spike_rates": [
+            65.4,
+            5.7,
+            0.0,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "2048": {
+          "rc": 0.8283,
+          "spike_rates": [
+            66.1,
+            6.7,
+            2.4,
+            2.9
+          ],
+          "active_layers": 4
+        },
+        "8192": {
+          "rc": 0.7103,
+          "spike_rates": [
+            61.2,
+            7.8,
+            1.7,
+            5.1
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 3.33,
+        "min_rc": 0.7103
+      }
+    },
+    {
+      "config": {
+        "name": "Mean-Wide",
+        "target_mode": "mean",
+        "layers": [
+          {
+            "freq": 0.5,
+            "thresh": 0.1
+          },
+          {
+            "freq": 1.2,
+            "thresh": 0.18
+          },
+          {
+            "freq": 2.5,
+            "thresh": 0.25
+          },
+          {
+            "freq": 6.0,
+            "thresh": 0.4
+          }
+        ],
+        "description": "Mean phase + широкий диапазон"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9162,
+          "spike_rates": [
+            15.8,
+            7.4,
+            13.1,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "2048": {
+          "rc": 0.821,
+          "spike_rates": [
+            17.0,
+            21.6,
+            9.0,
+            0.0
+          ],
+          "active_layers": 3
+        },
+        "8192": {
+          "rc": 0.7084,
+          "spike_rates": [
+            20.5,
+            20.8,
+            8.0,
+            1.0
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 3.33,
+        "min_rc": 0.7084
+      }
+    },
+    {
+      "config": {
+        "name": "Freq-Balanced",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 1.0,
+            "thresh": 0.2
+          },
+          {
+            "freq": 1.8,
+            "thresh": 0.25
+          },
+          {
+            "freq": 3.0,
+            "thresh": 0.3
+          },
+          {
+            "freq": 5.0,
+            "thresh": 0.4
+          }
+        ],
+        "description": "Frequency mode + сбалансированные частоты"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9032,
+          "spike_rates": [
+            42.2,
+            20.3,
+            66.6,
+            37.9
+          ],
+          "active_layers": 4
+        },
+        "2048": {
+          "rc": 0.8133,
+          "spike_rates": [
+            44.2,
+            26.7,
+            50.9,
+            36.3
+          ],
+          "active_layers": 4
+        },
+        "8192": {
+          "rc": 0.7068,
+          "spike_rates": [
+            37.2,
+            30.1,
+            27.7,
+            35.7
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 4.0,
+        "min_rc": 0.7068
+      }
+    },
+    {
+      "config": {
+        "name": "Freq-Wide",
+        "target_mode": "frequency",
+        "layers": [
+          {
+            "freq": 0.6,
+            "thresh": 0.12
+          },
+          {
+            "freq": 1.4,
+            "thresh": 0.2
+          },
+          {
+            "freq": 2.7,
+            "thresh": 0.27
+          },
+          {
+            "freq": 6.0,
+            "thresh": 0.45
+          }
+        ],
+        "description": "Frequency mode + широкий диапазон"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.9335,
+          "spike_rates": [
+            0.0,
+            68.4,
+            0.0,
+            61.3
+          ],
+          "active_layers": 2
+        },
+        "2048": {
+          "rc": 0.83,
+          "spike_rates": [
+            0.0,
+            34.0,
+            0.0,
+            54.6
+          ],
+          "active_layers": 2
+        },
+        "8192": {
+          "rc": 0.712,
+          "spike_rates": [
+            0.0,
+            15.9,
+            0.0,
+            35.3
+          ],
+          "active_layers": 2
+        }
+      },
+      "summary": {
+        "avg_active_layers": 2.0,
+        "min_rc": 0.712
+      }
+    },
+    {
+      "config": {
+        "name": "High-Freq",
+        "target_mode": "mean",
+        "layers": [
+          {
+            "freq": 0.7,
+            "thresh": 0.18
+          },
+          {
+            "freq": 2.0,
+            "thresh": 0.23
+          },
+          {
+            "freq": 4.0,
+            "thresh": 0.32
+          },
+          {
+            "freq": 8.0,
+            "thresh": 0.5
+          }
+        ],
+        "description": "Сдвиг в высокие частоты"
+      },
+      "contexts": {
+        "512": {
+          "rc": 0.932,
+          "spike_rates": [
+            53.5,
+            0.0,
+            4.9,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "2048": {
+          "rc": 0.8279,
+          "spike_rates": [
+            35.4,
+            0.0,
+            18.7,
+            0.0
+          ],
+          "active_layers": 2
+        },
+        "8192": {
+          "rc": 0.7101,
+          "spike_rates": [
+            33.3,
+            7.5,
+            13.6,
+            1.1
+          ],
+          "active_layers": 4
+        }
+      },
+      "summary": {
+        "avg_active_layers": 2.67,
+        "min_rc": 0.7101
+      }
+    }
+  ]
+}
