@@ -52,31 +52,41 @@
 - Время масштабируется лучше O(n)
 - Результаты честно документируются (даже если они опровергают теорию)
 
-**Файл:** `experiments/03-memory-complexity-test/run_memory_test.py`
+**Файл:** `experiments/01-memory-complexity-test/run_memory_test.py`
 
 **Статус:** **Завершён** — O(1) память подтверждена до 100M токенов. Результаты: [`09-memory-complexity-test-plan.md`](09-memory-complexity-test-plan.md)
 
-### Layer Scaling Test (Experiment 04)
+### Layer Scaling Test (Experiment 02)
 
 **Цель:** Проверить масштабирование до 32 фрактальных слоёв с механизмами стабилизации v2.1.
 
 **Статус:** **Завершён** — 32/32 слоёв активны. Критический баг homeostatic найден и исправлен.
 
-**Файл:** `experiments/04-layer-scaling-test/run_layer_scaling_test.py`
+**Файл:** `experiments/02-layer-scaling-test/run_layer_scaling_test.py`
 
 **Результаты:** Все 4 стратегии частот × 5 глубин (4–32) × 3 контекста (512, 8K, 131K). Подробности: [`03-theory.md`](03-theory.md) раздел 8.
 
-### Test 1 — Long Context Stability
+### Test 1 — Long Context Stability (Experiment 03)
 
-**Цель:** Проверить стабильность системы при росте длины контекста (после проверки памяти).
+**Цель:** Проверить стабильность **внутренней структуры** паттернов при росте длины контекста.
+
+**Статус:** **Завершён** — 5/6 суб-тестов пройдены (после исправления методологии). Единственный FAIL (spike distribution) — свойство необученных весов.
+
+**Файл:** `experiments/03-long-context-stability/run_stability_test.py`
+
+**Отличие от Memory Test:** Memory Test измерял агрегированные метрики (общий RC, общее время, память). Этот тест измеряет внутреннюю структуру:
 
 - Тестировать длины: 512 → 4096 → 16384 → 65536 токенов
-- Измерять:
-  - Стабильность паттернов стоячих волн
-  - Количество активных спайков
-  - Поведение Resonance Confidence
+- 6 суб-тестов:
+  1. **Determinism** — один вход → идентичный выход (max Δ < 1e-6)
+  2. **Phase Encoding Stability** — фазы позиции p одинаковы при любом контексте
+  3. **Cross-Context Standing Wave** — стоячая волна для общего префикса (cos sim > 0.95)
+  4. **Windowed RC** — sliding window RC, нет ли мёртвых зон (CV < 0.15)
+  5. **Spike Distribution** — равномерность спайков (max/min ratio < 3.0)
+  6. **Depth Coherence** — RC не деградирует к концу (Q4/Q1 > 0.85)
 
 **Критерии успеха:**
+- Все 6 суб-тестов пройдены
 - Паттерны не разрушаются при увеличении контекста
 - Система остаётся стабильной
 

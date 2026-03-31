@@ -16,10 +16,10 @@
 - Memory & Complexity Test (O(1) память подтверждена до 100M токенов) — **завершён**
 - Механизмы стабильности v2.0 (Phase-Locking, Homeostatic, Surrogate Gradient) — **реализованы**
 - Layer Scaling Test (масштабирование до 32 слоёв) — **завершён** (v2.1 bugfix)
-- Test 1: Long Context Stability
+- Test 1: Long Context Stability — **завершён** (Experiment 03: 5/6 тестов пройдены)
 - Test 2: Basic Pattern Formation
 
-→ Memory & Complexity Test и Layer Scaling Test пройдены. Следующий шаг — Phase 1 (RFP).
+→ Memory & Complexity Test, Layer Scaling Test и Long Context Stability завершены. Осталось: Test 2 (Basic Pattern Formation).
 
 ## Этап 2: Минимальная реализация обучения (Апрель–Май 2026)
 
@@ -55,4 +55,4 @@
 
 ---
 
-Текущий статус: **Этап 1 (Phase 0–0.7) завершён. Готовы к Phase 1 (RFP)**.
+Текущий статус: **Этап 1 (Phase 0). Test 1 завершён (5/6). Осталось: Test 2 (Basic Pattern Formation)**.

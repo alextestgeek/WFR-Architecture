@@ -135,9 +135,10 @@ Full results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexi
 ```
 docs/               Theory and documentation
 experiments/        Test code and results
-  00-smoke-test/      Smoke Test + core implementation (wfr_core.py)
-  03-memory-test/     Memory & Complexity Test (up to 100M tokens)
-  04-layer-scaling/   Layer Scaling Test (up to 32 layers)
+  00-smoke-test/              Smoke Test + core implementation (wfr_core.py)
+  01-memory-complexity-test/  Memory & Complexity Test (up to 100M tokens)
+  02-layer-scaling-test/      Layer Scaling Test (up to 32 layers)
+  03-long-context-stability/  Long Context Stability Test
 tools/              Utilities (interactive visualizer)
 ```
 
