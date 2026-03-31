@@ -48,7 +48,7 @@
   L = \alpha \cdot \text{TaskLoss} + \beta \cdot (1 - \text{AvgRC}) + \gamma \cdot \text{EnergyCost}
   $$
 
-### 2.5 Механизмы стабильности v2.0
+### 2.5 Механизмы стабильности v2.1
 
 - **Phase-Locking (WPE-L)**: фазовая синхронизация каждые 4 частоты — устраняет дрейф когерентности
 - **Homeostatic regulation**: адаптивный порог спайка (целевая частота 10%)

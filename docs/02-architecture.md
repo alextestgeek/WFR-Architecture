@@ -44,7 +44,15 @@ R = \Re\left(\sum_j w_j \cdot e^{i(\phi_j - \phi_{target})}\right)
 
 Это делает систему **event-driven** и крайне энергоэффективной.
 
-## 3. Поток данных
+## 3. Механизмы стабильности (v2.1)
+
+- **Phase-Locking (WPE-L)** — фазовая синхронизация каждые 4 частоты
+- **Homeostatic regulation** — адаптивный порог спайка (целевая частота 10%)
+- **Multi-scale surrogate gradient** — дифференцируемый спайкинг
+
+Подробности и формулы: [03-theory.md](03-theory.md), разделы 7–8.
+
+## 4. Поток данных
 
 1. Вход → Wave Phase Encoder
 2. Фазы + эмбеддинги → Fractal Resonance Layers (снизу вверх)
