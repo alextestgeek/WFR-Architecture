@@ -2,7 +2,8 @@
 WFR-Architecture — Test 0: Smoke Test
 ======================================
 
-Цель: проверить жизнеспособность базовой архитектуры.
+Цель: проверить жизнеспособность базовой архитектуры ПО ТЕОРИИ.
+Реализация: PhaseInterference + TheoreticalResonanceLayer.
 
 Критерии успеха:
   1. Система запускается без ошибок
@@ -61,6 +62,13 @@ def run_smoke_test():
         rc = result["resonance_confidence"]
         layer_resonances = result["layer_resonances"]
         layer_spikes = result["layer_spikes"]
+        
+        # New theoretical diagnostics
+        if "interferences" in result:
+            interferences = result["interferences"]
+            print(f"  Using Theoretical Resonance (Phase Interference + Resonance Function)")
+        else:
+            interferences = None
 
         # --- 4. Диагностика ---
         print(f"  Phases shape:        {phases.shape}")
@@ -72,9 +80,13 @@ def run_smoke_test():
             silent_pct = (1 - spike_rate) * 100
             avg_amp = res.abs().mean().item()
             print(f"  Layer {i}: spike_rate={spike_rate:.3f}  silent={silent_pct:.1f}%  avg_amplitude={avg_amp:.4f}")
+            
+            if interferences is not None:
+                avg_interf = interferences[i].abs().mean().item()
+                print(f"           interference_strength={avg_interf:.4f}")
 
         # --- 5. Визуализация ---
-        visualize_results(seq_len, phases, standing_wave, layer_resonances, layer_spikes, rc)
+        visualize_results(seq_len, phases, standing_wave, layer_resonances, layer_spikes, rc, interferences)
 
     print("\n" + "=" * 60)
     print("Smoke Test завершён.")
@@ -82,9 +94,10 @@ def run_smoke_test():
     print("=" * 60)
 
 
-def visualize_results(seq_len, phases, standing_wave, layer_resonances, layer_spikes, rc):
+def visualize_results(seq_len, phases, standing_wave, layer_resonances, layer_spikes, rc, interferences=None):
     fig, axes = plt.subplots(2, 2, figsize=(16, 10))
-    fig.suptitle(f"WFR Smoke Test — context={seq_len}, RC={rc.item():.4f}", fontsize=14, fontweight="bold")
+    title = f"WFR Smoke Test (THEORETICAL) — context={seq_len}, RC={rc.item():.4f}"
+    fig.suptitle(title, fontsize=14, fontweight="bold")
 
     # 1. Стоячая волна
     ax = axes[0, 0]
