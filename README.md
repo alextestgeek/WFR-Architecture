@@ -48,7 +48,7 @@ $$
 2. **Homeostatic Spike Threshold** — adaptive threshold keeps spike rate near a 10% target via negative feedback:
 
 $$
-\theta_l(t+1) = \theta_l(t) + \eta \cdot (r_{\text{target}} - r_{\text{real}}(t))
+\theta_l(t+1) = \theta_l(t) + \eta \cdot (r_{\text{real}}(t) - r_{\text{target}})
 $$
 
 3. **Multi-scale Surrogate Gradient** — differentiable spiking with level-dependent scaling (γ=0.92 on key levels, 0.98 otherwise) to prevent vanishing gradients across fractal depth.
@@ -77,10 +77,23 @@ Tested up to **100,000,000 tokens** in a single forward pass.
 - **Phase-Locking** improves coherence by **×42** at 100M tokens (RC: 0.011 → 0.464)
 - Architecture is **viable** — produces standing waves and event-driven behavior
 
+### Layer Scaling Test (v2.1 — Homeostatic Bugfix)
+
+Critical bug found: sign inversion in homeostatic regulation created **positive feedback** (silent layers → threshold increases → even more silent). After fixing one line, all 32 layers become active:
+
+| Layers | ctx=512 | ctx=8,192 | ctx=131,072 |
+|--------|---------|-----------|-------------|
+| 4      | 100%    | 100%      | 100%        |
+| 8      | 100%    | 100%      | 100%        |
+| 16     | 88–94%  | **100%**  | **100%**    |
+| 24     | 92–100% | **100%**  | **100%**    |
+| **32** | 91–97%  | **100%**  | **100%**    |
+
+RC is stable across depths: ~0.97 (512 tokens), ~0.846 (8K), ~0.712 (131K) — independent of layer count.
+
 ### What is not confirmed
 
 - **Time complexity** remains ~O(n), not sub-linear as theorized
-- **Layer scalability** — beyond 6–8 layers most become inactive
 - **Learning (RFP)** — not yet implemented; only forward pass tested
 - **Comparison with existing architectures** — not yet conducted
 
@@ -93,6 +106,7 @@ docs/               Theory and documentation
 experiments/        Test code and results
   00-smoke-test/      Smoke Test + core implementation (wfr_core.py)
   03-memory-test/     Memory & Complexity Test (up to 100M tokens)
+  04-layer-scaling/   Layer Scaling Test (up to 32 layers)
 tools/              Utilities (interactive visualizer)
 ```
 

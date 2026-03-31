@@ -317,7 +317,7 @@ class TheoreticalResonanceLayer(nn.Module):
         if self.homeostatic_enabled and not self.training:
             with torch.no_grad():
                 r_real = spikes.mean().item()
-                delta = self.homeostatic_eta * (self.spike_rate_target - r_real)
+                delta = self.homeostatic_eta * (r_real - self.spike_rate_target)
                 self.spike_threshold.data.clamp_(min=0.05, max=2.0).add_(delta)
 
         return resonance
@@ -336,20 +336,33 @@ class WFRNetwork(nn.Module):
         num_phases: int = 16,
         num_fractal_levels: int = 6,
         num_resonance_layers: int = 4,
+        layer_frequencies: list = None,
+        layer_thresholds: list = None,
+        homeostatic_enabled: bool = True,
+        spike_rate_target: float = 0.10,
+        homeostatic_eta: float = 0.01,
     ):
         super().__init__()
         self.encoder = WavePhaseEncoder(num_phases, num_fractal_levels)
 
+        if layer_frequencies is None:
+            layer_frequencies = [1.0 + i * 0.5 for i in range(num_resonance_layers)]
+        if layer_thresholds is None:
+            layer_thresholds = [0.2 + i * 0.05 for i in range(num_resonance_layers)]
+
         self.resonance_layers = nn.ModuleList([
             TheoreticalResonanceLayer(
                 num_phases=num_phases,
-                frequency=1.0 + i * 0.5,
-                threshold=0.2 + i * 0.05,
-                layer_idx=i
+                frequency=layer_frequencies[i],
+                threshold=layer_thresholds[i],
+                layer_idx=i,
+                homeostatic_enabled=homeostatic_enabled,
+                spike_rate_target=spike_rate_target,
+                homeostatic_eta=homeostatic_eta,
             )
             for i in range(num_resonance_layers)
         ])
-        self.target_mode = "frequency"  # лучший вариант по предыдущим тестам
+        self.target_mode = "frequency"
 
         self.confidence = ResonanceConfidence()
 
