@@ -142,5 +142,5 @@ $$
 
 ---
 
-Все формулы и принципы зафиксированы по состоянию на 31.03.2026.
-Механизмы стабильности v2.0 добавлены после Memory & Complexity Test (100M токенов на A100).
+All formulas and principles documented as of 31.03.2026.
+v2.0 stability mechanisms added after Memory & Complexity Test (100M tokens on A100).
