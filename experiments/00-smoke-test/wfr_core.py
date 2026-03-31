@@ -1,12 +1,17 @@
 """
-WFR-Architecture Core Components
-Test 0: Smoke Test — проверка жизнеспособности базовой архитектуры
+WFR-Architecture Core Components v2.0
 
 Компоненты:
-  1. WavePhaseEncoder (WPE)
-  2. FractalResonanceLayer
-  3. ResonanceTriggeredSpike
+  1. WavePhaseEncoder (WPE) + Phase-Locking (WPE-L)
+  2. FractalResonanceLayer / TheoreticalResonanceLayer
+  3. ResonanceTriggeredSpike + Homeostatic regulation
   4. ResonanceConfidence
+  5. SurrogateSpikeFunction (Multi-scale surrogate gradient)
+
+v2.0 additions (31 марта 2026):
+  - Phase-Locking: глобальная фазовая синхронизация каждые 4 частоты
+  - Homeostatic regulation: адаптивный порог спайка
+  - Multi-scale surrogate gradient: дифференцируемый спайкинг
 """
 
 import torch
@@ -22,10 +27,13 @@ class WavePhaseEncoder(nn.Module):
     Память O(1) на позицию, независимо от длины контекста.
     """
 
-    def __init__(self, num_phases: int = 16, num_fractal_levels: int = 6):
+    def __init__(self, num_phases: int = 16, num_fractal_levels: int = 6,
+                 phase_lock_group: int = 4, phase_lock_enabled: bool = True):
         super().__init__()
         self.num_phases = num_phases
         self.num_fractal_levels = num_fractal_levels
+        self.phase_lock_group = phase_lock_group
+        self.phase_lock_enabled = phase_lock_enabled
 
         self.base_freqs = nn.Parameter(
             2.0 ** torch.arange(num_phases, dtype=torch.float32),
@@ -54,6 +62,33 @@ class WavePhaseEncoder(nn.Module):
             )
 
         phases = (base_phase + fractal_term) % (2 * math.pi)
+
+        if self.phase_lock_enabled:
+            phases = self._apply_phase_locking(phases)
+
+        return phases
+
+    def _apply_phase_locking(self, phases: torch.Tensor) -> torch.Tensor:
+        """
+        Phase-Locking (WPE-L): глобальная фазовая синхронизация.
+        
+        Каждые phase_lock_group частот вычитаем среднюю фазу группы
+        (центр масс на единичной окружности), приводя к нулю.
+        
+        φ^(l)_{i,m} ← φ^(l)_{i,m} - arg(1/M · Σ e^{iφ_j})
+        """
+        G = self.phase_lock_group
+        batch, seq_len, M = phases.shape
+
+        for g_start in range(0, M, G):
+            g_end = min(g_start + G, M)
+            group = phases[:, :, g_start:g_end]
+            complex_group = torch.exp(1j * group.to(torch.float32))
+            mean_vector = complex_group.mean(dim=-1, keepdim=True)
+            mean_phase = torch.atan2(mean_vector.imag, mean_vector.real)
+            phases = phases.clone()
+            phases[:, :, g_start:g_end] = (group - mean_phase.float()) % (2 * math.pi)
+
         return phases
 
 
@@ -133,6 +168,41 @@ class ResonanceConfidence(nn.Module):
         return coherence
 
 
+class SurrogateSpikeFunction(torch.autograd.Function):
+    """
+    Multi-scale surrogate gradient для дифференцируемого спайкинга.
+    
+    Forward: жёсткий порог (|u| > θ) → бинарный спайк.
+    Backward: surrogate gradient с масштабным коэффициентом γ_l:
+    
+    ∂spk/∂u ≈ γ_l · β / (1 + |β(u - θ)|)²
+    
+    γ_l = 0.92 для ключевых уровней (l mod 4 == 0), 0.98 иначе.
+    """
+
+    @staticmethod
+    def forward(ctx, u, threshold, gamma, beta=10.0):
+        spikes = (torch.abs(u) > threshold).float()
+        ctx.save_for_backward(u, threshold)
+        ctx.gamma = gamma
+        ctx.beta = beta
+        return spikes
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        u, threshold = ctx.saved_tensors
+        beta = ctx.beta
+        gamma = ctx.gamma
+        surrogate = gamma * beta / (1.0 + torch.abs(beta * (u - threshold))) ** 2
+        return grad_output * surrogate, None, None, None
+
+
+def surrogate_spike(u: torch.Tensor, threshold: torch.Tensor,
+                    layer_idx: int, beta: float = 10.0) -> torch.Tensor:
+    gamma = 0.92 if (layer_idx % 4 == 0) else 0.98
+    return SurrogateSpikeFunction.apply(u, threshold, gamma, beta)
+
+
 class PhaseInterference(nn.Module):
     """
     Phase Interference Calculator — точная реализация по теории.
@@ -183,14 +253,21 @@ class TheoreticalResonanceLayer(nn.Module):
     Использует PhaseInterference + resonance_function по формуле из теории.
     """
 
-    def __init__(self, num_phases: int = 16, frequency: float = 1.0, threshold: float = 0.3, layer_idx: int = 0):
+    def __init__(self, num_phases: int = 16, frequency: float = 1.0, threshold: float = 0.3,
+                 layer_idx: int = 0, homeostatic_enabled: bool = True,
+                 spike_rate_target: float = 0.10, homeostatic_eta: float = 0.01):
         super().__init__()
         self.layer_idx = layer_idx
         self.frequency = nn.Parameter(torch.tensor(frequency))
-        self.threshold = nn.Parameter(torch.tensor(threshold), requires_grad=False)
+        self.spike_threshold = nn.Parameter(torch.tensor(threshold), requires_grad=False)
+        self.threshold = self.spike_threshold  # backward compat
         self.decay = nn.Parameter(torch.tensor(2.0))
         self.weights = nn.Parameter(torch.randn(num_phases) * 0.1)
         self.interference = PhaseInterference()
+
+        self.homeostatic_enabled = homeostatic_enabled
+        self.spike_rate_target = spike_rate_target
+        self.homeostatic_eta = homeostatic_eta
         
         print(f"  Layer {layer_idx}: freq={frequency:.2f}, threshold={threshold:.3f}")
 
@@ -229,7 +306,20 @@ class TheoreticalResonanceLayer(nn.Module):
         
         # 2. Применяем резонансную функцию
         resonance = self.resonance_function(interference)
-        
+
+        # 3. Surrogate spike (дифференцируемый спайкинг)
+        spikes = surrogate_spike(
+            torch.abs(resonance), self.spike_threshold,
+            layer_idx=self.layer_idx
+        )
+
+        # 4. Homeostatic regulation порога спайка
+        if self.homeostatic_enabled and not self.training:
+            with torch.no_grad():
+                r_real = spikes.mean().item()
+                delta = self.homeostatic_eta * (self.spike_rate_target - r_real)
+                self.spike_threshold.data.clamp_(min=0.05, max=2.0).add_(delta)
+
         return resonance
 
 
@@ -280,8 +370,10 @@ class WFRNetwork(nn.Module):
         for layer in self.resonance_layers:
             resonance = layer(phases, target_mode=self.target_mode)
             
-            # Теоретический спайкинг: |R| > threshold
-            spikes = (torch.abs(resonance) > 0.4).float()
+            spikes = surrogate_spike(
+                torch.abs(resonance), layer.spike_threshold,
+                layer_idx=layer.layer_idx
+            )
             
             layer_resonances.append(resonance)
             layer_spikes.append(spikes)

@@ -13,7 +13,8 @@
 **Phase 0 — Первые эксперименты** (см. [07-experiment-plan.md](07-experiment-plan.md))
 
 - Test 0: Smoke Test (жизнеспособность архитектуры) — **завершён**
-- Memory & Complexity Test (проверка O(log n)/O(1) и памяти) — **в процессе**
+- Memory & Complexity Test (проверка O(log n)/O(1) и памяти) — **завершён** (O(1) подтверждено до 100M токенов)
+- Механизмы стабильности v2.0 (Phase-Locking, Homeostatic, Surrogate Gradient) — **реализованы**
 - Test 1: Long Context Stability
 - Test 2: Basic Pattern Formation
 
@@ -56,4 +57,4 @@
 
 ---
 
-Текущий статус: **Этап 0 завершён**.
+Текущий статус: **Этап 0 завершён, Этап 1 (Phase 0.5 + v2.0) в процессе**.
