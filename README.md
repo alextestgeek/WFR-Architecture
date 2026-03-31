@@ -2,9 +2,40 @@
 
 **Wave-Fractal-Resonant Architecture** — a novel AI architecture that replaces matrix multiplications with wave physics, resonance, and fractal self-organization.
 
-## Core Idea
+## How It Works — Plain Language
 
-Instead of computing through linear transformations, information **resonates** within the system, forming stable standing wave patterns in a multi-dimensional phase space.
+Modern neural networks (GPT, Claude, etc.) are built on **transformers** that multiply huge matrices of numbers. The longer the input text, the more memory and compute they need — often quadratically.
+
+WFR takes a different path: instead of matrix multiplication, information is encoded as **wave phases** — like radio stations on different frequencies. Processing happens through **resonance**: waves reinforce or cancel each other naturally, without multiplying tables of numbers.
+
+### The Pipeline
+
+1. **Wave Phase Encoder** — each word gets a unique "melody" based on its position. A fractal structure (nested scales, like a Matryoshka doll) lets the system tell apart "nearby" and "far away" without memorizing the full text. Memory per word is **fixed at 492 bytes** — whether the text has 500 words or 100 million.
+
+2. **Fractal Resonance Layers** — a stack of "tuning forks," each tuned to its own frequency. Low layers catch broad patterns (topic), high layers catch fine ones (specific words). A layer resonates when its frequency matches the incoming signal; otherwise it stays silent.
+
+3. **Spike Detector** — when waves from several layers align (constructive interference), a **spike** fires. No alignment — no computation. The system is event-driven: it only reacts to meaningful coincidences.
+
+4. **Self-Tuning (v2.0–v2.1)**:
+   - **Phase-Locking** — periodic re-synchronization, like a conductor keeping an orchestra in time. Without it, long texts lose coherence.
+   - **Homeostatic Regulation** — automatic sensitivity adjustment per layer. Silent layer → lower threshold. Overactive → raise threshold. Works like a thermostat.
+   - **Surrogate Gradient** — makes the discrete spike mechanism smooth enough for gradient-based training.
+
+### What's proven
+
+- **O(1) memory** — 492 bytes/token from 512 to 100M tokens (a transformer would need terabytes at 100M).
+- **32 active layers** — after fixing a sign bug in homeostatic regulation, all layers stay alive.
+- **Phase-Locking** boosts stability **×42** on long contexts.
+
+### What's not proven yet
+
+- **Learning** — only forward pass tested; the learning rule (RFP) is not implemented.
+- **Speed** — still ~O(n) in practice, not sub-linear.
+- **Head-to-head with transformers** — no benchmark comparison yet.
+
+> **One-sentence analogy:** WFR replaces "a calculator with giant spreadsheets" (transformer) with "a room full of tuning forks" where information travels through wave resonance, not number crunching.
+
+---
 
 ## Architecture Components
 
