@@ -1,7 +1,7 @@
 # 07. Experiment Plan — План проверки теории
 
-**Версия:** 0.4  
-**Дата:** 31 марта 2026  
+**Версия:** 0.5  
+**Дата:** 1 апреля 2026  
 **Статус:** Утверждён
 
 **Сводный план Phase 0 (цели, соответствие теории, критерии выхода):** [`08-phase-0-plan.md`](08-phase-0-plan.md)
@@ -142,11 +142,21 @@
 
 **Запуск:** `python experiments/05-rfp-training-sanity/run_full_training.py` (см. README эксперимента; для отладки: `--epochs 30 --no-strict`).
 
+### Test 4 — RFP v0 (Experiment 06)
+
+**Цель:** ввести **Resonant Field Plasticity v0** поверх Adam и целевой \(L\) из §6: явные \(\Delta\) для `frequency`, `phase_bias`, `decay` на `WFRNetwork`; контентный канал и readout в `WFRLM`; опционально `rfp_step_v01` (cos между слоями).
+
+**Статус:** реализовано в репозитории; короткий A/B на фиксированных батчах — [`experiments/06-rfp-v0/outputs/ab_rfp_baseline.json`](../experiments/06-rfp-v0/outputs/ab_rfp_baseline.json). Полные primary-метрики (CE vs baseline, spike rate 0.18–0.32) — Phase 2, длинные прогоны.
+
+**Документация:** [`11-rfp-v0-spec.md`](11-rfp-v0-spec.md), [`experiments/06-rfp-v0/README.md`](../experiments/06-rfp-v0/README.md).
+
+**Запуск:** `python experiments/06-rfp-v0/test_rfp_vs_baseline.py --quick` (или без `--quick` для более длинного прогона).
+
 ---
 
 ## Дальнейшие шаги (после Phase 0)
 
-- Phase 1: обучение и RFP — см. [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 (sanity)
+- Phase 1: закрыт по плану — см. [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 (sanity), Experiment 06 (RFP v0)
 - Phase 2: Сравнение с baseline-моделями
 - Phase 3: Эмуляция специализированного оборудования
 

@@ -30,7 +30,7 @@ WFR takes a different path: instead of matrix multiplication, information is enc
 
 ### What's not proven yet
 
-- **Learning** — only forward pass tested; the learning rule (RFP) is not implemented.
+- **Learning at scale** — toy next-token training and **RFP v0** (Adam + composite loss + plasticity step on frequencies / phase_bias / decay) are implemented (`wfr_lm.py`, `wfr_rfp.py`, [`experiments/06-rfp-v0/`](experiments/06-rfp-v0/), [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md)); strong CE gains vs baseline and long-run criteria are still **Phase 2** work.
 - **Speed** — still ~O(n) in practice, not sub-linear.
 - **Head-to-head with transformers** — no benchmark comparison yet.
 
