@@ -1,0 +1,35 @@
+Memory & Complexity Test
+Device: cuda
+CUDA: NVIDIA A100 80GB PCIe (capability (8, 0))
+Testing contexts: [512, 2048, 8192, 16384, 32768, 65536, 131072]
+================================================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.50, threshold=0.250
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.350
+
+Testing context = 512
+  RC: 0.9225 | Time: 0.1424s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 2,048
+  RC: 0.8176 | Time: 0.0026s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 8,192
+  RC: 0.7013 | Time: 0.0029s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 16,384
+  RC: 0.6448 | Time: 0.0028s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 32,768
+  RC: 0.5815 | Time: 0.0029s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 65,536
+  RC: 0.5198 | Time: 0.0031s | Mem/token: 0.5 KB | Active: 3/4
+
+Testing context = 131,072
+  RC: 0.4607 | Time: 0.0032s | Mem/token: 0.5 KB | Active: 3/4
+
+Результаты сохранены: /home/alex1/Desktop/WFR-Memory-Test/outputs/memory_test_20260331_1057.json
+Графики сохранены: /home/alex1/Desktop/WFR-Memory-Test/outputs/memory_complexity.png
+
+Тест на память и сложность завершён.

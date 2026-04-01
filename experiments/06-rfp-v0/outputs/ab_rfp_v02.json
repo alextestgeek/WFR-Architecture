@@ -1,26 +1,30 @@
 {
-  "epochs": 24,
+  "epochs": 16,
   "rfp_version_mode": "v02",
-  "baseline_best_val_ce": 3.4670867125193277,
+  "baseline_best_val_ce": 3.4670899709065757,
   "rows": [
     {
       "mode": "Adam only",
       "best_val_ce": 3.46709,
       "val_ce_vs_baseline_pct": 0.0,
-      "final_val_rc": 0.9779,
-      "spike_rate": 0.0395,
+      "final_val_rc": 0.95685,
+      "spike_rate": 0.0,
       "max_grad_l2": 0.18928
     },
     {
       "mode": "Adam + RFP v0.2 (every 8)",
       "best_val_ce": 3.46711,
       "val_ce_vs_baseline_pct": -0.001,
-      "final_val_rc": 0.99145,
-      "spike_rate": 0.0,
+      "final_val_rc": 0.96961,
+      "spike_rate": 0.26172,
       "max_grad_l2": 0.19049,
-      "corr_delta_pb_delta_ce": 0.33518
+      "corr_delta_pb_delta_ce": -0.04933
     }
   ],
   "phase_bias_rc_correlation_proxy": null,
-  "note": "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json."
+  "note": "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json.",
+  "artifacts": {
+    "png_ab_bar": "ab_rfp06_bar_v02_20260401_161918.png",
+    "png_training_curves_glob": "rfp06_curves_*.png (one per train_run)"
+  }
 }

@@ -14,6 +14,15 @@ Plasticity rules on top of Adam and \(L = \alpha L_{\text{task}} + \beta(1-\text
 
 See [`docs/11-rfp-v0-spec.md`](../../docs/11-rfp-v0-spec.md). Artifacts: `outputs/ab_rfp_baseline.json`, `outputs/ab_rfp_v02.json`, `outputs/rfp_v02_grid.json`.
 
+## PNG (как в Exp 05)
+
+После `test_rfp_vs_baseline.py` (по умолчанию):
+
+- **`ab_rfp06_bar_<mode>_<timestamp>.png`** — столбцы best val CE по режимам, линия \(\ln V\).
+- **`rfp06_curves_<mode>_<timestamp>.png`** — по одному файлу на каждый `train_run`: val CE, val RC, spike rate по эпохам.
+
+Отключить: `--no-png`. Одиночный прогон: `run_rfp_training.py` пишет только кривые; флаг `--no-png` отключает их.
+
 ## How to run
 
 ```bash

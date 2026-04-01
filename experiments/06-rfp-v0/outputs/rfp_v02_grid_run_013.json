@@ -1,6 +1,6 @@
 {
   "rfp_version": "v02",
-  "epochs": 16,
+  "epochs": 8,
   "rfp_interval": 8,
   "online_rfp": false,
   "spike_rate_target": 0.25,
@@ -8,16 +8,12 @@
   "eta_f_v02": 8e-05,
   "eta_theta_v02": 0.0002,
   "min_spike_bonus_v02": 0.12,
-  "correlation_delta_phase_bias_vs_delta_ce": -0.049332171541463465,
+  "correlation_delta_phase_bias_vs_delta_ce": null,
   "series_delta_pb": [
-    0.11520490795373917,
-    0.2577471137046814,
-    0.2222859263420105
+    0.11520490795373917
   ],
   "series_delta_ce": [
-    0.00025741259256983895,
-    -1.1444091796875e-05,
-    0.0007990201314291845
+    0.00025741259256983895
   ],
   "log_every_epochs": 4,
   "entries": [
@@ -76,62 +72,6 @@
       },
       "delta_ce_since_last_log": 0.00025741259256983895,
       "sum_abs_delta_phase_bias_interval": 0.11520490795373917
-    },
-    {
-      "epoch": 12,
-      "val_ce": 3.4676496187845864,
-      "val_rc": 0.9816240668296814,
-      "mean_spike_rate": 0.0,
-      "per_layer_spike_rate": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "per_layer_rc_share": [
-        0.04109528660774231,
-        0.05399353429675102,
-        0.009249613620340824,
-        0.8956615924835205
-      ],
-      "min_max_frequency": {
-        "min": 1.4512840509414673,
-        "max": 5.019075870513916
-      },
-      "min_max_decay": {
-        "min": 1.8850536346435547,
-        "max": 2.7095017433166504
-      },
-      "delta_ce_since_last_log": -1.1444091796875e-05,
-      "sum_abs_delta_phase_bias_interval": 0.2577471137046814
-    },
-    {
-      "epoch": 16,
-      "val_ce": 3.4684486389160156,
-      "val_rc": 0.9696102539698283,
-      "mean_spike_rate": 0.2617187549670537,
-      "per_layer_spike_rate": [
-        0.0,
-        0.0,
-        0.0,
-        0.3702256977558136
-      ],
-      "per_layer_rc_share": [
-        0.0026365674566477537,
-        0.004494091495871544,
-        0.00027173326816409826,
-        0.9925975799560547
-      ],
-      "min_max_frequency": {
-        "min": 1.4612175226211548,
-        "max": 4.985283374786377
-      },
-      "min_max_decay": {
-        "min": 1.8602170944213867,
-        "max": 2.8927080631256104
-      },
-      "delta_ce_since_last_log": 0.0007990201314291845,
-      "sum_abs_delta_phase_bias_interval": 0.2222859263420105
     }
   ]
 }
