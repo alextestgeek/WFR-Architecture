@@ -1,8 +1,8 @@
 # 10. Phase 1 — Обучение и RFP (Resonant Field Plasticity)
 
-**Версия:** 0.2  
-**Дата:** 31 марта 2026  
-**Статус:** В работе (открыт после закрытия Phase 0)
+**Версия:** 0.3  
+**Дата:** 1 апреля 2026  
+**Статус:** Phase 1 **закрыт** (sanity + целевая функция + RFP v0 в коде); **Phase 2** (долгое обучение, критерии primary по CE/spike rate) **в работе**
 
 **Связь с теорией:** [`03-theory.md`](03-theory.md), раздел 6 (RFP, целевая функция \(L\), RC, EnergyCost).
 
@@ -57,7 +57,7 @@ Phase 1 **не** ставит целью SOTA на языковых бенчма
 
 1. **Теория RFP** в [`03-theory.md`](03-theory.md) — **перспективная гипотеза**; полная формализация \(\Delta f\), \(\Delta\theta\), \(\Delta\alpha\) **подстраивается** под результаты Phase 1, а не наоборот.
 2. **Surrogate gradient** в Phase 0 по обучению **не верифицирован**; Phase 1 **первым** подтверждает или опровергает работоспособность backward в типичных настройках (см. [`08-phase-0-plan.md`](08-phase-0-plan.md), раздел 7).
-3. **Homeostatic regulation** при `model.train()` в текущем `wfr_core` **не обновляет** пороги (логика завязана на `not self.training`); поведение при обучении с включённым homeostastic в другом режиме — **отдельное решение** для RFP v1.
+3. **Homeostatic regulation** в `wfr_core`: по умолчанию при `train()` пороги не трогаются; для **RFP v0** добавлен флаг `homeostatic_always_on` (см. [`11-rfp-v0-spec.md`](11-rfp-v0-spec.md)), чтобы homeostatic можно было включать и в обучении.
 4. **Пороги спайка** (`spike_threshold`) по умолчанию **без градиента** (`requires_grad=False`); обучение сначала идёт по частотам, весам интерференции, параметрам WPE и голове — согласуется с акцентом теории на фазах/частотах, но это **упрощение**.
 5. **Toy next-token** с подачей `token_ids` в энкодер как «позиций» — **инженерный трюк** для проверки градиентов, а не заявление о лучшей схеме для реальной LLM.
 
@@ -68,6 +68,7 @@ Phase 1 **не** ставит целью SOTA на языковых бенчма
 | ID | Папка | Назначение |
 |----|--------|------------|
 | 05 | [`experiments/05-rfp-training-sanity/`](../experiments/05-rfp-training-sanity/) | Sanity: backward; **precheck** (Phase 0 params, знак homeostatic, формула \(L\)); **enhanced:** полная \(L\) (CE + (1−RC) + energy), train/val; **`--strict`:** PASS только если лучший val CE < \(\ln V - 0.02\); **--quick:** только CE. |
+| 06 | [`experiments/06-rfp-v0/`](../experiments/06-rfp-v0/) | **RFP v0:** Adam + \(L\) + периодический/online `rfp_step` / `rfp_step_v01`; A/B [`test_rfp_vs_baseline.py`](../experiments/06-rfp-v0/test_rfp_vs_baseline.py); см. [`11-rfp-v0-spec.md`](11-rfp-v0-spec.md). |
 
 **Зафиксированный короткий прогон (2026-03-31):** enhanced, 30 эпох, GPU, precheck OK, PASS по снижению val loss; цифры и артефакты — [`07-experiment-plan.md`](07-experiment-plan.md), Test 3.
 
@@ -85,4 +86,6 @@ Phase 1 **не** ставит целью SOTA на языковых бенчма
 
 ---
 
-**Следующий шаг:** черновик RFP v0 (отдельные правила обновления, не только Adam по \(L\)); при необходимости — длиннее [Experiment 05](../experiments/05-rfp-training-sanity/README.md) (например 120 эпох) или режим `--strict` как целевой критерий обучаемости.
+**Следующий шаг (Phase 2):** довести метрики RFP v0 до primary-критериев на длинных прогонах (см. [`11-rfp-v0-spec.md`](11-rfp-v0-spec.md), [`experiments/06-rfp-v0/`](../experiments/06-rfp-v0/)); подбор \(\eta\), интервала RFP и homeostatic под целевой spike rate.
+
+**Зафиксировано:** RFP v0 реализован (`wfr_lm.py`, `wfr_rfp.py`, изменения в `wfr_core.py`, Experiment 06).

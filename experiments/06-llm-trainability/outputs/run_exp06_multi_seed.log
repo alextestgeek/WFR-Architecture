@@ -1,0 +1,18 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Experiment 06 — LLM Trainability (multi-seed)
+Device: cuda | vocab=256 | lnV=5.5452 | epochs=60 | seeds=[42, 43, 44]
+Baseline bigram val CE: 0.3855
+PASS(all seeds): True (strict=True)
+JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/llm_trainability_multi_seed_20260331_1735.json
+PNG summary: /home/alex1/Desktop/WFR-Memory-Test/outputs/llm_trainability_seed_summary_20260331_1735.png

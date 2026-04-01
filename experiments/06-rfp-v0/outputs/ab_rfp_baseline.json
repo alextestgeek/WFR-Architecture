@@ -1,0 +1,40 @@
+{
+  "epochs": 12,
+  "baseline_best_val_ce": 3.467239777247111,
+  "rows": [
+    {
+      "mode": "Adam only",
+      "best_val_ce": 3.46724,
+      "val_ce_vs_baseline_pct": 0.0,
+      "final_val_rc": 0.96839,
+      "spike_rate": 0.0395,
+      "max_grad_l2": 0.18928
+    },
+    {
+      "mode": "Adam + RFP v0 (every 8)",
+      "best_val_ce": 3.46717,
+      "val_ce_vs_baseline_pct": 0.002,
+      "final_val_rc": 0.99407,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.18377
+    },
+    {
+      "mode": "Adam + RFP v0 (online)",
+      "best_val_ce": 3.46721,
+      "val_ce_vs_baseline_pct": 0.001,
+      "final_val_rc": 0.98823,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.18036
+    },
+    {
+      "mode": "Adam + RFP v0.1 (every 8)",
+      "best_val_ce": 3.46715,
+      "val_ce_vs_baseline_pct": 0.003,
+      "final_val_rc": 0.99226,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.19229
+    }
+  ],
+  "phase_bias_rc_correlation_proxy": null,
+  "note": "Для полной метрики корреляции phase_bias vs RC нужна история шагов; см. длинный прогон."
+}

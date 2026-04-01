@@ -14,9 +14,13 @@ v2.0 additions (31 марта 2026):
   - Multi-scale surrogate gradient: дифференцируемый спайкинг
 """
 
+from __future__ import annotations
+
+import math
+from typing import Optional
+
 import torch
 import torch.nn as nn
-import math
 
 
 class WavePhaseEncoder(nn.Module):
@@ -255,7 +259,8 @@ class TheoreticalResonanceLayer(nn.Module):
 
     def __init__(self, num_phases: int = 16, frequency: float = 1.0, threshold: float = 0.3,
                  layer_idx: int = 0, homeostatic_enabled: bool = True,
-                 spike_rate_target: float = 0.10, homeostatic_eta: float = 0.01):
+                 spike_rate_target: float = 0.10, homeostatic_eta: float = 0.01,
+                 homeostatic_always_on: bool = False):
         super().__init__()
         self.layer_idx = layer_idx
         self.frequency = nn.Parameter(torch.tensor(frequency))
@@ -263,9 +268,12 @@ class TheoreticalResonanceLayer(nn.Module):
         self.threshold = self.spike_threshold  # backward compat
         self.decay = nn.Parameter(torch.tensor(2.0))
         self.weights = nn.Parameter(torch.randn(num_phases) * 0.1)
+        # Глобальный фазовый сдвиг слоя θ_l (RFP v0)
+        self.phase_bias = nn.Parameter(torch.zeros(1))
         self.interference = PhaseInterference()
 
         self.homeostatic_enabled = homeostatic_enabled
+        self.homeostatic_always_on = homeostatic_always_on
         self.spike_rate_target = spike_rate_target
         self.homeostatic_eta = homeostatic_eta
         
@@ -285,7 +293,8 @@ class TheoreticalResonanceLayer(nn.Module):
         returns: [batch, seq_len] — resonance amplitude
         """
         batch, seq_len, _ = phases.shape
-        
+        phases = phases + self.phase_bias
+
         if target_mode == "mean":
             # Вариант A: средняя фаза по всем компонентам
             target_phase = phases.mean(dim=-1, keepdim=True)
@@ -314,7 +323,7 @@ class TheoreticalResonanceLayer(nn.Module):
         )
 
         # 4. Homeostatic regulation порога спайка
-        if self.homeostatic_enabled and not self.training:
+        if self.homeostatic_enabled and (self.homeostatic_always_on or not self.training):
             with torch.no_grad():
                 r_real = spikes.mean().item()
                 delta = self.homeostatic_eta * (r_real - self.spike_rate_target)
@@ -341,6 +350,7 @@ class WFRNetwork(nn.Module):
         homeostatic_enabled: bool = True,
         spike_rate_target: float = 0.10,
         homeostatic_eta: float = 0.01,
+        homeostatic_always_on: bool = False,
     ):
         super().__init__()
         self.encoder = WavePhaseEncoder(num_phases, num_fractal_levels)
@@ -359,22 +369,33 @@ class WFRNetwork(nn.Module):
                 homeostatic_enabled=homeostatic_enabled,
                 spike_rate_target=spike_rate_target,
                 homeostatic_eta=homeostatic_eta,
+                homeostatic_always_on=homeostatic_always_on,
             )
             for i in range(num_resonance_layers)
         ])
         self.target_mode = "frequency"
 
         self.confidence = ResonanceConfidence()
+        # Последний скалярный RC (для readout / RFP); обновляется в forward
+        self.rc: Optional[torch.Tensor] = None
 
-    def forward(self, positions: torch.Tensor):
+    @property
+    def threshold(self) -> torch.Tensor:
+        """Средний порог спайка по слоям — для пороговых метрик в WFRLM."""
+        return torch.stack([layer.spike_threshold for layer in self.resonance_layers]).mean()
+
+    def forward(self, positions: torch.Tensor, content_delta: Optional[torch.Tensor] = None):
         """
         positions: [batch, seq_len]
+        content_delta: опционально [batch, seq_len, num_phases] — контентный сдвиг фаз (WFRLM).
         returns: dict с полной диагностикой
         
         Теперь используем теоретически корректный путь:
         WPE → TheoreticalResonanceLayer (с PhaseInterference внутри)
         """
         phases = self.encoder(positions)
+        if content_delta is not None:
+            phases = phases + content_delta
 
         layer_resonances = []
         layer_spikes = []
@@ -393,6 +414,7 @@ class WFRNetwork(nn.Module):
             layer_interferences.append(resonance)
 
         rc = self.confidence(phases)
+        self.rc = rc
         standing_wave = torch.stack(layer_resonances, dim=0).mean(dim=0)
 
         return {
