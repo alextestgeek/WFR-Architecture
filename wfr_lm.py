@@ -29,8 +29,10 @@ WFRState = namedtuple(
         "phases",
         "logits",
         "layer_resonance_means",
+        "layer_spike_means",
+        "layer_rc_share",
     ],
-    defaults=(None,),
+    defaults=(None, None, None),
 )
 
 
@@ -73,6 +75,11 @@ class WFRLM(nn.Module):
         layer_resonance_means = torch.stack(
             [r.detach().abs().mean() for r in out["layer_resonances"]]
         )
+        layer_spike_means = torch.stack(
+            [s.detach().float().mean() for s in out["layer_spikes"]]
+        )
+        tot_r = layer_resonance_means.sum().clamp(min=1e-8)
+        layer_rc_share = layer_resonance_means / tot_r
 
         return WFRState(
             resonance=resonance_out,
@@ -82,6 +89,8 @@ class WFRLM(nn.Module):
             phases=None,
             logits=logits,
             layer_resonance_means=layer_resonance_means,
+            layer_spike_means=layer_spike_means,
+            layer_rc_share=layer_rc_share,
         )
 
     def readout(

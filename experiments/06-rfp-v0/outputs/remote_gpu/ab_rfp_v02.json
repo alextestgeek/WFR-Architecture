@@ -1,0 +1,26 @@
+{
+  "epochs": 50,
+  "rfp_version_mode": "v02",
+  "baseline_best_val_ce": 3.465303818384806,
+  "rows": [
+    {
+      "mode": "Adam only",
+      "best_val_ce": 3.4653,
+      "val_ce_vs_baseline_pct": 0.0,
+      "final_val_rc": 1.0,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.24256
+    },
+    {
+      "mode": "Adam + RFP v0.2 (every 8)",
+      "best_val_ce": 3.46566,
+      "val_ce_vs_baseline_pct": -0.01,
+      "final_val_rc": 0.99999,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.24256,
+      "corr_delta_pb_delta_ce": -0.10031
+    }
+  ],
+  "phase_bias_rc_correlation_proxy": null,
+  "note": "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json."
+}
