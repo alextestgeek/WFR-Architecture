@@ -86,7 +86,7 @@ class WFRLM(nn.Module):
             spikes=spikes,
             rc=rc,
             energy=energy,
-            phases=None,
+            phases=out["phases"],
             logits=logits,
             layer_resonance_means=layer_resonance_means,
             layer_spike_means=layer_spike_means,
