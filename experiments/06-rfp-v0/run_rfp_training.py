@@ -30,7 +30,7 @@ sys.path.insert(0, str(ROOT / "experiments" / "00-smoke-test"))
 from phase0_best_config import PHASE0_FREQ_BALANCED  # noqa: E402
 from wfr_core import WFRNetwork  # noqa: E402
 from wfr_lm import WFRLM  # noqa: E402
-from wfr_rfp import apply_rfp_deltas, rfp_step, rfp_step_v01, rfp_step_v02  # noqa: E402
+from wfr_rfp import apply_rfp_deltas, rfp_step, rfp_step_v01, rfp_step_v02, rfp_step_v03  # noqa: E402
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -66,6 +66,7 @@ class RunMetrics:
     epochs: int
     mode: str
     corr_delta_pb_delta_ce: Optional[float] = None
+    rescue_step_fraction: Optional[float] = None
 
 
 def total_grad_l2_norm(model: torch.nn.Module) -> float:
@@ -265,11 +266,18 @@ def train_run(
     eta_f_v02: float = 8e-5,
     eta_theta_v02: float = 2e-4,
     min_spike_bonus_v02: float = 0.12,
+    eta_f_v03: float = 1.2e-4,
+    eta_theta_v03: float = 3e-4,
+    eta_alpha_v03: float = 8e-6,
+    rescue_threshold_v03: float = 0.12,
+    rescue_factor_v03: float = 0.45,
     save_png: bool = True,
     plot_path: Optional[Path] = None,
 ) -> RunMetrics:
     if rfp_version == "v02" and use_rfp:
         log_path = log_path or (_EXP_DIR / "outputs" / "rfp_v02_log.json")
+    elif rfp_version == "v03" and use_rfp:
+        log_path = log_path or (_EXP_DIR / "outputs" / "rfp_v03_log.json")
 
     torch.manual_seed(seed)
     gen = torch.Generator(device=DEVICE)
@@ -318,7 +326,10 @@ def train_run(
     d_pb_series: list[float] = []
     d_ce_series: list[float] = []
 
-    use_v02_log = rfp_version == "v02" and use_rfp and log_path is not None
+    use_detailed_rfp_log = rfp_version in ("v02", "v03") and use_rfp and log_path is not None
+
+    rescue_hits = 0
+    total_rfp_steps = 0
 
     history_val_ce: list[float] = []
     history_val_rc: list[float] = []
@@ -362,6 +373,25 @@ def train_run(
                         eta_alpha=eta_alpha_v02,
                         min_spike_bonus=min_spike_bonus_v02,
                     )
+                elif rfp_version == "v03":
+                    total_rfp_steps += 1
+                    lsm = getattr(state, "layer_spike_means", None)
+                    if lsm is not None:
+                        r_res = torch.as_tensor(rescue_threshold_v03, device=lsm.device, dtype=lsm.dtype)
+                        rescue_vec = rescue_factor_v03 * torch.relu(r_res - lsm.detach())
+                        if bool((rescue_vec > 1e-8).any().item()):
+                            rescue_hits += 1
+                    deltas = rfp_step_v03(
+                        model.core,
+                        state,
+                        ce_t,
+                        spike_target=spike_rate_target,
+                        eta_f=eta_f_v03,
+                        eta_theta=eta_theta_v03,
+                        eta_alpha=eta_alpha_v03,
+                        rescue_threshold=rescue_threshold_v03,
+                        rescue_factor=rescue_factor_v03,
+                    )
                 else:
                     deltas = rfp_step(model.core, state, ce_t)
                 apply_rfp_deltas(model.core, deltas)
@@ -374,7 +404,7 @@ def train_run(
         final_rc = ev["val_rc"]
         mean_sp = ev["spike_rate"]
 
-        should_log = use_v02_log and ((ep + 1) % log_every_epochs == 0 or (ep + 1) == epochs)
+        should_log = use_detailed_rfp_log and ((ep + 1) % log_every_epochs == 0 or (ep + 1) == epochs)
         if should_log:
             det = evaluate_detailed(model, val_batches)
             pb_now = _phase_bias_vector(model).detach().cpu()
@@ -405,24 +435,42 @@ def train_run(
     if len(d_pb_series) >= 2 and len(d_ce_series) >= 2:
         corr = pearson_r(d_pb_series, d_ce_series)
 
-    if use_v02_log and log_path is not None:
+    if use_detailed_rfp_log and log_path is not None:
         log_path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {
+        payload: dict[str, Any] = {
             "rfp_version": rfp_version,
             "epochs": epochs,
             "rfp_interval": rfp_interval,
             "online_rfp": online_rfp,
             "spike_rate_target": spike_rate_target,
-            "eta_alpha_v02": eta_alpha_v02,
-            "eta_f_v02": eta_f_v02,
-            "eta_theta_v02": eta_theta_v02,
-            "min_spike_bonus_v02": min_spike_bonus_v02,
             "correlation_delta_phase_bias_vs_delta_ce": corr,
             "series_delta_pb": d_pb_series,
             "series_delta_ce": d_ce_series,
             "log_every_epochs": log_every_epochs,
             "entries": log_entries,
         }
+        if rfp_version == "v02":
+            payload.update(
+                {
+                    "eta_alpha_v02": eta_alpha_v02,
+                    "eta_f_v02": eta_f_v02,
+                    "eta_theta_v02": eta_theta_v02,
+                    "min_spike_bonus_v02": min_spike_bonus_v02,
+                }
+            )
+        if rfp_version == "v03":
+            payload.update(
+                {
+                    "eta_f_v03": eta_f_v03,
+                    "eta_theta_v03": eta_theta_v03,
+                    "eta_alpha_v03": eta_alpha_v03,
+                    "rescue_threshold_v03": rescue_threshold_v03,
+                    "rescue_factor_v03": rescue_factor_v03,
+                    "rescue_step_fraction": (
+                        rescue_hits / total_rfp_steps if total_rfp_steps > 0 else None
+                    ),
+                }
+            )
         with open(log_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False, allow_nan=False)
 
@@ -439,6 +487,10 @@ def train_run(
             title_suffix=f" ({mode})",
         )
 
+    rescue_frac: Optional[float] = (
+        rescue_hits / total_rfp_steps if total_rfp_steps > 0 and rfp_version == "v03" else None
+    )
+
     return RunMetrics(
         best_val_ce=best_val_ce,
         final_val_rc=final_rc,
@@ -447,6 +499,7 @@ def train_run(
         epochs=epochs,
         mode=mode,
         corr_delta_pb_delta_ce=corr,
+        rescue_step_fraction=rescue_frac,
     )
 
 
@@ -460,8 +513,8 @@ def main() -> None:
         "--rfp-version",
         type=str,
         default="v0",
-        choices=("v0", "v01", "v02"),
-        help="v0 | v01 | v02 (RFP v0.2)",
+        choices=("v0", "v01", "v02", "v03"),
+        help="v0 | v01 | v02 | v03 (RFP v0.3 per-layer + rescue)",
     )
     p.add_argument(
         "--no-homeostatic-always-on",
@@ -476,20 +529,29 @@ def main() -> None:
         "--log-json",
         type=Path,
         default=None,
-        help="полный лог v0.2 (по умолчанию outputs/rfp_v02_log.json при --rfp-version v02)",
+        help="полный лог v0.2/v0.3 (по умолчанию rfp_v02_log.json / rfp_v03_log.json)",
     )
     p.add_argument("--log-every-epochs", type=int, default=4)
     p.add_argument("--eta-alpha-v02", type=float, default=3e-5)
     p.add_argument("--eta-f-v02", type=float, default=8e-5)
     p.add_argument("--eta-theta-v02", type=float, default=2e-4)
     p.add_argument("--min-spike-bonus-v02", type=float, default=0.12)
+    p.add_argument("--eta-f-v03", type=float, default=1.2e-4)
+    p.add_argument("--eta-theta-v03", type=float, default=3e-4)
+    p.add_argument("--eta-alpha-v03", type=float, default=8e-6)
+    p.add_argument("--rescue-threshold-v03", type=float, default=0.12)
+    p.add_argument("--rescue-factor-v03", type=float, default=0.45)
     p.add_argument("--no-png", action="store_true", help="не сохранять PNG кривых в outputs/")
     args = p.parse_args()
 
-    default_log = Path(__file__).parent / "outputs" / "rfp_v02_log.json"
+    _out = Path(__file__).parent / "outputs"
+    default_log_v02 = _out / "rfp_v02_log.json"
+    default_log_v03 = _out / "rfp_v03_log.json"
     log_path = args.log_json
     if args.rfp_version == "v02" and not args.no_rfp:
-        log_path = log_path or default_log
+        log_path = log_path or default_log_v02
+    elif args.rfp_version == "v03" and not args.no_rfp:
+        log_path = log_path or default_log_v03
 
     m = train_run(
         epochs=args.epochs,
@@ -507,6 +569,11 @@ def main() -> None:
         eta_f_v02=args.eta_f_v02,
         eta_theta_v02=args.eta_theta_v02,
         min_spike_bonus_v02=args.min_spike_bonus_v02,
+        eta_f_v03=args.eta_f_v03,
+        eta_theta_v03=args.eta_theta_v03,
+        eta_alpha_v03=args.eta_alpha_v03,
+        rescue_threshold_v03=args.rescue_threshold_v03,
+        rescue_factor_v03=args.rescue_factor_v03,
         save_png=not args.no_png,
     )
     d = asdict(m)
