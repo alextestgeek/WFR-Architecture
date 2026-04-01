@@ -1,0 +1,26 @@
+Basic Pattern Formation — Experiment 04
+Device: cuda | seq_len=4096
+========================================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Warmup: linear L=4096, passes=50, homeostatic frozen.
+
+--- Phase A: Distinguishability ---
+  Pairwise cos: min=0.897266  max=0.999929  mean=0.965402
+  PASS (max off-diag cos < 0.99999): True
+  STRONG (max off-diag cos < 0.995): False
+
+--- Phase B: Repeatability (linear x2) ---
+  Cosine same pattern: 1.0
+  PASS: True
+
+--- Phase C: Phase noise (linear) ---
+  Cos(clean, noisy std=0.02): 0.99996611
+  PASS (cos > 0.85): True
+
+JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/pattern_test_20260331_1524.json
+Plot: /home/alex1/Desktop/WFR-Memory-Test/outputs/pattern_cosine_matrix.png
+Вердикт: Подтверждено
+========================================================================

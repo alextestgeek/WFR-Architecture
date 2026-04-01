@@ -11,9 +11,14 @@ import json
 import math
 import sys
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import torch
 import torch.nn.functional as F
 
@@ -175,6 +180,75 @@ def _phase_bias_vector(model: WFRLM) -> torch.Tensor:
     )
 
 
+def plot_training_curves(
+    history_val_ce: list[float],
+    history_val_rc: list[float],
+    history_spike: list[float],
+    vocab_size: int,
+    path_png: Path,
+    title_suffix: str = "",
+) -> None:
+    """Val CE / RC / spike rate по эпохам + линия ln(V) для CE (как в Exp 05)."""
+    if not history_val_ce:
+        return
+    path_png.parent.mkdir(parents=True, exist_ok=True)
+    epochs = list(range(1, len(history_val_ce) + 1))
+    ln_v = math.log(vocab_size)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
+    axes[0].plot(epochs, history_val_ce, color="#16a34a", label="val CE")
+    axes[0].axhline(ln_v, color="gray", linestyle=":", label=f"ln V = {ln_v:.3f}")
+    axes[0].set_ylabel("CE")
+    axes[0].legend(loc="upper right", fontsize=8)
+    axes[0].grid(True, alpha=0.3)
+    axes[0].set_title("Experiment 06 — validation" + title_suffix)
+
+    axes[1].plot(epochs, history_val_rc, color="#2563eb", label="val RC")
+    axes[1].set_ylabel("RC")
+    axes[1].legend(loc="lower right", fontsize=8)
+    axes[1].grid(True, alpha=0.3)
+
+    axes[2].plot(epochs, history_spike, color="#ea580c", label="mean spike rate (standing wave)")
+    axes[2].axhline(0.25, color="purple", linestyle="--", alpha=0.5, label="target ~0.25")
+    axes[2].set_xlabel("epoch")
+    axes[2].set_ylabel("spike rate")
+    axes[2].legend(loc="upper right", fontsize=8)
+    axes[2].grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(path_png, dpi=150)
+    plt.close()
+
+
+def plot_ab_modes_bar(
+    rows: list[dict[str, Any]],
+    path_png: Path,
+    title: str = "Experiment 06 — A/B best val CE",
+) -> None:
+    """Столбчатая диаграмма best val CE по режимам."""
+    if not rows:
+        return
+    path_png.parent.mkdir(parents=True, exist_ok=True)
+    labels = [r["mode"] for r in rows]
+    ces = [r["best_val_ce"] for r in rows]
+    x = range(len(labels))
+    fig, ax = plt.subplots(figsize=(max(10, len(labels) * 1.2), 5))
+    bars = ax.bar(x, ces, color=["#64748b" if "only" in lb else "#0d9488" for lb in labels])
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=8)
+    ax.set_ylabel("best val CE")
+    ax.set_title(title)
+    ax.grid(True, axis="y", alpha=0.3)
+    ln_v = math.log(VOCAB_SIZE)
+    ax.axhline(ln_v, color="gray", linestyle=":", label=f"ln V = {ln_v:.3f}")
+    ax.legend(loc="upper right", fontsize=8)
+    for i, (b, v) in enumerate(zip(bars, ces)):
+        ax.text(b.get_x() + b.get_width() / 2, v, f"{v:.3f}", ha="center", va="bottom", fontsize=7)
+    plt.tight_layout()
+    plt.savefig(path_png, dpi=150)
+    plt.close()
+
+
 def train_run(
     epochs: int,
     use_rfp: bool,
@@ -191,6 +265,8 @@ def train_run(
     eta_f_v02: float = 8e-5,
     eta_theta_v02: float = 2e-4,
     min_spike_bonus_v02: float = 0.12,
+    save_png: bool = True,
+    plot_path: Optional[Path] = None,
 ) -> RunMetrics:
     if rfp_version == "v02" and use_rfp:
         log_path = log_path or (_EXP_DIR / "outputs" / "rfp_v02_log.json")
@@ -244,6 +320,10 @@ def train_run(
 
     use_v02_log = rfp_version == "v02" and use_rfp and log_path is not None
 
+    history_val_ce: list[float] = []
+    history_val_rc: list[float] = []
+    history_spike: list[float] = []
+
     for ep in range(epochs):
         model.train()
         for batch in train_batches:
@@ -287,6 +367,9 @@ def train_run(
                 apply_rfp_deltas(model.core, deltas)
 
         ev = evaluate(model, val_batches)
+        history_val_ce.append(ev["val_ce"])
+        history_val_rc.append(ev["val_rc"])
+        history_spike.append(ev["spike_rate"])
         best_val_ce = min(best_val_ce, ev["val_ce"])
         final_rc = ev["val_rc"]
         mean_sp = ev["spike_rate"]
@@ -343,6 +426,19 @@ def train_run(
         with open(log_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False, allow_nan=False)
 
+    if save_png and history_val_ce:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        safe_mode = "".join(c if c.isalnum() or c in "-_" else "_" for c in mode)[:40]
+        png_out = plot_path or (_EXP_DIR / "outputs" / f"rfp06_curves_{safe_mode}_{ts}.png")
+        plot_training_curves(
+            history_val_ce,
+            history_val_rc,
+            history_spike,
+            VOCAB_SIZE,
+            png_out,
+            title_suffix=f" ({mode})",
+        )
+
     return RunMetrics(
         best_val_ce=best_val_ce,
         final_val_rc=final_rc,
@@ -387,6 +483,7 @@ def main() -> None:
     p.add_argument("--eta-f-v02", type=float, default=8e-5)
     p.add_argument("--eta-theta-v02", type=float, default=2e-4)
     p.add_argument("--min-spike-bonus-v02", type=float, default=0.12)
+    p.add_argument("--no-png", action="store_true", help="не сохранять PNG кривых в outputs/")
     args = p.parse_args()
 
     default_log = Path(__file__).parent / "outputs" / "rfp_v02_log.json"
@@ -410,6 +507,7 @@ def main() -> None:
         eta_f_v02=args.eta_f_v02,
         eta_theta_v02=args.eta_theta_v02,
         min_spike_bonus_v02=args.min_spike_bonus_v02,
+        save_png=not args.no_png,
     )
     d = asdict(m)
     print(json.dumps(d, indent=2))

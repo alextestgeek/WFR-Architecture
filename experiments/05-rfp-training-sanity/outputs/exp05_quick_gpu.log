@@ -1,0 +1,9 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Experiment 05 — RFP Training Sanity [quick]
+Loss: 6.1493 -> 3.5311 (ln V ~ 3.4657)
+Grad OK: True | PASS: True
+JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/training_sanity_quick_20260331_1610.json
+PNG: /home/alex1/Desktop/WFR-Memory-Test/outputs/training_sanity_quick_curve_20260331_1610.png

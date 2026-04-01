@@ -1,0 +1,212 @@
+Long Context Stability Test — Experiment 05
+Device: cuda
+GPU: NVIDIA A100 80GB PCIe
+Contexts: [512, 4096, 16384, 65536]
+Homeostatic warmup: 50 passes
+================================================================================
+
+============================================================
+TEST 1: Determinism
+============================================================
+
+  Context = 512
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+    max Δphase = 0.00e+00  |  RC spread = 0.00e+00  |  [PASS]
+
+  Context = 4,096
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+    max Δphase = 0.00e+00  |  RC spread = 0.00e+00  |  [PASS]
+
+  Context = 16,384
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+    max Δphase = 0.00e+00  |  RC spread = 0.00e+00  |  [PASS]
+
+  Context = 65,536
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+    max Δphase = 0.00e+00  |  RC spread = 0.00e+00  |  [PASS]
+
+  Determinism: ALL PASSED
+
+============================================================
+TEST 2: Phase Encoding Stability
+============================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx= 4,096  pos=   0  |  max Δ = 0.00e+00  |  cos = 0.00000000
+  ctx= 4,096  pos=  10  |  max Δ = 0.00e+00  |  cos = 1.00000000
+  ctx= 4,096  pos= 100  |  max Δ = 0.00e+00  |  cos = 0.99999994
+  ctx= 4,096  pos= 511  |  max Δ = 0.00e+00  |  cos = 0.99999994
+  ctx=16,384  pos=   0  |  max Δ = 0.00e+00  |  cos = 0.00000000
+  ctx=16,384  pos=  10  |  max Δ = 0.00e+00  |  cos = 1.00000000
+  ctx=16,384  pos= 100  |  max Δ = 0.00e+00  |  cos = 0.99999994
+  ctx=16,384  pos= 511  |  max Δ = 0.00e+00  |  cos = 0.99999994
+  ctx=65,536  pos=   0  |  max Δ = 0.00e+00  |  cos = 0.00000000
+  ctx=65,536  pos=  10  |  max Δ = 0.00e+00  |  cos = 1.00000000
+  ctx=65,536  pos= 100  |  max Δ = 0.00e+00  |  cos = 0.99999994
+  ctx=65,536  pos= 511  |  max Δ = 0.00e+00  |  cos = 0.99999994
+
+  Phase Encoding Stability: ALL PASSED
+
+============================================================
+TEST 3: Cross-Context Standing Wave Stability
+  (single model, warmup at ctx=512, frozen thresholds)
+============================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Warmup done at ctx=512. Homeostatic frozen.
+    Layer 0 threshold = 0.168027
+    Layer 1 threshold = 0.200000
+    Layer 2 threshold = 0.250001
+    Layer 3 threshold = 0.379043
+  ctx=   512  |  RC = 0.9707  |  SW prefix shape = torch.Size([1, 512])
+  ctx= 4,096  |  RC = 0.8790  |  SW prefix shape = torch.Size([1, 512])
+  ctx=16,384  |  RC = 0.8099  |  SW prefix shape = torch.Size([1, 512])
+  ctx=65,536  |  RC = 0.7456  |  SW prefix shape = torch.Size([1, 512])
+  ctx= 4,096 vs 512  |  cos = 1.000000  |  max Δ = 0.000000  [PASS]
+  ctx=16,384 vs 512  |  cos = 1.000000  |  max Δ = 0.000000  [PASS]
+  ctx=65,536 vs 512  |  cos = 1.000000  |  max Δ = 0.000000  [PASS]
+
+  Cross-Context Standing Wave: ALL PASSED
+
+============================================================
+TEST 4: Windowed RC (Dead Zone Detection)
+============================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx=   512  |  windows=   1  |  RC: 0.9707 ± 0.0000  (CV=0.0000)  |  range [0.9707, 0.9707]  [PASS]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx= 4,096  |  windows=   8  |  RC: 0.8791 ± 0.0405  (CV=0.0461)  |  range [0.8417, 0.9707]  [PASS]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx=16,384  |  windows=  32  |  RC: 0.8102 ± 0.0501  (CV=0.0619)  |  range [0.7614, 0.9707]  [PASS]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx=65,536  |  windows= 128  |  RC: 0.7459 ± 0.0473  (CV=0.0634)  |  range [0.7065, 0.9707]  [PASS]
+
+  Windowed RC: ALL PASSED
+
+============================================================
+TEST 5: Spike Distribution Uniformity
+  (single model, warmup at largest ctx, frozen thresholds)
+============================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Warmup done at ctx=65,536. Homeostatic frozen.
+    Layer 0 threshold = 0.281990
+    Layer 1 threshold = 0.241143
+    Layer 2 threshold = 0.289368
+    Layer 3 threshold = 0.400436
+  ctx=   512  |  too short for chunk analysis  [SKIP]
+  ctx= 4,096  |  chunks=8  |  density: 0.1021  [0.0000, 0.1992]  ratio=inf  dead=1  [FAIL]
+             |  per-layer rates: [0.071777, 0.015625, 0.0, 0.014648]
+  ctx=16,384  |  chunks=32  |  density: 0.2846  [0.0000, 0.5039]  ratio=inf  dead=1  [FAIL]
+             |  per-layer rates: [0.155823, 0.037231, 0.053772, 0.037781]
+  ctx=65,536  |  chunks=128  |  density: 0.4513  [0.0000, 0.5645]  ratio=inf  dead=1  [FAIL]
+             |  per-layer rates: [0.176636, 0.088074, 0.085709, 0.100845]
+
+  Spike Distribution: SOME FAILED
+
+============================================================
+TEST 6: Depth-Dependent Coherence
+============================================================
+  ctx=   512  |  too short for quarter analysis  [SKIP]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx= 4,096  |  Q1 (start)=0.9391  Q2=0.8766  Q3=0.8572  Q4 (end)=0.8430
+             |  Q4/Q1 = 0.8977  [PASS]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx=16,384  |  Q1 (start)=0.8790  Q2=0.8145  Q3=0.7848  Q4 (end)=0.7614
+             |  Q4/Q1 = 0.8663  [PASS]
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  ctx=65,536  |  Q1 (start)=0.8099  Q2=0.7425  Q3=0.7225  Q4 (end)=0.7076
+             |  Q4/Q1 = 0.8737  [PASS]
+
+  Depth Coherence: ALL PASSED
+/home/alex1/Desktop/WFR-Memory-Test/.venv/lib/python3.12/site-packages/matplotlib/transforms.py:2437: RuntimeWarning: invalid value encountered in dot
+  return Affine2D(np.dot(self._b.get_affine().get_matrix(),
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+  [+] determinism.................................. PASS
+  [+] phase_encoding_stability..................... PASS
+  [+] cross_context_standing_wave.................. PASS
+  [+] windowed_rc.................................. PASS
+  [!] spike_distribution........................... FAIL
+  [+] depth_coherence.............................. PASS
+
+  Result: 5/6 tests passed
+  Total time: 4.6s
+
+Results saved: /home/alex1/Desktop/WFR-Memory-Test/outputs/stability_test_20260331_1358.json
+
+Plots saved: /home/alex1/Desktop/WFR-Memory-Test/outputs/stability_test.png
+
+Long Context Stability Test complete.

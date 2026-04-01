@@ -37,5 +37,9 @@
     }
   ],
   "phase_bias_rc_correlation_proxy": null,
-  "note": "A/B toy next-token; v0.2 uses --rfp-version v02 and ab_rfp_v02.json."
+  "note": "A/B toy next-token; v0.2 uses --rfp-version v02 and ab_rfp_v02.json.",
+  "artifacts": {
+    "png_ab_bar": null,
+    "png_training_curves_glob": null
+  }
 }

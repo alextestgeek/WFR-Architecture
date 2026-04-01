@@ -1,0 +1,77 @@
+{
+  "rfp_version": "v02",
+  "epochs": 8,
+  "rfp_interval": 16,
+  "online_rfp": false,
+  "spike_rate_target": 0.28,
+  "eta_alpha_v02": 5e-05,
+  "eta_f_v02": 8e-05,
+  "eta_theta_v02": 0.0002,
+  "min_spike_bonus_v02": 0.12,
+  "correlation_delta_phase_bias_vs_delta_ce": null,
+  "series_delta_pb": [
+    0.8791764974594116
+  ],
+  "series_delta_ce": [
+    0.0009582042694091797
+  ],
+  "log_every_epochs": 4,
+  "entries": [
+    {
+      "epoch": 4,
+      "val_ce": 3.467231353123983,
+      "val_rc": 0.9016047914822897,
+      "mean_spike_rate": 0.0,
+      "per_layer_spike_rate": [
+        0.0,
+        0.0,
+        0.0338541679084301,
+        0.0
+      ],
+      "per_layer_rc_share": [
+        0.02279812842607498,
+        0.012219932861626148,
+        0.5979819893836975,
+        0.36699995398521423
+      ],
+      "min_max_frequency": {
+        "min": 1.4419318437576294,
+        "max": 4.990980625152588
+      },
+      "min_max_decay": {
+        "min": 1.970200777053833,
+        "max": 2.4221794605255127
+      },
+      "delta_ce_since_last_log": 0.0,
+      "sum_abs_delta_phase_bias_interval": 0.5381633043289185
+    },
+    {
+      "epoch": 8,
+      "val_ce": 3.468189557393392,
+      "val_rc": 0.9542618989944458,
+      "mean_spike_rate": 0.11328125,
+      "per_layer_spike_rate": [
+        0.0,
+        0.0,
+        0.4683159589767456,
+        0.0
+      ],
+      "per_layer_rc_share": [
+        0.0012122265761718154,
+        0.0006532412371598184,
+        0.9483640789985657,
+        0.04977050796151161
+      ],
+      "min_max_frequency": {
+        "min": 1.4806811809539795,
+        "max": 5.019244194030762
+      },
+      "min_max_decay": {
+        "min": 2.034214973449707,
+        "max": 2.329179286956787
+      },
+      "delta_ce_since_last_log": 0.0009582042694091797,
+      "sum_abs_delta_phase_bias_interval": 0.8791764974594116
+    }
+  ]
+}

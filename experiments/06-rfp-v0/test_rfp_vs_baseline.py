@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,7 +21,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(_EXP))
 sys.path.insert(0, str(ROOT / "experiments" / "00-smoke-test"))
 
-from run_rfp_training import train_run  # noqa: E402
+from run_rfp_training import plot_ab_modes_bar, train_run  # noqa: E402
 
 
 def main() -> None:
@@ -37,7 +38,9 @@ def main() -> None:
     ap.add_argument("--spike-rate-target", type=float, default=0.25)
     ap.add_argument("--rfp-interval", type=int, default=8)
     ap.add_argument("--eta-alpha-v02", type=float, default=3e-5)
+    ap.add_argument("--no-png", action="store_true", help="не писать PNG (кривые + столбчатая сводка)")
     args = ap.parse_args()
+    save_png = not args.no_png
 
     if args.rfp_version == "v02":
         epochs = 16 if args.quick else (args.epochs or 50)
@@ -59,6 +62,7 @@ def main() -> None:
             spike_rate_target=0.25,
             seed=seed,
             log_path=None,
+            save_png=save_png,
         )
         rows.append(("Adam only", baseline))
 
@@ -72,6 +76,7 @@ def main() -> None:
             spike_rate_target=0.25,
             seed=seed,
             log_path=None,
+            save_png=save_png,
         )
         rows.append(("Adam + RFP v0 (every 8)", rfp_off))
 
@@ -85,6 +90,7 @@ def main() -> None:
             spike_rate_target=0.25,
             seed=seed,
             log_path=None,
+            save_png=save_png,
         )
         rows.append(("Adam + RFP v0 (online)", rfp_on))
 
@@ -98,6 +104,7 @@ def main() -> None:
             spike_rate_target=0.25,
             seed=seed,
             log_path=None,
+            save_png=save_png,
         )
         rows.append(("Adam + RFP v0.1 (every 8)", rfp_v01))
         out_name = "ab_rfp_baseline.json"
@@ -112,6 +119,7 @@ def main() -> None:
             spike_rate_target=args.spike_rate_target,
             seed=seed,
             log_path=None,
+            save_png=save_png,
         )
         rows.append(("Adam only", baseline))
 
@@ -126,6 +134,7 @@ def main() -> None:
             seed=seed,
             log_path=log_v02_path,
             eta_alpha_v02=args.eta_alpha_v02,
+            save_png=save_png,
         )
         rows.append((f"Adam + RFP v0.2 (every {args.rfp_interval})", m_v02))
         out_name = "ab_rfp_v02.json"
@@ -157,6 +166,10 @@ def main() -> None:
         if args.rfp_version == "v02"
         else "A/B toy next-token; v0.2 uses --rfp-version v02 and ab_rfp_v02.json."
     )
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    bar_png_name = f"ab_rfp06_bar_{args.rfp_version}_{ts}.png"
+    bar_png_path = out_dir / bar_png_name
+
     report = {
         "epochs": epochs,
         "rfp_version_mode": args.rfp_version,
@@ -164,13 +177,28 @@ def main() -> None:
         "rows": table,
         "phase_bias_rc_correlation_proxy": None,
         "note": note,
+        "artifacts": {
+            "png_ab_bar": bar_png_name if save_png else None,
+            "png_training_curves_glob": "rfp06_curves_*.png (one per train_run)" if save_png else None,
+        },
     }
     path = out_dir / out_name
     with open(path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False, allow_nan=False)
 
+    if save_png:
+        plot_rows = [{"mode": name, "best_val_ce": float(m.best_val_ce)} for name, m in rows]
+        plot_ab_modes_bar(
+            plot_rows,
+            bar_png_path,
+            title=f"Experiment 06 — best val CE ({args.rfp_version}, {epochs} ep)",
+        )
+
     print(json.dumps(report, indent=2, ensure_ascii=False))
     print(f"\nWrote {path}")
+    if save_png:
+        print(f"PNG A/B bar chart: {bar_png_path}")
+        print("PNG training curves: outputs/rfp06_curves_*.png (per mode)")
     if args.rfp_version == "v02":
         print(f"Full v0.2 log: {log_v02_path}")
 

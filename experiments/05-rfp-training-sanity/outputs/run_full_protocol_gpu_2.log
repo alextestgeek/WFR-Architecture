@@ -1,0 +1,21 @@
+=== Experiment 05 — полноценный протокол Phase 1 ===
+Эпох: 120 | strict (прогон A): True | прогон B (CE-only): True
+
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=2.000
+--- Phase 1 precheck (теория / Phase 0 / знак homeostatic) ---
+  [OK] phase0_params_in_wfr: частоты/пороги/target_mode совпадают с phase0_best_config
+  [OK] homeostatic_sign: homeostatic sign OK (порог снизился при r_real < r_target)
+  [OK] loss_formula: L formula OK (diff 0.00e+00)
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Сравнение PNG: /home/alex1/Desktop/WFR-Memory-Test/outputs/training_full_protocol_compare_20260331_1643.png
+
+Сводный JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/training_full_protocol_20260331_1643.json
+Прогон A (полная L) PASS: False | код: 1
+Прогон B (CE-only)   PASS: True | код: 0

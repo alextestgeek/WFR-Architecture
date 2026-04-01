@@ -1,0 +1,10 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Experiment 05 — RFP Training Sanity [enhanced]
+Device: cuda | L = 1.0*CE + 0.15*(1-RC) + 0.1*energy
+Val total: 6.2640 -> 3.5722
+Val CE:    6.2640 -> 3.5722 (ln V ~ 3.4657)
+Grad OK: True | grad L2 (step0): 4.033637
+PASS: True | JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/training_sanity_enhanced_20260331_1604.json

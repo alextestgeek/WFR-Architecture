@@ -1,0 +1,1273 @@
+WFR Layer Scaling Test
+Device: cuda
+GPU: NVIDIA A100 80GB PCIe
+Layer counts: [4, 8, 16, 24, 32]
+Contexts: [512, 8192, 131072]
+Strategies: ['linear', 'logarithmic', 'harmonic', 'constant']
+Homeostatic warmup: 200 passes
+================================================================================
+
+[1/60] layers=4 strategy=linear context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  RC=0.9704  Active=4/4 (100%)  Time=0.0040s
+
+[2/60] layers=4 strategy=linear context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  RC=0.8468  Active=4/4 (100%)  Time=0.0045s
+
+[3/60] layers=4 strategy=linear context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  RC=0.7112  Active=4/4 (100%)  Time=0.0056s
+
+[4/60] layers=4 strategy=logarithmic context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=2.00, threshold=0.300
+  Layer 2: freq=4.00, threshold=0.300
+  Layer 3: freq=8.00, threshold=0.300
+  RC=0.9698  Active=4/4 (100%)  Time=0.0049s
+
+[5/60] layers=4 strategy=logarithmic context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=2.00, threshold=0.300
+  Layer 2: freq=4.00, threshold=0.300
+  Layer 3: freq=8.00, threshold=0.300
+  RC=0.8456  Active=4/4 (100%)  Time=0.0041s
+
+[6/60] layers=4 strategy=logarithmic context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=2.00, threshold=0.300
+  Layer 2: freq=4.00, threshold=0.300
+  Layer 3: freq=8.00, threshold=0.300
+  RC=0.7113  Active=4/4 (100%)  Time=0.0063s
+
+[7/60] layers=4 strategy=harmonic context=512
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.9703  Active=2/4 (50%)  Time=0.0036s
+
+[8/60] layers=4 strategy=harmonic context=8,192
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.8456  Active=4/4 (100%)  Time=0.0045s
+
+[9/60] layers=4 strategy=harmonic context=131,072
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.7121  Active=4/4 (100%)  Time=0.0055s
+
+[10/60] layers=4 strategy=constant context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.9704  Active=4/4 (100%)  Time=0.0040s
+
+[11/60] layers=4 strategy=constant context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.8458  Active=4/4 (100%)  Time=0.0040s
+
+[12/60] layers=4 strategy=constant context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  RC=0.7118  Active=4/4 (100%)  Time=0.0059s
+
+[13/60] layers=8 strategy=linear context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  RC=0.9699  Active=8/8 (100%)  Time=0.0059s
+
+[14/60] layers=8 strategy=linear context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  RC=0.8462  Active=8/8 (100%)  Time=0.0057s
+
+[15/60] layers=8 strategy=linear context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  RC=0.7125  Active=8/8 (100%)  Time=0.0085s
+
+[16/60] layers=8 strategy=logarithmic context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.41, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.83, threshold=0.300
+  Layer 4: freq=4.00, threshold=0.300
+  Layer 5: freq=5.66, threshold=0.300
+  Layer 6: freq=8.00, threshold=0.300
+  Layer 7: freq=11.31, threshold=0.300
+  RC=0.9689  Active=8/8 (100%)  Time=0.0060s
+
+[17/60] layers=8 strategy=logarithmic context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.41, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.83, threshold=0.300
+  Layer 4: freq=4.00, threshold=0.300
+  Layer 5: freq=5.66, threshold=0.300
+  Layer 6: freq=8.00, threshold=0.300
+  Layer 7: freq=11.31, threshold=0.300
+  RC=0.8467  Active=8/8 (100%)  Time=0.0063s
+
+[18/60] layers=8 strategy=logarithmic context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.41, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.83, threshold=0.300
+  Layer 4: freq=4.00, threshold=0.300
+  Layer 5: freq=5.66, threshold=0.300
+  Layer 6: freq=8.00, threshold=0.300
+  Layer 7: freq=11.31, threshold=0.300
+  RC=0.7123  Active=8/8 (100%)  Time=0.0080s
+
+[19/60] layers=8 strategy=harmonic context=512
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  RC=0.9703  Active=8/8 (100%)  Time=0.0057s
+
+[20/60] layers=8 strategy=harmonic context=8,192
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  RC=0.8462  Active=8/8 (100%)  Time=0.0099s
+
+[21/60] layers=8 strategy=harmonic context=131,072
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  RC=0.7114  Active=8/8 (100%)  Time=0.0081s
+
+[22/60] layers=8 strategy=constant context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  RC=0.9702  Active=8/8 (100%)  Time=0.0065s
+
+[23/60] layers=8 strategy=constant context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  RC=0.8464  Active=8/8 (100%)  Time=0.0113s
+
+[24/60] layers=8 strategy=constant context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  RC=0.7116  Active=8/8 (100%)  Time=0.0084s
+
+[25/60] layers=16 strategy=linear context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  RC=0.9702  Active=15/16 (94%)  Time=0.0108s
+
+[26/60] layers=16 strategy=linear context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  RC=0.8462  Active=16/16 (100%)  Time=0.0097s
+
+[27/60] layers=16 strategy=linear context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  RC=0.7120  Active=16/16 (100%)  Time=0.0129s
+
+[28/60] layers=16 strategy=logarithmic context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.19, threshold=0.300
+  Layer 2: freq=1.41, threshold=0.300
+  Layer 3: freq=1.68, threshold=0.300
+  Layer 4: freq=2.00, threshold=0.300
+  Layer 5: freq=2.38, threshold=0.300
+  Layer 6: freq=2.83, threshold=0.300
+  Layer 7: freq=3.36, threshold=0.300
+  Layer 8: freq=4.00, threshold=0.300
+  Layer 9: freq=4.76, threshold=0.300
+  Layer 10: freq=5.66, threshold=0.300
+  Layer 11: freq=6.73, threshold=0.300
+  Layer 12: freq=8.00, threshold=0.300
+  Layer 13: freq=9.51, threshold=0.300
+  Layer 14: freq=11.31, threshold=0.300
+  Layer 15: freq=13.45, threshold=0.300
+  RC=0.9698  Active=14/16 (88%)  Time=0.0102s
+
+[29/60] layers=16 strategy=logarithmic context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.19, threshold=0.300
+  Layer 2: freq=1.41, threshold=0.300
+  Layer 3: freq=1.68, threshold=0.300
+  Layer 4: freq=2.00, threshold=0.300
+  Layer 5: freq=2.38, threshold=0.300
+  Layer 6: freq=2.83, threshold=0.300
+  Layer 7: freq=3.36, threshold=0.300
+  Layer 8: freq=4.00, threshold=0.300
+  Layer 9: freq=4.76, threshold=0.300
+  Layer 10: freq=5.66, threshold=0.300
+  Layer 11: freq=6.73, threshold=0.300
+  Layer 12: freq=8.00, threshold=0.300
+  Layer 13: freq=9.51, threshold=0.300
+  Layer 14: freq=11.31, threshold=0.300
+  Layer 15: freq=13.45, threshold=0.300
+  RC=0.8461  Active=16/16 (100%)  Time=0.0106s
+
+[30/60] layers=16 strategy=logarithmic context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.19, threshold=0.300
+  Layer 2: freq=1.41, threshold=0.300
+  Layer 3: freq=1.68, threshold=0.300
+  Layer 4: freq=2.00, threshold=0.300
+  Layer 5: freq=2.38, threshold=0.300
+  Layer 6: freq=2.83, threshold=0.300
+  Layer 7: freq=3.36, threshold=0.300
+  Layer 8: freq=4.00, threshold=0.300
+  Layer 9: freq=4.76, threshold=0.300
+  Layer 10: freq=5.66, threshold=0.300
+  Layer 11: freq=6.73, threshold=0.300
+  Layer 12: freq=8.00, threshold=0.300
+  Layer 13: freq=9.51, threshold=0.300
+  Layer 14: freq=11.31, threshold=0.300
+  Layer 15: freq=13.45, threshold=0.300
+  RC=0.7122  Active=16/16 (100%)  Time=0.0145s
+
+[31/60] layers=16 strategy=harmonic context=512
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  RC=0.9695  Active=14/16 (88%)  Time=0.0117s
+
+[32/60] layers=16 strategy=harmonic context=8,192
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  RC=0.8465  Active=16/16 (100%)  Time=0.0122s
+
+[33/60] layers=16 strategy=harmonic context=131,072
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  RC=0.7125  Active=16/16 (100%)  Time=0.0149s
+
+[34/60] layers=16 strategy=constant context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  RC=0.9705  Active=15/16 (94%)  Time=0.0118s
+
+[35/60] layers=16 strategy=constant context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  RC=0.8467  Active=16/16 (100%)  Time=0.0132s
+
+[36/60] layers=16 strategy=constant context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  RC=0.7123  Active=16/16 (100%)  Time=0.0136s
+
+[37/60] layers=24 strategy=linear context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  RC=0.9689  Active=24/24 (100%)  Time=0.0160s
+
+[38/60] layers=24 strategy=linear context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  RC=0.8462  Active=24/24 (100%)  Time=0.0138s
+
+[39/60] layers=24 strategy=linear context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  RC=0.7093  Active=24/24 (100%)  Time=0.0184s
+
+[40/60] layers=24 strategy=logarithmic context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.12, threshold=0.300
+  Layer 2: freq=1.26, threshold=0.300
+  Layer 3: freq=1.41, threshold=0.300
+  Layer 4: freq=1.59, threshold=0.300
+  Layer 5: freq=1.78, threshold=0.300
+  Layer 6: freq=2.00, threshold=0.300
+  Layer 7: freq=2.24, threshold=0.300
+  Layer 8: freq=2.52, threshold=0.300
+  Layer 9: freq=2.83, threshold=0.300
+  Layer 10: freq=3.17, threshold=0.300
+  Layer 11: freq=3.56, threshold=0.300
+  Layer 12: freq=4.00, threshold=0.300
+  Layer 13: freq=4.49, threshold=0.300
+  Layer 14: freq=5.04, threshold=0.300
+  Layer 15: freq=5.66, threshold=0.300
+  Layer 16: freq=6.35, threshold=0.300
+  Layer 17: freq=7.13, threshold=0.300
+  Layer 18: freq=8.00, threshold=0.300
+  Layer 19: freq=8.98, threshold=0.300
+  Layer 20: freq=10.08, threshold=0.300
+  Layer 21: freq=11.31, threshold=0.300
+  Layer 22: freq=12.70, threshold=0.300
+  Layer 23: freq=14.25, threshold=0.300
+  RC=0.9704  Active=22/24 (92%)  Time=0.0137s
+
+[41/60] layers=24 strategy=logarithmic context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.12, threshold=0.300
+  Layer 2: freq=1.26, threshold=0.300
+  Layer 3: freq=1.41, threshold=0.300
+  Layer 4: freq=1.59, threshold=0.300
+  Layer 5: freq=1.78, threshold=0.300
+  Layer 6: freq=2.00, threshold=0.300
+  Layer 7: freq=2.24, threshold=0.300
+  Layer 8: freq=2.52, threshold=0.300
+  Layer 9: freq=2.83, threshold=0.300
+  Layer 10: freq=3.17, threshold=0.300
+  Layer 11: freq=3.56, threshold=0.300
+  Layer 12: freq=4.00, threshold=0.300
+  Layer 13: freq=4.49, threshold=0.300
+  Layer 14: freq=5.04, threshold=0.300
+  Layer 15: freq=5.66, threshold=0.300
+  Layer 16: freq=6.35, threshold=0.300
+  Layer 17: freq=7.13, threshold=0.300
+  Layer 18: freq=8.00, threshold=0.300
+  Layer 19: freq=8.98, threshold=0.300
+  Layer 20: freq=10.08, threshold=0.300
+  Layer 21: freq=11.31, threshold=0.300
+  Layer 22: freq=12.70, threshold=0.300
+  Layer 23: freq=14.25, threshold=0.300
+  RC=0.8468  Active=24/24 (100%)  Time=0.0142s
+
+[42/60] layers=24 strategy=logarithmic context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.12, threshold=0.300
+  Layer 2: freq=1.26, threshold=0.300
+  Layer 3: freq=1.41, threshold=0.300
+  Layer 4: freq=1.59, threshold=0.300
+  Layer 5: freq=1.78, threshold=0.300
+  Layer 6: freq=2.00, threshold=0.300
+  Layer 7: freq=2.24, threshold=0.300
+  Layer 8: freq=2.52, threshold=0.300
+  Layer 9: freq=2.83, threshold=0.300
+  Layer 10: freq=3.17, threshold=0.300
+  Layer 11: freq=3.56, threshold=0.300
+  Layer 12: freq=4.00, threshold=0.300
+  Layer 13: freq=4.49, threshold=0.300
+  Layer 14: freq=5.04, threshold=0.300
+  Layer 15: freq=5.66, threshold=0.300
+  Layer 16: freq=6.35, threshold=0.300
+  Layer 17: freq=7.13, threshold=0.300
+  Layer 18: freq=8.00, threshold=0.300
+  Layer 19: freq=8.98, threshold=0.300
+  Layer 20: freq=10.08, threshold=0.300
+  Layer 21: freq=11.31, threshold=0.300
+  Layer 22: freq=12.70, threshold=0.300
+  Layer 23: freq=14.25, threshold=0.300
+  RC=0.7111  Active=24/24 (100%)  Time=0.0198s
+
+[43/60] layers=24 strategy=harmonic context=512
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  RC=0.9708  Active=23/24 (96%)  Time=0.0140s
+
+[44/60] layers=24 strategy=harmonic context=8,192
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  RC=0.8466  Active=24/24 (100%)  Time=0.0145s
+
+[45/60] layers=24 strategy=harmonic context=131,072
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  RC=0.7120  Active=24/24 (100%)  Time=0.0189s
+
+[46/60] layers=24 strategy=constant context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  RC=0.9700  Active=23/24 (96%)  Time=0.0142s
+
+[47/60] layers=24 strategy=constant context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  RC=0.8467  Active=24/24 (100%)  Time=0.0157s
+
+[48/60] layers=24 strategy=constant context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  RC=0.7118  Active=24/24 (100%)  Time=0.0177s
+
+[49/60] layers=32 strategy=linear context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  Layer 24: freq=13.00, threshold=0.300
+  Layer 25: freq=13.50, threshold=0.300
+  Layer 26: freq=14.00, threshold=0.300
+  Layer 27: freq=14.50, threshold=0.300
+  Layer 28: freq=15.00, threshold=0.300
+  Layer 29: freq=15.50, threshold=0.300
+  Layer 30: freq=16.00, threshold=0.300
+  Layer 31: freq=16.50, threshold=0.300
+  RC=0.9708  Active=30/32 (94%)  Time=0.0203s
+
+[50/60] layers=32 strategy=linear context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  Layer 24: freq=13.00, threshold=0.300
+  Layer 25: freq=13.50, threshold=0.300
+  Layer 26: freq=14.00, threshold=0.300
+  Layer 27: freq=14.50, threshold=0.300
+  Layer 28: freq=15.00, threshold=0.300
+  Layer 29: freq=15.50, threshold=0.300
+  Layer 30: freq=16.00, threshold=0.300
+  Layer 31: freq=16.50, threshold=0.300
+  RC=0.8456  Active=32/32 (100%)  Time=0.0220s
+
+[51/60] layers=32 strategy=linear context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.50, threshold=0.300
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.300
+  Layer 4: freq=3.00, threshold=0.300
+  Layer 5: freq=3.50, threshold=0.300
+  Layer 6: freq=4.00, threshold=0.300
+  Layer 7: freq=4.50, threshold=0.300
+  Layer 8: freq=5.00, threshold=0.300
+  Layer 9: freq=5.50, threshold=0.300
+  Layer 10: freq=6.00, threshold=0.300
+  Layer 11: freq=6.50, threshold=0.300
+  Layer 12: freq=7.00, threshold=0.300
+  Layer 13: freq=7.50, threshold=0.300
+  Layer 14: freq=8.00, threshold=0.300
+  Layer 15: freq=8.50, threshold=0.300
+  Layer 16: freq=9.00, threshold=0.300
+  Layer 17: freq=9.50, threshold=0.300
+  Layer 18: freq=10.00, threshold=0.300
+  Layer 19: freq=10.50, threshold=0.300
+  Layer 20: freq=11.00, threshold=0.300
+  Layer 21: freq=11.50, threshold=0.300
+  Layer 22: freq=12.00, threshold=0.300
+  Layer 23: freq=12.50, threshold=0.300
+  Layer 24: freq=13.00, threshold=0.300
+  Layer 25: freq=13.50, threshold=0.300
+  Layer 26: freq=14.00, threshold=0.300
+  Layer 27: freq=14.50, threshold=0.300
+  Layer 28: freq=15.00, threshold=0.300
+  Layer 29: freq=15.50, threshold=0.300
+  Layer 30: freq=16.00, threshold=0.300
+  Layer 31: freq=16.50, threshold=0.300
+  RC=0.7119  Active=32/32 (100%)  Time=0.0226s
+
+[52/60] layers=32 strategy=logarithmic context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.09, threshold=0.300
+  Layer 2: freq=1.19, threshold=0.300
+  Layer 3: freq=1.30, threshold=0.300
+  Layer 4: freq=1.41, threshold=0.300
+  Layer 5: freq=1.54, threshold=0.300
+  Layer 6: freq=1.68, threshold=0.300
+  Layer 7: freq=1.83, threshold=0.300
+  Layer 8: freq=2.00, threshold=0.300
+  Layer 9: freq=2.18, threshold=0.300
+  Layer 10: freq=2.38, threshold=0.300
+  Layer 11: freq=2.59, threshold=0.300
+  Layer 12: freq=2.83, threshold=0.300
+  Layer 13: freq=3.08, threshold=0.300
+  Layer 14: freq=3.36, threshold=0.300
+  Layer 15: freq=3.67, threshold=0.300
+  Layer 16: freq=4.00, threshold=0.300
+  Layer 17: freq=4.36, threshold=0.300
+  Layer 18: freq=4.76, threshold=0.300
+  Layer 19: freq=5.19, threshold=0.300
+  Layer 20: freq=5.66, threshold=0.300
+  Layer 21: freq=6.17, threshold=0.300
+  Layer 22: freq=6.73, threshold=0.300
+  Layer 23: freq=7.34, threshold=0.300
+  Layer 24: freq=8.00, threshold=0.300
+  Layer 25: freq=8.72, threshold=0.300
+  Layer 26: freq=9.51, threshold=0.300
+  Layer 27: freq=10.37, threshold=0.300
+  Layer 28: freq=11.31, threshold=0.300
+  Layer 29: freq=12.34, threshold=0.300
+  Layer 30: freq=13.45, threshold=0.300
+  Layer 31: freq=14.67, threshold=0.300
+  RC=0.9685  Active=29/32 (91%)  Time=0.0173s
+
+[53/60] layers=32 strategy=logarithmic context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.09, threshold=0.300
+  Layer 2: freq=1.19, threshold=0.300
+  Layer 3: freq=1.30, threshold=0.300
+  Layer 4: freq=1.41, threshold=0.300
+  Layer 5: freq=1.54, threshold=0.300
+  Layer 6: freq=1.68, threshold=0.300
+  Layer 7: freq=1.83, threshold=0.300
+  Layer 8: freq=2.00, threshold=0.300
+  Layer 9: freq=2.18, threshold=0.300
+  Layer 10: freq=2.38, threshold=0.300
+  Layer 11: freq=2.59, threshold=0.300
+  Layer 12: freq=2.83, threshold=0.300
+  Layer 13: freq=3.08, threshold=0.300
+  Layer 14: freq=3.36, threshold=0.300
+  Layer 15: freq=3.67, threshold=0.300
+  Layer 16: freq=4.00, threshold=0.300
+  Layer 17: freq=4.36, threshold=0.300
+  Layer 18: freq=4.76, threshold=0.300
+  Layer 19: freq=5.19, threshold=0.300
+  Layer 20: freq=5.66, threshold=0.300
+  Layer 21: freq=6.17, threshold=0.300
+  Layer 22: freq=6.73, threshold=0.300
+  Layer 23: freq=7.34, threshold=0.300
+  Layer 24: freq=8.00, threshold=0.300
+  Layer 25: freq=8.72, threshold=0.300
+  Layer 26: freq=9.51, threshold=0.300
+  Layer 27: freq=10.37, threshold=0.300
+  Layer 28: freq=11.31, threshold=0.300
+  Layer 29: freq=12.34, threshold=0.300
+  Layer 30: freq=13.45, threshold=0.300
+  Layer 31: freq=14.67, threshold=0.300
+  RC=0.8463  Active=32/32 (100%)  Time=0.0192s
+
+[54/60] layers=32 strategy=logarithmic context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.09, threshold=0.300
+  Layer 2: freq=1.19, threshold=0.300
+  Layer 3: freq=1.30, threshold=0.300
+  Layer 4: freq=1.41, threshold=0.300
+  Layer 5: freq=1.54, threshold=0.300
+  Layer 6: freq=1.68, threshold=0.300
+  Layer 7: freq=1.83, threshold=0.300
+  Layer 8: freq=2.00, threshold=0.300
+  Layer 9: freq=2.18, threshold=0.300
+  Layer 10: freq=2.38, threshold=0.300
+  Layer 11: freq=2.59, threshold=0.300
+  Layer 12: freq=2.83, threshold=0.300
+  Layer 13: freq=3.08, threshold=0.300
+  Layer 14: freq=3.36, threshold=0.300
+  Layer 15: freq=3.67, threshold=0.300
+  Layer 16: freq=4.00, threshold=0.300
+  Layer 17: freq=4.36, threshold=0.300
+  Layer 18: freq=4.76, threshold=0.300
+  Layer 19: freq=5.19, threshold=0.300
+  Layer 20: freq=5.66, threshold=0.300
+  Layer 21: freq=6.17, threshold=0.300
+  Layer 22: freq=6.73, threshold=0.300
+  Layer 23: freq=7.34, threshold=0.300
+  Layer 24: freq=8.00, threshold=0.300
+  Layer 25: freq=8.72, threshold=0.300
+  Layer 26: freq=9.51, threshold=0.300
+  Layer 27: freq=10.37, threshold=0.300
+  Layer 28: freq=11.31, threshold=0.300
+  Layer 29: freq=12.34, threshold=0.300
+  Layer 30: freq=13.45, threshold=0.300
+  Layer 31: freq=14.67, threshold=0.300
+  RC=0.7124  Active=32/32 (100%)  Time=0.0233s
+
+[55/60] layers=32 strategy=harmonic context=512
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  Layer 24: freq=6.25, threshold=0.300
+  Layer 25: freq=6.50, threshold=0.300
+  Layer 26: freq=6.75, threshold=0.300
+  Layer 27: freq=7.00, threshold=0.300
+  Layer 28: freq=7.25, threshold=0.300
+  Layer 29: freq=7.50, threshold=0.300
+  Layer 30: freq=7.75, threshold=0.300
+  Layer 31: freq=8.00, threshold=0.300
+  RC=0.9707  Active=29/32 (91%)  Time=0.0204s
+
+[56/60] layers=32 strategy=harmonic context=8,192
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  Layer 24: freq=6.25, threshold=0.300
+  Layer 25: freq=6.50, threshold=0.300
+  Layer 26: freq=6.75, threshold=0.300
+  Layer 27: freq=7.00, threshold=0.300
+  Layer 28: freq=7.25, threshold=0.300
+  Layer 29: freq=7.50, threshold=0.300
+  Layer 30: freq=7.75, threshold=0.300
+  Layer 31: freq=8.00, threshold=0.300
+  RC=0.8443  Active=32/32 (100%)  Time=0.0211s
+
+[57/60] layers=32 strategy=harmonic context=131,072
+  Layer 0: freq=0.25, threshold=0.300
+  Layer 1: freq=0.50, threshold=0.300
+  Layer 2: freq=0.75, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.25, threshold=0.300
+  Layer 5: freq=1.50, threshold=0.300
+  Layer 6: freq=1.75, threshold=0.300
+  Layer 7: freq=2.00, threshold=0.300
+  Layer 8: freq=2.25, threshold=0.300
+  Layer 9: freq=2.50, threshold=0.300
+  Layer 10: freq=2.75, threshold=0.300
+  Layer 11: freq=3.00, threshold=0.300
+  Layer 12: freq=3.25, threshold=0.300
+  Layer 13: freq=3.50, threshold=0.300
+  Layer 14: freq=3.75, threshold=0.300
+  Layer 15: freq=4.00, threshold=0.300
+  Layer 16: freq=4.25, threshold=0.300
+  Layer 17: freq=4.50, threshold=0.300
+  Layer 18: freq=4.75, threshold=0.300
+  Layer 19: freq=5.00, threshold=0.300
+  Layer 20: freq=5.25, threshold=0.300
+  Layer 21: freq=5.50, threshold=0.300
+  Layer 22: freq=5.75, threshold=0.300
+  Layer 23: freq=6.00, threshold=0.300
+  Layer 24: freq=6.25, threshold=0.300
+  Layer 25: freq=6.50, threshold=0.300
+  Layer 26: freq=6.75, threshold=0.300
+  Layer 27: freq=7.00, threshold=0.300
+  Layer 28: freq=7.25, threshold=0.300
+  Layer 29: freq=7.50, threshold=0.300
+  Layer 30: freq=7.75, threshold=0.300
+  Layer 31: freq=8.00, threshold=0.300
+  RC=0.7124  Active=32/32 (100%)  Time=0.0254s
+
+[58/60] layers=32 strategy=constant context=512
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  Layer 24: freq=1.00, threshold=0.300
+  Layer 25: freq=1.00, threshold=0.300
+  Layer 26: freq=1.00, threshold=0.300
+  Layer 27: freq=1.00, threshold=0.300
+  Layer 28: freq=1.00, threshold=0.300
+  Layer 29: freq=1.00, threshold=0.300
+  Layer 30: freq=1.00, threshold=0.300
+  Layer 31: freq=1.00, threshold=0.300
+  RC=0.9703  Active=31/32 (97%)  Time=0.0167s
+
+[59/60] layers=32 strategy=constant context=8,192
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  Layer 24: freq=1.00, threshold=0.300
+  Layer 25: freq=1.00, threshold=0.300
+  Layer 26: freq=1.00, threshold=0.300
+  Layer 27: freq=1.00, threshold=0.300
+  Layer 28: freq=1.00, threshold=0.300
+  Layer 29: freq=1.00, threshold=0.300
+  Layer 30: freq=1.00, threshold=0.300
+  Layer 31: freq=1.00, threshold=0.300
+  RC=0.8462  Active=32/32 (100%)  Time=0.0195s
+
+[60/60] layers=32 strategy=constant context=131,072
+  Layer 0: freq=1.00, threshold=0.300
+  Layer 1: freq=1.00, threshold=0.300
+  Layer 2: freq=1.00, threshold=0.300
+  Layer 3: freq=1.00, threshold=0.300
+  Layer 4: freq=1.00, threshold=0.300
+  Layer 5: freq=1.00, threshold=0.300
+  Layer 6: freq=1.00, threshold=0.300
+  Layer 7: freq=1.00, threshold=0.300
+  Layer 8: freq=1.00, threshold=0.300
+  Layer 9: freq=1.00, threshold=0.300
+  Layer 10: freq=1.00, threshold=0.300
+  Layer 11: freq=1.00, threshold=0.300
+  Layer 12: freq=1.00, threshold=0.300
+  Layer 13: freq=1.00, threshold=0.300
+  Layer 14: freq=1.00, threshold=0.300
+  Layer 15: freq=1.00, threshold=0.300
+  Layer 16: freq=1.00, threshold=0.300
+  Layer 17: freq=1.00, threshold=0.300
+  Layer 18: freq=1.00, threshold=0.300
+  Layer 19: freq=1.00, threshold=0.300
+  Layer 20: freq=1.00, threshold=0.300
+  Layer 21: freq=1.00, threshold=0.300
+  Layer 22: freq=1.00, threshold=0.300
+  Layer 23: freq=1.00, threshold=0.300
+  Layer 24: freq=1.00, threshold=0.300
+  Layer 25: freq=1.00, threshold=0.300
+  Layer 26: freq=1.00, threshold=0.300
+  Layer 27: freq=1.00, threshold=0.300
+  Layer 28: freq=1.00, threshold=0.300
+  Layer 29: freq=1.00, threshold=0.300
+  Layer 30: freq=1.00, threshold=0.300
+  Layer 31: freq=1.00, threshold=0.300
+  RC=0.7117  Active=32/32 (100%)  Time=0.0219s
+
+Results saved: /home/alex1/Desktop/WFR-Memory-Test/outputs/layer_scaling_20260331_1322.json
+Plots saved: /home/alex1/Desktop/WFR-Memory-Test/outputs/layer_scaling.png
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+Layers      Strategy   Context      RC     Active   Ratio     Time
+--------------------------------------------------------------------------------
+     4        linear       512  0.9704    4/4      100%    0.004s
+     4        linear     8,192  0.8468    4/4      100%    0.004s
+     4        linear   131,072  0.7112    4/4      100%    0.006s
+     4   logarithmic       512  0.9698    4/4      100%    0.005s
+     4   logarithmic     8,192  0.8456    4/4      100%    0.004s
+     4   logarithmic   131,072  0.7113    4/4      100%    0.006s
+     4      harmonic       512  0.9703    2/4       50%    0.004s
+     4      harmonic     8,192  0.8456    4/4      100%    0.004s
+     4      harmonic   131,072  0.7121    4/4      100%    0.005s
+     4      constant       512  0.9704    4/4      100%    0.004s
+     4      constant     8,192  0.8458    4/4      100%    0.004s
+     4      constant   131,072  0.7118    4/4      100%    0.006s
+     8        linear       512  0.9699    8/8      100%    0.006s
+     8        linear     8,192  0.8462    8/8      100%    0.006s
+     8        linear   131,072  0.7125    8/8      100%    0.009s
+     8   logarithmic       512  0.9689    8/8      100%    0.006s
+     8   logarithmic     8,192  0.8467    8/8      100%    0.006s
+     8   logarithmic   131,072  0.7123    8/8      100%    0.008s
+     8      harmonic       512  0.9703    8/8      100%    0.006s
+     8      harmonic     8,192  0.8462    8/8      100%    0.010s
+     8      harmonic   131,072  0.7114    8/8      100%    0.008s
+     8      constant       512  0.9702    8/8      100%    0.006s
+     8      constant     8,192  0.8464    8/8      100%    0.011s
+     8      constant   131,072  0.7116    8/8      100%    0.008s
+    16        linear       512  0.9702   15/16      94%    0.011s
+    16        linear     8,192  0.8462   16/16     100%    0.010s
+    16        linear   131,072  0.7120   16/16     100%    0.013s
+    16   logarithmic       512  0.9698   14/16      88%    0.010s
+    16   logarithmic     8,192  0.8461   16/16     100%    0.011s
+    16   logarithmic   131,072  0.7122   16/16     100%    0.015s
+    16      harmonic       512  0.9695   14/16      88%    0.012s
+    16      harmonic     8,192  0.8465   16/16     100%    0.012s
+    16      harmonic   131,072  0.7125   16/16     100%    0.015s
+    16      constant       512  0.9705   15/16      94%    0.012s
+    16      constant     8,192  0.8467   16/16     100%    0.013s
+    16      constant   131,072  0.7123   16/16     100%    0.014s
+    24        linear       512  0.9689   24/24     100%    0.016s
+    24        linear     8,192  0.8462   24/24     100%    0.014s
+    24        linear   131,072  0.7093   24/24     100%    0.018s
+    24   logarithmic       512  0.9704   22/24      92%    0.014s
+    24   logarithmic     8,192  0.8468   24/24     100%    0.014s
+    24   logarithmic   131,072  0.7111   24/24     100%    0.020s
+    24      harmonic       512  0.9708   23/24      96%    0.014s
+    24      harmonic     8,192  0.8466   24/24     100%    0.015s
+    24      harmonic   131,072  0.7120   24/24     100%    0.019s
+    24      constant       512  0.9700   23/24      96%    0.014s
+    24      constant     8,192  0.8467   24/24     100%    0.016s
+    24      constant   131,072  0.7118   24/24     100%    0.018s
+    32        linear       512  0.9708   30/32      94%    0.020s
+    32        linear     8,192  0.8456   32/32     100%    0.022s
+    32        linear   131,072  0.7119   32/32     100%    0.023s
+    32   logarithmic       512  0.9685   29/32      91%    0.017s
+    32   logarithmic     8,192  0.8463   32/32     100%    0.019s
+    32   logarithmic   131,072  0.7124   32/32     100%    0.023s
+    32      harmonic       512  0.9707   29/32      91%    0.020s
+    32      harmonic     8,192  0.8443   32/32     100%    0.021s
+    32      harmonic   131,072  0.7124   32/32     100%    0.025s
+    32      constant       512  0.9703   31/32      97%    0.017s
+    32      constant     8,192  0.8462   32/32     100%    0.019s
+    32      constant   131,072  0.7117   32/32     100%    0.022s
+
+----------------------------------------
+Best for 32 layers:
+  Strategy: linear
+  Active: 32/32 (100%)
+  RC: 0.8456
+
+Layer Scaling Test complete.

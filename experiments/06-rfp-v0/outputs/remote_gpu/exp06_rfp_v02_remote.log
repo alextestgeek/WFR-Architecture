@@ -1,0 +1,39 @@
+/home/alex1/Desktop/WFR-Memory-Test/wfr_rfp.py:110: SyntaxWarning: invalid escape sequence '\('
+  """
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "epochs": 50,
+  "rfp_version_mode": "v02",
+  "baseline_best_val_ce": 3.465303818384806,
+  "rows": [
+    {
+      "mode": "Adam only",
+      "best_val_ce": 3.4653,
+      "val_ce_vs_baseline_pct": 0.0,
+      "final_val_rc": 1.0,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.24256
+    },
+    {
+      "mode": "Adam + RFP v0.2 (every 8)",
+      "best_val_ce": 3.46566,
+      "val_ce_vs_baseline_pct": -0.01,
+      "final_val_rc": 0.99999,
+      "spike_rate": 0.0,
+      "max_grad_l2": 0.24256,
+      "corr_delta_pb_delta_ce": -0.10031
+    }
+  ],
+  "phase_bias_rc_correlation_proxy": null,
+  "note": "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json."
+}
+
+Wrote /home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/ab_rfp_v02.json
+Full v0.2 log: /home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v02_log.json

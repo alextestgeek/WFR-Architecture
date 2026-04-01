@@ -1,0 +1,85 @@
+Starting large memory test at \03/31/2026 11:05:04
+Memory & Complexity Test
+Device: cuda
+CUDA: NVIDIA A100 80GB PCIe (capability (8, 0))
+Testing contexts: [512, 2048, 8192, 16384, 32768, 65536, 131072, 524288, 1048576, 4194304, 16777216, 33554432, 67108864, 100000000]
+================================================================================
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.50, threshold=0.250
+  Layer 2: freq=2.00, threshold=0.300
+  Layer 3: freq=2.50, threshold=0.350
+
+Testing context = 512
+  VRAM before: 0.0 MB
+  VRAM after:  0.3 MB (+0.2 MB)
+  RC: 0.9308 | Time: 0.1267s | Mem/token: 0.5 KB | Active: 0/4
+
+Testing context = 2,048
+  VRAM before: 0.1 MB
+  VRAM after:  1.0 MB (+1.0 MB)
+  RC: 0.8276 | Time: 0.0023s | Mem/token: 0.5 KB | Active: 1/4
+
+Testing context = 8,192
+  VRAM before: 0.3 MB
+  VRAM after:  4.1 MB (+3.8 MB)
+  RC: 0.7097 | Time: 0.0028s | Mem/token: 0.5 KB | Active: 1/4
+
+Testing context = 16,384
+  VRAM before: 0.9 MB
+  VRAM after:  8.6 MB (+7.7 MB)
+  RC: 0.6483 | Time: 0.0027s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 32,768
+  VRAM before: 1.8 MB
+  VRAM after:  17.2 MB (+15.4 MB)
+  RC: 0.5845 | Time: 0.0025s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 65,536
+  VRAM before: 3.6 MB
+  VRAM after:  34.4 MB (+30.8 MB)
+  RC: 0.5252 | Time: 0.0025s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 131,072
+  VRAM before: 7.3 MB
+  VRAM after:  68.8 MB (+61.5 MB)
+  RC: 0.4627 | Time: 0.0031s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 524,288
+  VRAM before: 16.5 MB
+  VRAM after:  262.5 MB (+246.0 MB)
+  RC: 0.3398 | Time: 0.0045s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 1,048,576
+  VRAM before: 58.0 MB
+  VRAM after:  550.0 MB (+492.0 MB)
+  RC: 0.2782 | Time: 0.0101s | Mem/token: 0.5 KB | Active: 2/4
+
+Testing context = 4,194,304
+  VRAM before: 132.0 MB
+  VRAM after:  2100.0 MB (+1968.0 MB)
+  RC: 0.1553 | Time: 0.0202s | Mem/token: 0.5 KB | Active: 4/4
+
+Testing context = 16,777,216
+  VRAM before: 528.0 MB
+  VRAM after:  8400.0 MB (+7872.0 MB)
+  RC: 0.0510 | Time: 0.0652s | Mem/token: 0.5 KB | Active: 4/4
+
+Testing context = 33,554,432
+  VRAM before: 1856.0 MB
+  VRAM after:  17600.0 MB (+15744.0 MB)
+  RC: 0.0282 | Time: 0.1281s | Mem/token: 0.5 KB | Active: 4/4
+
+Testing context = 67,108,864
+  VRAM before: 3712.0 MB
+  VRAM after:  35200.0 MB (+31488.0 MB)
+  RC: 0.0156 | Time: 0.2520s | Mem/token: 0.5 KB | Active: 4/4
+
+Testing context = 100,000,000
+  VRAM before: 7162.9 MB
+  VRAM after:  54087.1 MB (+46924.2 MB)
+  RC: 0.0110 | Time: 1.4081s | Mem/token: 0.5 KB | Active: 4/4
+
+Результаты сохранены: /home/alex1/Desktop/WFR-Memory-Test/outputs/memory_test_20260331_1105.json
+Графики сохранены: /home/alex1/Desktop/WFR-Memory-Test/outputs/memory_complexity.png
+
+Тест на память и сложность завершён.
