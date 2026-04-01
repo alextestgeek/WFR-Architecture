@@ -1,0 +1,9 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+Experiment 06 — LLM Trainability
+Device: cuda | vocab=256 | lnV=5.5452 | epochs=60
+Best val CE: 0.6627 @ ep 59 | PASS: True (strict=True)
+JSON: /home/alex1/Desktop/WFR-Memory-Test/outputs/llm_trainability_20260331_1720.json
+PNG:  /home/alex1/Desktop/WFR-Memory-Test/outputs/llm_trainability_curves_20260331_1720.png
