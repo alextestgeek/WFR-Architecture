@@ -46,3 +46,5 @@ README.ru.md
 experiments/**/outputs/*.bin
 experiments/**/outputs/*.pt
 experiments/**/outputs/*.onnx
+# RFP v0.2 grid per-run logs (summary stays in rfp_v02_grid.json)
+experiments/**/outputs/rfp_v02_grid_run_*.json

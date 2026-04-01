@@ -95,6 +95,82 @@ def rfp_step_v01(
     return out
 
 
+def rfp_step_v02(
+    network: torch.nn.Module,
+    state: "WFRState",
+    ce_loss: torch.Tensor,
+    mode: str = "offline",
+    *,
+    spike_target: float = 0.25,
+    eta_f: float = 8e-5,
+    eta_theta: float = 2e-4,
+    eta_alpha: float = 3e-5,
+    min_spike_bonus: float = 0.12,
+) -> Dict[str, torch.Tensor]:
+    r"""
+    RFP v0.2: усиление частоты при низком спайке, \(\cos\) между слоями для \(\Delta\theta\),
+    мягкий homeostatic по decay.
+
+    Обозначения (KaTeX):
+    - \(\varepsilon = 1 - e^{-\min(L_{\mathrm{CE}},\,8)}\) — нормированная ошибка задачи.
+    - \(\mathrm{RC}\) — скалярный resonance confidence.
+    - \(r\) — средняя доля спайков по standing wave; \(r^\*=\) ``spike_target``.
+    - Бонус к частоте: \(b = \max(0,\, r_{\min} - r)\) с \(r_{\min}=\) ``min_spike_bonus``.
+    - \(\Delta f_l \propto \eta_f\,\mathrm{RC}(1-\varepsilon) + 0.8\,\eta_f\,b\).
+    - \(\Delta\theta_l \propto \eta_\theta\big(\mathrm{RC}\,\varepsilon + 0.1\cos(\phi_{l-1}-\phi_{l+1})\big)\) (средние |u| как прокси фаз).
+    - \(\Delta\alpha_l \propto \eta_\alpha\,(r-r^\*)\cdot \kappa(r)\), где \(\kappa=1\) если \(r>0.05\) иначе \(0.3\).
+    """
+    del mode
+    deltas: Dict[str, torch.Tensor] = {}
+    err = 1.0 - torch.exp(-ce_loss.detach().clamp(max=8.0))
+    rc = state.rc.detach()
+    if rc.dim() > 0:
+        rc = rc.mean()
+
+    spikes = state.spikes.detach()
+    real_spike_rate = spikes.mean()
+    device, dtype = real_spike_rate.device, real_spike_rate.dtype
+
+    means = getattr(state, "layer_resonance_means", None)
+    if means is not None:
+        means = means.detach()
+
+    for i, layer in enumerate(network.resonance_layers):
+        # Бонус частоты при «загасших» спайках
+        spike_bonus = torch.relu(
+            torch.as_tensor(min_spike_bonus, device=device, dtype=dtype) - real_spike_rate
+        )
+        # \(\Delta f\)
+        d_freq = (
+            eta_f * rc * (1.0 - err)
+            + eta_f * 0.8 * spike_bonus
+        )
+        deltas[f"layer_{i}.frequency"] = d_freq
+
+        # phase_lock_term: \(\cos(\bar u_{l-1} - \bar u_{l+1})\) по средним |резонанс|
+        if means is not None and means.numel() >= 2:
+            Ln = means.numel()
+            prev = means[i - 1] if i > 0 else means[i]
+            nxt = means[i + 1] if i < Ln - 1 else means[i]
+            phase_lock_term = torch.cos(prev - nxt)
+        else:
+            phase_lock_term = torch.zeros((), device=device, dtype=dtype)
+
+        deltas[f"layer_{i}.phase_bias"] = eta_theta * (rc * err + 0.1 * phase_lock_term)
+
+        homeo_error = real_spike_rate - torch.as_tensor(
+            spike_target, device=device, dtype=dtype
+        )
+        scale = torch.where(
+            real_spike_rate > 0.05,
+            torch.ones((), device=device, dtype=dtype),
+            torch.as_tensor(0.3, device=device, dtype=dtype),
+        )
+        deltas[f"layer_{i}.decay"] = eta_alpha * homeo_error * scale
+
+    return deltas
+
+
 def apply_rfp_deltas(
     network: torch.nn.Module,
     deltas: Dict[str, Any],
