@@ -126,4 +126,5 @@ val RC ≥ 0.82; val CE ниже baseline Adam ≥ 12%; spike rate 0.18–0.32; 
 
 - [`03-theory.md`](03-theory.md) — §6  
 - [`10-phase-1-plan.md`](10-phase-1-plan.md)  
-- [`experiments/06-rfp-v0/README.md`](../experiments/06-rfp-v0/README.md)
+- [`experiments/06-rfp-v0/README.md`](../experiments/06-rfp-v0/README.md)  
+- [`experiments/06-rfp-protocol-tests/README.md`](../experiments/06-rfp-protocol-tests/README.md) — протокол **fresh-train + фиксированный val** и tier A/B/C (отдельно от toy grid)

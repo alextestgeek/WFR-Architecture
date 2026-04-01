@@ -43,3 +43,7 @@ README.ru.md
 experiments/**/outputs/*.bin
 experiments/**/outputs/*.pt
 experiments/**/outputs/*.onnx
+
+# Protocol tests — локальные смоки (в репозиторий: только remote_gpu/ и явные отчёты)
+experiments/06-rfp-protocol-tests/outputs/_*.json
+experiments/06-rfp-protocol-tests/outputs/rfp_*_protocol_*.json
