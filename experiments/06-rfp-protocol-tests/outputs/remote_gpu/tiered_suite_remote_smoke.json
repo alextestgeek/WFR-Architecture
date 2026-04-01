@@ -1,0 +1,102 @@
+{
+  "suite": "06-rfp-protocol-tests",
+  "protocol": "fresh_train_each_epoch_fixed_val_holdout",
+  "epochs": 6,
+  "rfp_version": "v03",
+  "baseline": {
+    "metrics": {
+      "best_val_ce": 3.4706146717071533,
+      "final_val_rc": 0.9950141161680222,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.11837498783195163,
+      "epochs": 6,
+      "mode": "baseline_fresh_train",
+      "corr_delta_pb_delta_ce": null,
+      "rescue_step_fraction": null
+    },
+    "history_val_ce": [
+      3.4717053174972534,
+      3.476253092288971,
+      3.4706146717071533,
+      3.4745413661003113,
+      3.47123122215271,
+      3.4708539843559265
+    ],
+    "tier_a": {
+      "tier": "A",
+      "pass": true,
+      "finite_weights": true,
+      "nonfinite_param_names": [],
+      "max_grad_l2": 0.11837498783195163,
+      "max_grad_cap": 25.0,
+      "grad_under_cap": true
+    },
+    "tier_b": {
+      "tier": "B",
+      "pass": true,
+      "final_val_rc": 0.9950141161680222,
+      "mean_spike_rate": 0.0,
+      "min_rc_threshold": 0.35
+    },
+    "tier_c": {
+      "tier": "C",
+      "pass": true,
+      "val_ce_std": 0.002111531096801523,
+      "val_ce_range": 0.005638420581817627,
+      "min_std": 1e-08,
+      "min_range": 1e-07,
+      "history_len": 6
+    }
+  },
+  "rfp": {
+    "metrics": {
+      "best_val_ce": 3.468293607234955,
+      "final_val_rc": 0.9837682098150253,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.14654763085001932,
+      "epochs": 6,
+      "mode": "rfp_every_8_v03_fresh_train",
+      "corr_delta_pb_delta_ce": null,
+      "rescue_step_fraction": 1.0
+    },
+    "history_val_ce": [
+      3.4719172716140747,
+      3.4740272760391235,
+      3.468293607234955,
+      3.4725815057754517,
+      3.4738243222236633,
+      3.4709416031837463
+    ],
+    "tier_a": {
+      "tier": "A",
+      "pass": true,
+      "finite_weights": true,
+      "nonfinite_param_names": [],
+      "max_grad_l2": 0.14654763085001932,
+      "max_grad_cap": 25.0,
+      "grad_under_cap": true
+    },
+    "tier_b": {
+      "tier": "B",
+      "pass": true,
+      "final_val_rc": 0.9837682098150253,
+      "mean_spike_rate": 0.0,
+      "min_rc_threshold": 0.35
+    },
+    "tier_c": {
+      "tier": "C",
+      "pass": true,
+      "val_ce_std": 0.0019413019971982976,
+      "val_ce_range": 0.005733668804168701,
+      "min_std": 1e-08,
+      "min_range": 1e-07,
+      "history_len": 6
+    }
+  },
+  "comparison": {
+    "best_val_ce_baseline": 3.4706146717071533,
+    "best_val_ce_rfp": 3.468293607234955,
+    "rfp_vs_baseline_best_ce_pct": 0.06687761943496835
+  },
+  "overall_pass": true
+}
