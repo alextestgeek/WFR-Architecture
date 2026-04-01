@@ -1,10 +1,11 @@
 """
-A/B: Adam-only vs Adam+RFP (v0, v0.1, v0.2) на toy next-token (Exp 06).
+A/B: Adam-only vs Adam+RFP (v0, v0.1, v0.2, v0.3) на toy next-token (Exp 06).
 
 Примеры:
   python test_rfp_vs_baseline.py --quick
   python test_rfp_vs_baseline.py --epochs 50 --rfp-version v02
   python test_rfp_vs_baseline.py --epochs 80 --rfp-version v02   # без --quick
+  python test_rfp_vs_baseline.py --epochs 50 --rfp-version v03
 """
 
 from __future__ import annotations
@@ -31,18 +32,19 @@ def main() -> None:
     ap.add_argument(
         "--rfp-version",
         type=str,
-        choices=("all", "v02"),
+        choices=("all", "v02", "v03"),
         default="all",
-        help="all: v0 / v0.1 / online; v02: baseline + RFP v0.2 только",
+        help="all: v0 / v0.1 / online; v02/v03: baseline + RFP v0.2 или v0.3",
     )
     ap.add_argument("--spike-rate-target", type=float, default=0.25)
     ap.add_argument("--rfp-interval", type=int, default=8)
     ap.add_argument("--eta-alpha-v02", type=float, default=3e-5)
+    ap.add_argument("--eta-alpha-v03", type=float, default=8e-6)
     ap.add_argument("--no-png", action="store_true", help="не писать PNG (кривые + столбчатая сводка)")
     args = ap.parse_args()
     save_png = not args.no_png
 
-    if args.rfp_version == "v02":
+    if args.rfp_version in ("v02", "v03"):
         epochs = 16 if args.quick else (args.epochs or 50)
     else:
         epochs = 12 if args.quick else (args.epochs or 40)
@@ -50,6 +52,7 @@ def main() -> None:
 
     rows: list[tuple[str, object]] = []
     log_v02_path = _EXP / "outputs" / "rfp_v02_log.json"
+    log_v03_path = _EXP / "outputs" / "rfp_v03_log.json"
 
     if args.rfp_version == "all":
         baseline = train_run(
@@ -108,7 +111,7 @@ def main() -> None:
         )
         rows.append(("Adam + RFP v0.1 (every 8)", rfp_v01))
         out_name = "ab_rfp_baseline.json"
-    else:
+    elif args.rfp_version == "v02":
         baseline = train_run(
             epochs=epochs,
             use_rfp=False,
@@ -138,6 +141,36 @@ def main() -> None:
         )
         rows.append((f"Adam + RFP v0.2 (every {args.rfp_interval})", m_v02))
         out_name = "ab_rfp_v02.json"
+    else:
+        baseline = train_run(
+            epochs=epochs,
+            use_rfp=False,
+            rfp_interval=args.rfp_interval,
+            rfp_version="v0",
+            online_rfp=False,
+            homeostatic_always_on=True,
+            spike_rate_target=args.spike_rate_target,
+            seed=seed,
+            log_path=None,
+            save_png=save_png,
+        )
+        rows.append(("Adam only", baseline))
+
+        m_v03 = train_run(
+            epochs=epochs,
+            use_rfp=True,
+            rfp_interval=args.rfp_interval,
+            rfp_version="v03",
+            online_rfp=False,
+            homeostatic_always_on=True,
+            spike_rate_target=args.spike_rate_target,
+            seed=seed,
+            log_path=log_v03_path,
+            eta_alpha_v03=args.eta_alpha_v03,
+            save_png=save_png,
+        )
+        rows.append((f"Adam + RFP v0.3 (every {args.rfp_interval})", m_v03))
+        out_name = "ab_rfp_v03.json"
 
     b_ce = baseline.best_val_ce
     table = []
@@ -157,15 +190,21 @@ def main() -> None:
                 if m.corr_delta_pb_delta_ce is not None
                 else None
             )
+        rsf = getattr(m, "rescue_step_fraction", None)
+        if rsf is not None:
+            row["rescue_step_fraction"] = round(rsf, 5)
         table.append(row)
 
     out_dir = Path(__file__).parent / "outputs"
     out_dir.mkdir(parents=True, exist_ok=True)
-    note = (
-        "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json."
-        if args.rfp_version == "v02"
-        else "A/B toy next-token; v0.2 uses --rfp-version v02 and ab_rfp_v02.json."
-    )
+    if args.rfp_version == "v02":
+        note = (
+            "v02: corr_delta_pb_delta_ce = Pearson(d_pb, d_ce) over log intervals; see rfp_v02_log.json."
+        )
+    elif args.rfp_version == "v03":
+        note = "v03: per-layer RFP + rescue; see rfp_v03_log.json; rescue_step_fraction in metrics."
+    else:
+        note = "A/B toy next-token; v0.2 uses --rfp-version v02 and ab_rfp_v02.json."
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     bar_png_name = f"ab_rfp06_bar_{args.rfp_version}_{ts}.png"
     bar_png_path = out_dir / bar_png_name
@@ -201,6 +240,8 @@ def main() -> None:
         print("PNG training curves: outputs/rfp06_curves_*.png (per mode)")
     if args.rfp_version == "v02":
         print(f"Full v0.2 log: {log_v02_path}")
+    if args.rfp_version == "v03":
+        print(f"Full v0.3 log: {log_v03_path}")
 
 
 if __name__ == "__main__":

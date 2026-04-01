@@ -1,0 +1,12 @@
+{
+  "description": "v0.2 grid run 022 extended: spike_target=0.28, eta_alpha_v02=3e-5, rfp_interval=8, 80 epochs",
+  "metrics": {
+    "best_val_ce": 3.464928944905599,
+    "final_val_rc": 0.9738231499989828,
+    "mean_spike_rate": 0.0,
+    "max_grad_l2": 0.2424431287198339,
+    "corr_delta_pb_delta_ce": -0.25903328796873865,
+    "mode": "rfp_every_8_v02"
+  },
+  "detailed_log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v02_long_run022_80ep_20260401_180846.json"
+}

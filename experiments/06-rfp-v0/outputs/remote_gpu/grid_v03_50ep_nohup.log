@@ -1,0 +1,497 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "epochs": 50,
+  "grid": {
+    "spike_rate_target": [
+      0.23,
+      0.25,
+      0.27
+    ],
+    "eta_alpha_v03": [
+      5e-06,
+      8e-06,
+      1e-05
+    ],
+    "rfp_interval": [
+      6,
+      8,
+      12
+    ]
+  },
+  "best_val_ce_overall": {
+    "spike_rate_target": 0.25,
+    "eta_alpha_v03": 5e-06,
+    "rfp_interval": 8,
+    "best_val_ce": 3.465381383895874,
+    "final_val_rc": 1.0,
+    "mean_spike_rate": 0.0,
+    "max_grad_l2": 0.24256434934548796,
+    "corr_delta_pb_delta_ce": -0.9902040142761246,
+    "rescue_step_fraction": 1.0,
+    "spike_in_0_18_0_32": false,
+    "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_010.json"
+  },
+  "best_in_spike_band_0_18_0_32": null,
+  "results": [
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.4656423727671304,
+      "final_val_rc": 0.9999996225039164,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9599844271060257,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_000.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.4655478795369468,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9927545815644634,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_001.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4655469258626304,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9921043605401196,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_002.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.465574105580648,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9908891822153351,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_003.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.465578317642212,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9908347213199581,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_004.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4655679861704507,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9914664388128869,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_005.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 6,
+      "best_val_ce": 3.4654053846995034,
+      "final_val_rc": 0.999964972337087,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.7492883152559469,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_006.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 8,
+      "best_val_ce": 3.465578317642212,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9908347213199581,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_007.json"
+    },
+    {
+      "spike_rate_target": 0.23,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4655632177988687,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.2426452288360658,
+      "corr_delta_pb_delta_ce": -0.9915473686981288,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_008.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.46551521619161,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9671293693576961,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_009.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.465381383895874,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9902040142761246,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_010.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4655706882476807,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9864624379317045,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_011.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.46554962793986,
+      "final_val_rc": 0.9999999006589254,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9824931825500723,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_012.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.4655655225118003,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9846946916880599,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_013.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.465489387512207,
+      "final_val_rc": 0.9999472697575887,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.763812361307086,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_014.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 6,
+      "best_val_ce": 3.465545415878296,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.9868606579898995,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_015.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 8,
+      "best_val_ce": 3.4654528299967446,
+      "final_val_rc": 0.9999995032946268,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.15499177182544685,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_016.json"
+    },
+    {
+      "spike_rate_target": 0.25,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4654337565104165,
+      "final_val_rc": 0.9999783039093018,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24256434934548796,
+      "corr_delta_pb_delta_ce": -0.8360318009145226,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_017.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.4654382864634194,
+      "final_val_rc": 0.9999677538871765,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.7266599729056284,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_018.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.465535322825114,
+      "final_val_rc": 0.9999788999557495,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.25211857556808304,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_019.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 5e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4655508200327554,
+      "final_val_rc": 0.9999997019767761,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.08277005383938944,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_020.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 6,
+      "best_val_ce": 3.465392589569092,
+      "final_val_rc": 0.999999205271403,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.29031272000539715,
+      "corr_delta_pb_delta_ce": -0.541411576734824,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_021.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 8,
+      "best_val_ce": 3.465543746948242,
+      "final_val_rc": 0.9999995827674866,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.21645364535526881,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_022.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 8e-06,
+      "rfp_interval": 12,
+      "best_val_ce": 3.4654037952423096,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": 0.18786063022368088,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_023.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 6,
+      "best_val_ce": 3.4655982653299966,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.9889208382569019,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_024.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 8,
+      "best_val_ce": 3.4655614693959556,
+      "final_val_rc": 1.0,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.998092156250159,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_025.json"
+    },
+    {
+      "spike_rate_target": 0.27,
+      "eta_alpha_v03": 1e-05,
+      "rfp_interval": 12,
+      "best_val_ce": 3.465430816014608,
+      "final_val_rc": 0.9999910593032837,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.24248349427117394,
+      "corr_delta_pb_delta_ce": -0.12706693518584503,
+      "rescue_step_fraction": 1.0,
+      "spike_in_0_18_0_32": false,
+      "log_path": "/home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid_run_026.json"
+    }
+  ]
+}
+
+Wrote /home/alex1/Desktop/WFR-Memory-Test/experiments/06-rfp-v0/outputs/rfp_v03_grid.json
