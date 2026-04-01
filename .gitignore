@@ -47,3 +47,4 @@ experiments/**/outputs/*.onnx
 # Protocol tests — локальные смоки (в репозиторий: только remote_gpu/ и явные отчёты)
 experiments/06-rfp-protocol-tests/outputs/_*.json
 experiments/06-rfp-protocol-tests/outputs/rfp_*_protocol_*.json
+experiments/07-wfra2-precursor/outputs/_*.json
