@@ -1,0 +1,74 @@
+[
+  {
+    "epoch": 1,
+    "train_ce_mean": 5.633994936943054,
+    "train_rc_mean": 0.9994951486587524,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.64691424369812,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.9994951486587524,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.64691424369812,
+    "global_step": 4
+  },
+  {
+    "epoch": 2,
+    "train_ce_mean": 5.40383505821228,
+    "train_rc_mean": 0.9994388222694397,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.3950440883636475,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.9994388222694397,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.3950440883636475,
+    "global_step": 8
+  },
+  {
+    "epoch": 3,
+    "train_ce_mean": 5.128679633140564,
+    "train_rc_mean": 0.9993847608566284,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.150131702423096,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.9993847608566284,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.150131702423096,
+    "global_step": 12
+  },
+  {
+    "epoch": 4,
+    "train_ce_mean": 4.923343539237976,
+    "train_rc_mean": 0.9994462132453918,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.921325445175171,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.9994462132453918,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.921325445175171,
+    "global_step": 16
+  },
+  {
+    "epoch": 5,
+    "train_ce_mean": 4.7134398221969604,
+    "train_rc_mean": 0.999469518661499,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.710777759552002,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.999469518661499,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.710777759552002,
+    "global_step": 20
+  },
+  {
+    "epoch": 6,
+    "train_ce_mean": 4.534468412399292,
+    "train_rc_mean": 0.9994411468505859,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.541829347610474,
+    "val_acc1": 0.03324468061327934,
+    "val_rc": 0.9994411468505859,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.541829347610474,
+    "global_step": 24
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "experiment": "09-lm-parity",
+  "architecture": "TinyCausalTransformer",
+  "protocol_note": "Same WikiTextCharCorpus window sampling as run_wikitext_train (fresh train / fixed val).",
+  "corpus_meta": {
+    "dataset_dir": "C:\\WFR-Architecture\\data\\hf\\wikitext-2-raw-v1",
+    "train_chars": 10916756,
+    "val_chars": 1144610,
+    "test_chars": 1288512,
+    "train_lines": 23767,
+    "val_lines": 2461,
+    "test_lines": 2891,
+    "max_vocab_cap": 256,
+    "vocab_size": 256
+  },
+  "device": "cpu",
+  "ln_vocab": 5.545177444479562,
+  "metrics": {
+    "best_val_ce": 3.9098174571990967,
+    "final_val_ce": 3.9098174571990967,
+    "epochs": 6,
+    "d_model": 128,
+    "nhead": 4,
+    "nlayers": 2,
+    "dim_feedforward": 512,
+    "num_params": 474624,
+    "train_seed": 42,
+    "val_seed": 4242,
+    "init_seed": 42
+  },
+  "epoch_log": [
+    {
+      "epoch": 1,
+      "val_ce": 5.4023730754852295,
+      "best_so_far": 5.4023730754852295
+    },
+    {
+      "epoch": 2,
+      "val_ce": 5.09736180305481,
+      "best_so_far": 5.09736180305481
+    },
+    {
+      "epoch": 3,
+      "val_ce": 4.767065525054932,
+      "best_so_far": 4.767065525054932
+    },
+    {
+      "epoch": 4,
+      "val_ce": 4.436085224151611,
+      "best_so_far": 4.436085224151611
+    },
+    {
+      "epoch": 5,
+      "val_ce": 4.145257949829102,
+      "best_so_far": 4.145257949829102
+    },
+    {
+      "epoch": 6,
+      "val_ce": 3.9098174571990967,
+      "best_so_far": 3.9098174571990967
+    }
+  ]
+}

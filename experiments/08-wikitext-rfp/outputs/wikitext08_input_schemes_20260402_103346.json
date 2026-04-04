@@ -1,0 +1,14 @@
+{
+  "epochs": 8,
+  "rows": [
+    {
+      "mode": "absolute (v03)",
+      "best_val_ce": 3.574547529220581
+    },
+    {
+      "mode": "token_as_pos (v03)",
+      "best_val_ce": 3.6261058648427325
+    }
+  ],
+  "bar_png": null
+}

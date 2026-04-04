@@ -1,0 +1,17 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "delta_best_val_ce_wfr_minus_transformer": 0.7920663952827454,
+  "trainable_params_transformer": 6552,
+  "trainable_params_wfr_lm": 6504,
+  "param_ratio_transformer_over_wfr": 1.007380073800738,
+  "interpretation": "\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u2192 WFR \u0445\u0443\u0436\u0435 baseline TF \u043f\u043e best val CE \u043f\u0440\u0438 \u044d\u0442\u043e\u043c \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u0435; \u043e\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u2192 WFR \u043b\u0443\u0447\u0448\u0435 (\u0440\u0435\u0434\u043a\u043e \u043f\u0440\u0438 \u043f\u0435\u0440\u0432\u044b\u0445 \u043f\u0440\u043e\u0433\u043e\u043d\u0430\u0445).",
+  "capacity_warning": null
+}
+{
+  "transformer_best_val_ce": 3.1562831103801727,
+  "wfr_best_val_ce": 3.948349505662918
+}
+Wrote /home/alex1/Desktop/WFR-Memory-Test/experiments/09-lm-parity/outputs/parity_pair_20260403_122623.json

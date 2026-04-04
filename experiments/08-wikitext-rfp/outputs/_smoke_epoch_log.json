@@ -1,0 +1,13 @@
+[
+  {
+    "epoch": 1,
+    "train_ce_mean": 4.2098071575164795,
+    "train_rc_mean": 0.6955470144748688,
+    "train_energy_mean": 0.06640625,
+    "val_ce": 4.247741460800171,
+    "val_rc": 0.6995114088058472,
+    "spike_rate": 0.0703125,
+    "best_val_ce_so_far": 4.247741460800171,
+    "global_step": 2
+  }
+]

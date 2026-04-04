@@ -1,0 +1,41 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+ep    1 | mem acc@1  0.030 ce  5.705 | val acc@1  0.029 ce  5.708 | test acc@1  0.027 ce  5.721
+ep   10 | mem acc@1  0.057 ce  4.742 | val acc@1  0.054 ce  4.762 | test acc@1  0.054 ce  4.768
+ep   20 | mem acc@1  0.057 ce  3.838 | val acc@1  0.054 ce  3.878 | test acc@1  0.054 ce  3.875
+ep   30 | mem acc@1  0.085 ce  3.453 | val acc@1  0.088 ce  3.509 | test acc@1  0.087 ce  3.503
+ep   40 | mem acc@1  0.188 ce  3.259 | val acc@1  0.189 ce  3.274 | test acc@1  0.188 ce  3.259
+ep   50 | mem acc@1  0.188 ce  3.152 | val acc@1  0.187 ce  3.225 | test acc@1  0.189 ce  3.210
+ep   60 | mem acc@1  0.188 ce  3.167 | val acc@1  0.189 ce  3.239 | test acc@1  0.190 ce  3.227
+ep   70 | mem acc@1  0.187 ce  3.088 | val acc@1  0.187 ce  3.156 | test acc@1  0.189 ce  3.140
+ep   80 | mem acc@1  0.210 ce  3.060 | val acc@1  0.207 ce  3.126 | test acc@1  0.208 ce  3.109
+ep   90 | mem acc@1  0.212 ce  3.007 | val acc@1  0.206 ce  3.093 | test acc@1  0.208 ce  3.078
+ep  100 | mem acc@1  0.207 ce  2.955 | val acc@1  0.201 ce  3.065 | test acc@1  0.201 ce  3.043
+ep  110 | mem acc@1  0.211 ce  2.981 | val acc@1  0.202 ce  3.065 | test acc@1  0.201 ce  3.048
+ep  120 | mem acc@1  0.214 ce  2.910 | val acc@1  0.210 ce  3.016 | test acc@1  0.211 ce  2.993
+{
+  "final": {
+    "epoch": 120.0,
+    "mem_ce": 2.9097084999084473,
+    "mem_acc1": 0.21403508633375168,
+    "val_ce": 3.015591621398926,
+    "val_acc1": 0.20979532599449158,
+    "test_ce": 2.992906928062439,
+    "test_acc1": 0.21081871539354324,
+    "val_rc": 0.9375270009040833,
+    "val_spike": 0.19921875,
+    "max_grad_l2": 23.417531008601042
+  },
+  "artifacts": {
+    "json": "predict_mem_rfp_v03_20260402_102039.json",
+    "png": "predict_mem_rfp_v03_20260402_102039.png",
+    "samples_txt": "predict_mem_rfp_v03_20260402_102039_samples.txt"
+  },
+  "fingerprints": {
+    "mem_sha256": "1a92e051e661c2ff6027dcd08e346bf6af4affe3d351e53ccd20a05024c13560",
+    "val_sha256": "cafeb7d8fd48856868f575509a42d19e90e62d137b99736299127d23dbd6d2ba",
+    "test_sha256": "280cdfd0cefb0a945df9ec891aeea808d109bfdb5685b81fedbbd2a8d2b9e0a4"
+  }
+}

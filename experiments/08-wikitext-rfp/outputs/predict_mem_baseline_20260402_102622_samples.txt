@@ -1,0 +1,9 @@
+PREFIX (val[:200])
+ = Homarus gammarus = 
+
+ Homarus gammarus , known as the European lobster or common lobster , is a species of clawed lobster from the eastern Atlantic Ocean , Mediterranean Sea and parts of the Black 
+
+GREEDY CONTINUATION (prefix + 300)
+ = Homarus gammarus = 
+
+ Homarus gammarus , known as the European lobster or common lobster , is a species of clawed lobster from the eastern Atlantic Ocean , Mediterranean Sea and parts of the Black thawheen h wu istyalhie htaSwla dhe o Swe d ha e oen  d hesn h aes en hooo do oe hooa hrwtagchhswdcao idn whdngdch Si hdaithenihhssn a a hn onrtes d hwfnsssue hose wr sloyheeu aw st irsoollw illr d e ufrese a iit  t ofe ie o t oetfscn  atSta i i ern a.sd ie n cigin  istnti ie  nttlfsif totasndtta it

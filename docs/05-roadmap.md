@@ -29,6 +29,7 @@
 
 ## Этап 2 (дорожная карта репозитория): Углубление обучения
 
+- **LM parity и путь к прорыву (Phase 3+):** [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md), Experiment 09 — [`experiments/09-lm-parity/`](../experiments/09-lm-parity/README.md). Этап A закрыт для первого среза (A100 + fair parity). **Операционный план:** [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md) — регрессия ядро vs LM, узкие места U1–U6, гипотезы H1–H8; текущий упор **B1** (readout × MLP на GPU), затем **C**, старт **D** (длинный контекст как дифференциатор).
 - Реализация полного механизма **Resonant Field Plasticity (RFP)** (двухрежимность, полная целевая функция)
 - Обучение на задачах длинного контекста
 - Сравнительные эксперименты

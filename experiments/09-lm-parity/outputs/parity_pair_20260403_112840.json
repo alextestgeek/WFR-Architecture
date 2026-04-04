@@ -1,0 +1,65 @@
+{
+  "experiment": "09-lm-parity-A2",
+  "roadmap": "docs/12-wfr-llm-breakthrough-roadmap.md section A2",
+  "shared": {
+    "epochs": 6,
+    "seq_len": 64,
+    "batch_size": 8,
+    "num_train_batches": 4,
+    "num_val_batches": 2,
+    "init_seed": 42,
+    "train_seed": 42,
+    "val_seed": 4242,
+    "corpus_val_sha256_fingerprint": "13d9a22c0b017e5da85bc14a9f06157a97cb20f7e288434f5570a2072c9b0e25"
+  },
+  "fairness_notes": {
+    "wfr_objective": "ce_only, no RFP (matches next-token CE only)",
+    "transformer_objective": "cross_entropy only",
+    "optimizer": "WFRLM: Adam; Transformer: AdamW + grad clip — см. скрипты",
+    "lr_transformer": 0.0003,
+    "lr_wfr_lm": 0.02,
+    "match_lr_flag": false
+  },
+  "transformer": {
+    "best_val_ce": 3.9098174571990967,
+    "final_val_ce": 3.9098174571990967,
+    "epochs": 6,
+    "d_model": 128,
+    "nhead": 4,
+    "nlayers": 2,
+    "dim_feedforward": 512,
+    "num_params": 474624,
+    "train_seed": 42,
+    "val_seed": 4242,
+    "init_seed": 42,
+    "epoch_log_tail": [
+      {
+        "epoch": 4,
+        "val_ce": 4.436085224151611,
+        "best_so_far": 4.436085224151611
+      },
+      {
+        "epoch": 5,
+        "val_ce": 4.145257949829102,
+        "best_so_far": 4.145257949829102
+      },
+      {
+        "epoch": 6,
+        "val_ce": 3.9098174571990967,
+        "best_so_far": 3.9098174571990967
+      }
+    ]
+  },
+  "wfr_lm": {
+    "best_val_ce": 4.474554538726807,
+    "final_val_rc": 0.6516651511192322,
+    "mean_spike_rate_end": 0.265625,
+    "mode": "baseline_wikitext_ce_only_train",
+    "num_trainable_params": 5214,
+    "max_grad_l2": 1.9199445506132595
+  },
+  "comparison": {
+    "delta_best_val_ce_wfr_minus_transformer": 0.56473708152771,
+    "interpretation": "положительно → WFR хуже baseline TF по best val CE при этом протоколе; отрицательно → WFR лучше (редко при первых прогонах)."
+  }
+}

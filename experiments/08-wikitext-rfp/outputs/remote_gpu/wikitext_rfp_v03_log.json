@@ -1,0 +1,222 @@
+{
+  "protocol": "wikitext_char_fresh_train",
+  "vocab_size": 256,
+  "train_seed": 42,
+  "val_seed": 4242,
+  "corpus_meta": {
+    "dataset_dir": "/home/alex1/Desktop/WFR-Memory-Test/data/hf/wikitext-2-raw-v1",
+    "train_chars": 10916756,
+    "val_chars": 1144610,
+    "train_lines": 23767,
+    "val_lines": 2461,
+    "max_vocab_cap": 256,
+    "vocab_size": 256
+  },
+  "num_train_batches": 4,
+  "num_val_batches": 2,
+  "seq_len": 64,
+  "batch_size": 12,
+  "rfp_version": "v03",
+  "epochs": 8,
+  "rfp_interval": 8,
+  "online_rfp": false,
+  "spike_rate_target": 0.25,
+  "correlation_delta_phase_bias_vs_delta_ce": 0.7962637117190459,
+  "series_delta_pb": [
+    0.09215988963842392,
+    0.06637237221002579,
+    0.1258006989955902
+  ],
+  "series_delta_ce": [
+    -0.39745664596557617,
+    -0.38359665870666504,
+    -0.33199071884155273
+  ],
+  "log_every_epochs": 2,
+  "entries": [
+    {
+      "epoch": 2,
+      "val_ce": 5.1855268478393555,
+      "val_rc": 0.6348585784435272,
+      "mean_spike_rate": 0.0,
+      "per_layer_spike_rate": [
+        0.0240885429084301,
+        0.1263020932674408,
+        0.5611979365348816,
+        0.0182291679084301
+      ],
+      "per_layer_rc_share": [
+        0.16003787517547607,
+        0.14347341656684875,
+        0.5919208526611328,
+        0.10456784814596176
+      ],
+      "min_max_frequency": {
+        "min": 1.070852518081665,
+        "max": 4.921573638916016
+      },
+      "min_max_decay": {
+        "min": 2.006577491760254,
+        "max": 2.1300816535949707
+      },
+      "delta_ce_since_last_log": 0.0,
+      "sum_abs_delta_phase_bias_interval": 0.3390536606311798
+    },
+    {
+      "epoch": 4,
+      "val_ce": 4.788070201873779,
+      "val_rc": 0.684539407491684,
+      "mean_spike_rate": 0.0,
+      "per_layer_spike_rate": [
+        0.0,
+        0.1809895932674408,
+        0.0052083334885537624,
+        0.0182291679084301
+      ],
+      "per_layer_rc_share": [
+        0.027273472398519516,
+        0.3931029438972473,
+        0.2713962197303772,
+        0.3082273304462433
+      ],
+      "min_max_frequency": {
+        "min": 1.110288143157959,
+        "max": 4.8726019859313965
+      },
+      "min_max_decay": {
+        "min": 1.9951859712600708,
+        "max": 2.191725730895996
+      },
+      "delta_ce_since_last_log": -0.39745664596557617,
+      "sum_abs_delta_phase_bias_interval": 0.09215988963842392
+    },
+    {
+      "epoch": 6,
+      "val_ce": 4.404473543167114,
+      "val_rc": 0.7407358288764954,
+      "mean_spike_rate": 0.018229167442768812,
+      "per_layer_spike_rate": [
+        0.0,
+        0.259765625,
+        0.001953125,
+        0.064453125
+      ],
+      "per_layer_rc_share": [
+        0.016756176948547363,
+        0.5316112041473389,
+        0.11642594635486603,
+        0.33520662784576416
+      ],
+      "min_max_frequency": {
+        "min": 1.107897400856018,
+        "max": 4.862151145935059
+      },
+      "min_max_decay": {
+        "min": 1.828852653503418,
+        "max": 2.220083236694336
+      },
+      "delta_ce_since_last_log": -0.38359665870666504,
+      "sum_abs_delta_phase_bias_interval": 0.06637237221002579
+    },
+    {
+      "epoch": 8,
+      "val_ce": 4.0724828243255615,
+      "val_rc": 0.7950893640518188,
+      "mean_spike_rate": 0.0,
+      "per_layer_spike_rate": [
+        0.0,
+        0.412109375,
+        0.0013020833721384406,
+        0.1302083432674408
+      ],
+      "per_layer_rc_share": [
+        0.004981609992682934,
+        0.6696501970291138,
+        0.03820682689547539,
+        0.28716135025024414
+      ],
+      "min_max_frequency": {
+        "min": 1.1061657667160034,
+        "max": 4.866343021392822
+      },
+      "min_max_decay": {
+        "min": 1.6457147598266602,
+        "max": 2.2406017780303955
+      },
+      "delta_ce_since_last_log": -0.33199071884155273,
+      "sum_abs_delta_phase_bias_interval": 0.1258006989955902
+    }
+  ],
+  "epoch_steps": [
+    {
+      "epoch": 1,
+      "train_ce_mean": 5.394362449645996,
+      "val_ce": 5.396411895751953,
+      "val_rc": 0.6197031140327454,
+      "spike_rate": 0.0,
+      "global_step": 4
+    },
+    {
+      "epoch": 2,
+      "train_ce_mean": 5.1863322257995605,
+      "val_ce": 5.185746192932129,
+      "val_rc": 0.6348585784435272,
+      "spike_rate": 0.0,
+      "global_step": 8
+    },
+    {
+      "epoch": 3,
+      "train_ce_mean": 4.994491934776306,
+      "val_ce": 4.98464560508728,
+      "val_rc": 0.6573627293109894,
+      "spike_rate": 0.006510416744276881,
+      "global_step": 12
+    },
+    {
+      "epoch": 4,
+      "train_ce_mean": 4.795246601104736,
+      "val_ce": 4.788090467453003,
+      "val_rc": 0.684539407491684,
+      "spike_rate": 0.0,
+      "global_step": 16
+    },
+    {
+      "epoch": 5,
+      "train_ce_mean": 4.602795958518982,
+      "val_ce": 4.59254789352417,
+      "val_rc": 0.7117390334606171,
+      "spike_rate": 0.0,
+      "global_step": 20
+    },
+    {
+      "epoch": 6,
+      "train_ce_mean": 4.412065744400024,
+      "val_ce": 4.4044694900512695,
+      "val_rc": 0.7407358288764954,
+      "spike_rate": 0.018229167442768812,
+      "global_step": 24
+    },
+    {
+      "epoch": 7,
+      "train_ce_mean": 4.22429358959198,
+      "val_ce": 4.230982303619385,
+      "val_rc": 0.7688409984111786,
+      "spike_rate": 0.018229167442768812,
+      "global_step": 28
+    },
+    {
+      "epoch": 8,
+      "train_ce_mean": 4.053988575935364,
+      "val_ce": 4.072424411773682,
+      "val_rc": 0.7950893640518188,
+      "spike_rate": 0.0,
+      "global_step": 32
+    }
+  ],
+  "eta_f_v03": 0.00012,
+  "eta_theta_v03": 0.0003,
+  "eta_alpha_v03": 8e-06,
+  "rescue_threshold_v03": 0.12,
+  "rescue_factor_v03": 0.45,
+  "rescue_step_fraction": 1.0
+}

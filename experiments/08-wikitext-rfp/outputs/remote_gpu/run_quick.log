@@ -1,0 +1,23 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "metrics": {
+    "best_val_ce": 4.072424411773682,
+    "final_val_rc": 0.7950893640518188,
+    "mean_spike_rate": 0.0,
+    "max_grad_l2": 0.7383040048333923,
+    "epochs": 8,
+    "mode": "rfp_every_8_v03_wikitext",
+    "corr_delta_pb_delta_ce": 0.7962637117190459,
+    "rescue_step_fraction": 1.0
+  },
+  "vocab_size": 256,
+  "ln_vocab": 5.545177444479562,
+  "final_train_ce": 4.053988575935364,
+  "artifacts": {
+    "epoch_log": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_epoch_log.json",
+    "vocab_meta": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_vocab_meta.json"
+  }
+}

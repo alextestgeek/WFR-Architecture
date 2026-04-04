@@ -1,7 +1,7 @@
 # 07. Experiment Plan — План проверки теории
 
-**Версия:** 0.5  
-**Дата:** 1 апреля 2026  
+**Версия:** 0.6  
+**Дата:** 3 апреля 2026  
 **Статус:** Утверждён
 
 **Сводный план Phase 0 (цели, соответствие теории, критерии выхода):** [`08-phase-0-plan.md`](08-phase-0-plan.md)
@@ -152,13 +152,73 @@
 
 **Запуск:** `python experiments/06-rfp-v0/test_rfp_vs_baseline.py --quick` (или без `--quick` для более длинного прогона).
 
+### Experiment 08 — WikiText (char LM) + Phase 2 protocol
+
+**Цель:** реальный корпус (WikiText-2 raw), сравнение входных схем и единый suite «теория ↔ измерения»: Adam vs RFP, `absolute` vs `token_as_pos`, контроль `content/off`, отчёт по CE и RC/spike.
+
+**Статус:** протокол и скрипты в репозитории (`run_theory_phase2.py`, `test_input_schemes.py`); полные GPU-артефакты — в `experiments/08-wikitext-rfp/outputs/`.
+
+**Документация:** [`experiments/08-wikitext-rfp/README.md`](../experiments/08-wikitext-rfp/README.md).
+
+### Experiment 09 — LM parity (Transformer baseline, этап A дорожной карты)
+
+**Цель:** тот же char WikiText и протокол окон, что Exp 08, плюс **минимальный causal Transformer** для честного зазора по val CE (`docs/12-wfr-llm-breakthrough-roadmap.md`, раздел A).
+
+**Статус:** **A1–A3**; sweep readout **3/8/16/32**; **B1** (D=16/32 × linear + MLP64) — [`runs/04_b1_mlp_matrix_20260403`](../experiments/09-lm-parity/outputs/remote_a100/runs/04_b1_mlp_matrix_20260403) (**H2** в [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md)). **B3:** [`remote_gpu_b3_confirm.sh`](../experiments/09-lm-parity/remote_gpu_b3_confirm.sh) при `readout=16`. Реестр: [`outputs/remote_a100/README.md`](../experiments/09-lm-parity/outputs/remote_a100/README.md); срез: [`13-project-status-snapshot.md`](13-project-status-snapshot.md).
+
+**Запуск:** `run_transformer_char_baseline.py` (A1); **`run_parity_pair.py --fair-parity`** (A2); sweep: `PARITY_READOUT_DIMS="3 8 16 32" bash remote_gpu_parity.sh`; B1: `bash remote_gpu_b1_mlp_matrix.sh`; B3: `bash remote_gpu_b3_confirm.sh`.
+
+---
+
+## Phase 3+ — План следующих шагов: **работа · волна · точность · обучаемость**
+
+Задача: **доказуемо** (по протоколу и артефактам) связать четыре утверждения, которые вы отделяете от «маркетинга архитектуры».
+
+| Опора | Что именно доказываем | Критерий «достаточно для нас» | Где снять | Порядок |
+|--------|------------------------|-------------------------------|-----------|---------|
+| **1. Модель работает** | Forward стабилен, выходы конечны, ядро + WFRLM собираются на целевом железе; регрессия не ломает Phase 0. | Smoke OK; при правках `wfr/core.py` — повтор `00-smoke-test` (+ по времени один тест из 01–02); для LM: один `--quick` parity или train без OOM. | `experiments/00-smoke-test/run_smoke_test.py`; `python -m pytest` по тестам репо; `run_parity_pair.py --quick --fair-parity` | **Постоянно** перед длинными GPU-прогонами |
+| **2. Контекст формирует волну** | Длина/содержание входа **изменяет** наблюдаемое поле (фазы, стоячая волна, RC) предсказуемо; с токенами — отличие режима «есть контент» vs «только позиции». | Phase 0: стабильность префикса между длинами контекста (Exp 03), различимость синтетических порядков (Exp 04). LM-слой: `content_delta` off даёт иной профиль волны/CE чем on; при одном префиксе волна в зоне префикса близка (диагностика по желанию в JSON). | `experiments/03-long-context-stability/`; `experiments/04-basic-pattern-formation/`; Exp 08 абляция `content`; Exp 09/08 логи слоёв при необходимости | **Уже частично закрыто** (0–4); для LM — **короткий чеклист** после каждого крупного изменения readout/ядра |
+| **3. Точность (LM)** | На **одном** корпусе и val CE модель не «ломается» относительно честного baseline при сопоставимом бюджете параметров. | Таблица fair-parity: Δ(WFR−TF); **B1** закрыт — [`runs/04_b1_mlp_matrix_20260403`](../experiments/09-lm-parity/outputs/remote_a100/runs/04_b1_mlp_matrix_20260403). Далее: этап **D** (**D.1** в [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md)). | Exp 09, `remote_gpu_*` | **Сейчас:** combo B3 при D=32; реализация замеров D |
+| **4. Обучаемость** | Градиенты проходят; CE (или согласованная цель) **падает** на фиксированных батчах/корпусе, без обвала RC «в ноль» как единственного объяснения. | Exp 05: ненулевой градиент, снижение val; Exp 08: кривые эпох; parity: лучший val CE лучше случайного уровня; при необходимости `--match-lr` / длиннее эпохи до вывода. | `experiments/05-rfp-training-sanity/`; `run_wikitext_train.py`; Exp 09 | **Параллельно** с B1; не путать с «прорывом RFP» |
+
+**Сквозной порядок работ (практический):**
+
+1. Регрессия **(опора 1)** после любых правок ядра/LM.
+2. Быстрая проверка **(опора 2)** на WikiText: контент вкл/выкл — ожидаемо разный CE; при споре — отсылка к Exp 03–04.
+3. Длинный GPU-прогон **(опора 3)** только с закрытым readout-контуром (B1/B3 по [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md)).
+4. Журнал **(опора 4)** для каждого прогона: лучший val CE, число эпох до плато, при необходимости градиент на первом шаге (как в 05).
+
+**Связь с теорией:** интерпретация «волна несёт контекст» для LM формализована в [`03-theory.md`](03-theory.md) §10–11; измеримые критерии не заменяют физическую картинку, а **фиксируют**, что картинка не противоречит метрикам.
+
+### Чеклист из 10 шагов перед PR (`wfr/core.py`, `wfr_lm.py`, CLI Exp 08–09)
+
+Все команды из **корня репозитория**. Минимум для «мелкого» PR — шаги **1–5**; при смене резонанса/фаз/стоячей волны добавить **7** (и при необходимости **8**).
+
+Один прогон подряд (Windows): [`experiments/09-lm-parity/run_local_pr_checklist.ps1`](../experiments/09-lm-parity/run_local_pr_checklist.ps1) — шаги 1–6, опционально 7–8 (`-SkipOptional` отключает 7–8), затем `verify_theory_calibration.py` и `verify_longcontext_artifacts.py`.
+
+| # | Команда | Порог PASS |
+|---|---------|------------|
+| 1 | `python -m compileall -q wfr wfr_lm.py wfr_rfp.py` | Код выхода 0, нет SyntaxError |
+| 2 | `python experiments/00-smoke-test/run_smoke_test.py` | Завершение без исключения; в конце сообщение об успешном smoke |
+| 3 | `python -m pytest -q --tb=short` | 0 failed (предупреждения вроде pytest-asyncio допустимы) |
+| 4 | `python experiments/09-lm-parity/run_parity_pair.py --quick --fair-parity` | Код 0; в `experiments/09-lm-parity/outputs/parity_pair_*.json` поля `wfr_best_val_ce`, `transformer_best_val_ce` **конечны**, не NaN; датасет WikiText-2 в `data/hf/` по [`data/hf/README.md`](../data/hf/README.md) |
+| 5 | `python experiments/09-lm-parity/run_transformer_char_baseline.py --quick` | Код 0; baseline JSON в `experiments/09-lm-parity/outputs/` |
+| 6 | *(Опция, если менялся только readout/голова)* `python experiments/09-lm-parity/run_parity_pair.py --quick --fair-parity --readout-feat-dim 16` | Код 0; убедиться, что широкий readout не ломает пайплайн |
+| 7 | *(Опция, если менялся `WFRNetwork` / standing wave / интерференция)* `python -m pytest experiments/03-long-context-stability/run_stability_test.py::test_1_determinism experiments/03-long-context-stability/run_stability_test.py::test_3_cross_context_standing_wave -q --tb=short` | Оба теста passed (test_3 — про префикс и волну при разной длине контекста) |
+| 8 | *(Опция)* `python -m pytest experiments/08-wikitext-rfp/test_wikitext_smoke.py -q --tb=short` | passed (нужен корпус) |
+| 9 | *(Только при спорных численных изменениях на CUDA)* загрузка по [`RULES.md`](../RULES.md) §6 + `experiments/08-wikitext-rfp/remote_sync_wikitext.ps1 -Direction upload`; на сервере: `bash ~/Desktop/WFR-Memory-Test/_remote_gpu_check.sh` (CUDA + `run_parity_pair.py --quick --fair-parity`) | В выводе: `CUDA True`, имя GPU; JSON `parity_pair_*.json` в `experiments/09-lm-parity/outputs/` на сервере; при необходимости `remote_sync_wikitext.ps1 -Direction download` |
+| 10 | Если меняется **контракт** (новый флаг CLI, новая вводная в ядро): один абзац в PR + при необходимости патч [`03-theory.md`](03-theory.md) / README эксперимента | Ревьюер видит связь код ↔ док |
+
+**Заметка:** шаг 4 уже покрывает **обучаемость** и **точность** в микро-бюджете; он **не** заменяет длинный A100-прогон для итоговой таблицы Δ.
+
 ---
 
 ## Дальнейшие шаги (после Phase 0)
 
 - Phase 1: закрыт по плану — см. [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 (sanity), Experiment 06 (RFP v0)
-- Phase 2: Сравнение с baseline-моделями
-- Phase 3: Эмуляция специализированного оборудования
+- Phase 2: Сравнение режимов WFR (WikiText, RFP, twin CE-only) — Exp 08
+- **Phase 3 (прорыв LLM):** [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md) — parity (Exp 09), ёмкость, масштаб, long-context diff, внешняя проверка. Операционная матрица узких мест и гипотез: [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md). Четыре опоры «работа / волна / точность / обучаемость»: **этот документ, раздел Phase 3+**.
+- Phase 3 (оборудование): эмуляция специализированного оборудования — см. также [`05-roadmap.md`](05-roadmap.md)
 
 ---
 

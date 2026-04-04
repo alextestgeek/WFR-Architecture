@@ -1,0 +1,29 @@
+{
+  "epochs": 8,
+  "seq_len": 64,
+  "num_train_batches": 6,
+  "num_val_batches": 3,
+  "rows": [
+    {
+      "mode": "absolute / normal (v03)",
+      "best_val_ce": 3.574547529220581
+    },
+    {
+      "mode": "absolute_modV / normal (v03)",
+      "best_val_ce": 3.574547529220581
+    },
+    {
+      "mode": "token_as_pos / normal (v03)",
+      "best_val_ce": 3.6261058648427325
+    },
+    {
+      "mode": "absolute / normal x0.5 (v03)",
+      "best_val_ce": 3.715684096018473
+    },
+    {
+      "mode": "absolute / off (v03)",
+      "best_val_ce": 3.5401917298634844
+    }
+  ],
+  "bar_png": null
+}

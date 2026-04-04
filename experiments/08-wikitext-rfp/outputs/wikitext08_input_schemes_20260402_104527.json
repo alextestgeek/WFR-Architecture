@@ -1,0 +1,29 @@
+{
+  "epochs": 30,
+  "seq_len": 96,
+  "num_train_batches": 16,
+  "num_val_batches": 8,
+  "rows": [
+    {
+      "mode": "absolute / normal (v03)",
+      "best_val_ce": 3.0178093016147614
+    },
+    {
+      "mode": "absolute_modV / normal (v03)",
+      "best_val_ce": 3.0178093016147614
+    },
+    {
+      "mode": "token_as_pos / normal (v03)",
+      "best_val_ce": 2.9875211119651794
+    },
+    {
+      "mode": "absolute / normal x0.5 (v03)",
+      "best_val_ce": 2.9693178832530975
+    },
+    {
+      "mode": "absolute / off (v03)",
+      "best_val_ce": 3.1925799548625946
+    }
+  ],
+  "bar_png": "wikitext08_input_schemes_20260402_104527.png"
+}

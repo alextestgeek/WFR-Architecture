@@ -4,7 +4,7 @@
 **Дата:** 1 апреля 2026  
 **Статус:** v0 реализован и A/B зафиксирован; **v0.2** — `rfp_step_v02` + grid; **v0.3** — `rfp_step_v03` (per-layer + rescue + мягкий homeostatic), `grid_rfp_v03.py`.
 
-**Код:** корень — `wfr_lm.py`, `wfr_rfp.py`; ядро — `experiments/00-smoke-test/wfr_core.py`; эксперимент — [`experiments/06-rfp-v0/`](../experiments/06-rfp-v0/).
+**Код:** корень — `wfr_lm.py`, `wfr_rfp.py`; ядро — пакет [`wfr/`](../wfr/) (`wfr/core.py`, `wfr/losses.py`); эксперимент — [`experiments/06-rfp-v0/`](../experiments/06-rfp-v0/).
 
 ---
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 3. Изменения ядра (`wfr_core.py`)
+## 3. Изменения ядра (`wfr/core.py`)
 
 Без обязательных новых правок для v0.2; используются существующие `phase_bias`, `content_delta`, `homeostatic_always_on`, скалярный RC.
 

@@ -1,0 +1,10 @@
+{
+  "best_val_ce": 3.474914868672689,
+  "final_val_rc": 0.8288859923680624,
+  "mean_spike_rate": 0.0,
+  "max_grad_l2": 0.1886476733418043,
+  "epochs": 2,
+  "mode": "rfp_every_8_v03",
+  "corr_delta_pb_delta_ce": null,
+  "rescue_step_fraction": 1.0
+}

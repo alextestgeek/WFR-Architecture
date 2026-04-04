@@ -26,13 +26,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-_root = Path(__file__).resolve().parent
-_smoke = _root.parent / "00-smoke-test"
-if _smoke.is_dir():
-    sys.path.insert(0, str(_smoke))
-else:
-    sys.path.insert(0, str(_root))
-from wfr_core import ResonanceConfidence, WFRNetwork, surrogate_spike
+_repo_root = Path(__file__).resolve().parents[2]
+if str(_repo_root) not in sys.path:
+    sys.path.insert(0, str(_repo_root))
+from wfr.core import ResonanceConfidence, WFRNetwork, surrogate_spike
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 OUTPUT_DIR = Path(__file__).parent / "outputs"

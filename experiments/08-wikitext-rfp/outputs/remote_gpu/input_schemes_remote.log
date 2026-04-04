@@ -1,0 +1,24 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "epochs": 8,
+  "rows": [
+    {
+      "mode": "absolute (v03)",
+      "best_val_ce": 3.5973591804504395
+    },
+    {
+      "mode": "token_as_pos (v03)",
+      "best_val_ce": 3.5992612838745117
+    }
+  ],
+  "bar_png": "wikitext08_input_schemes_20260402_103410.png"
+}
+
+Wrote /home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_input_schemes_20260402_103410.json

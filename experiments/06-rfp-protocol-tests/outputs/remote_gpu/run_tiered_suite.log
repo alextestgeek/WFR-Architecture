@@ -1,0 +1,112 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "suite": "06-rfp-protocol-tests",
+  "protocol": "fresh_train_each_epoch_fixed_val_holdout",
+  "epochs": 6,
+  "rfp_version": "v03",
+  "baseline": {
+    "metrics": {
+      "best_val_ce": 3.471511960029602,
+      "final_val_rc": 0.9593688994646072,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.20647755476396518,
+      "epochs": 6,
+      "mode": "baseline_fresh_train",
+      "corr_delta_pb_delta_ce": null,
+      "rescue_step_fraction": null
+    },
+    "history_val_ce": [
+      3.4742971062660217,
+      3.476733088493347,
+      3.471511960029602,
+      3.472830832004547,
+      3.4726847410202026,
+      3.4721574187278748
+    ],
+    "tier_a": {
+      "tier": "A",
+      "pass": true,
+      "finite_weights": true,
+      "nonfinite_param_names": [],
+      "max_grad_l2": 0.20647755476396518,
+      "max_grad_cap": 25.0,
+      "grad_under_cap": true
+    },
+    "tier_b": {
+      "tier": "B",
+      "pass": true,
+      "final_val_rc": 0.9593688994646072,
+      "mean_spike_rate": 0.0,
+      "min_rc_threshold": 0.35
+    },
+    "tier_c": {
+      "tier": "C",
+      "pass": true,
+      "val_ce_std": 0.0017249557572292502,
+      "val_ce_range": 0.005221128463745117,
+      "min_std": 1e-08,
+      "min_range": 1e-07,
+      "history_len": 6
+    }
+  },
+  "rfp": {
+    "metrics": {
+      "best_val_ce": 3.469331204891205,
+      "final_val_rc": 0.9731899499893188,
+      "mean_spike_rate": 0.0,
+      "max_grad_l2": 0.10358566579533329,
+      "epochs": 6,
+      "mode": "rfp_every_8_v03_fresh_train",
+      "corr_delta_pb_delta_ce": null,
+      "rescue_step_fraction": 1.0
+    },
+    "history_val_ce": [
+      3.4736302495002747,
+      3.469331204891205,
+      3.4700499773025513,
+      3.4749987721443176,
+      3.4731897115707397,
+      3.470767378807068
+    ],
+    "tier_a": {
+      "tier": "A",
+      "pass": true,
+      "finite_weights": true,
+      "nonfinite_param_names": [],
+      "max_grad_l2": 0.10358566579533329,
+      "max_grad_cap": 25.0,
+      "grad_under_cap": true
+    },
+    "tier_b": {
+      "tier": "B",
+      "pass": true,
+      "final_val_rc": 0.9731899499893188,
+      "mean_spike_rate": 0.0,
+      "min_rc_threshold": 0.35
+    },
+    "tier_c": {
+      "tier": "C",
+      "pass": true,
+      "val_ce_std": 0.0020619567570935833,
+      "val_ce_range": 0.005667567253112793,
+      "min_std": 1e-08,
+      "min_range": 1e-07,
+      "history_len": 6
+    }
+  },
+  "comparison": {
+    "best_val_ce_baseline": 3.471511960029602,
+    "best_val_ce_rfp": 3.469331204891205,
+    "rfp_vs_baseline_best_ce_pct": 0.06281859787625854
+  },
+  "overall_pass": true
+}
+
+Wrote experiments/06-rfp-protocol-tests/outputs/remote_gpu/tiered_suite_quick.json

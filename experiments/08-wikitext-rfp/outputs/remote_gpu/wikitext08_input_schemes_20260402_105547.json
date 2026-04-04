@@ -1,0 +1,92 @@
+{
+  "epochs": 30,
+  "seq_len": 96,
+  "num_train_batches": 16,
+  "num_val_batches": 8,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "schemes": "core",
+  "rows": [
+    {
+      "mode": "absolute / normal (v03)",
+      "best_val_ce_mean": 2.981629232565562,
+      "best_val_ce_std": 0.025594301259252994,
+      "final_val_acc1_mean": 0.20738304468492666,
+      "final_val_acc1_std": 0.010659989543550009
+    },
+    {
+      "mode": "token_as_pos / normal (v03)",
+      "best_val_ce_mean": 2.9869297643502555,
+      "best_val_ce_std": 0.013138748902677258,
+      "final_val_acc1_mean": 0.20614035489658514,
+      "final_val_acc1_std": 0.012494549874481262
+    },
+    {
+      "mode": "absolute / off (v03)",
+      "best_val_ce_mean": 3.191878020763397,
+      "best_val_ce_std": 0.0011306992491585763,
+      "final_val_acc1_mean": 0.19254386611282825,
+      "final_val_acc1_std": 0.0
+    }
+  ],
+  "per_run": [
+    {
+      "label": "absolute / normal (v03)",
+      "seed": 42,
+      "best_val_ce": 3.0178093016147614,
+      "final_val_acc1": 0.1925438642501831
+    },
+    {
+      "label": "absolute / normal (v03)",
+      "seed": 43,
+      "best_val_ce": 2.9644635021686554,
+      "final_val_acc1": 0.21250000409781933
+    },
+    {
+      "label": "absolute / normal (v03)",
+      "seed": 44,
+      "best_val_ce": 2.962614893913269,
+      "final_val_acc1": 0.21710526570677757
+    },
+    {
+      "label": "token_as_pos / normal (v03)",
+      "seed": 42,
+      "best_val_ce": 2.9875211119651794,
+      "final_val_acc1": 0.18903508968651295
+    },
+    {
+      "label": "token_as_pos / normal (v03)",
+      "seed": 43,
+      "best_val_ce": 3.0027175545692444,
+      "final_val_acc1": 0.21853070706129074
+    },
+    {
+      "label": "token_as_pos / normal (v03)",
+      "seed": 44,
+      "best_val_ce": 2.970550626516342,
+      "final_val_acc1": 0.21085526794195175
+    },
+    {
+      "label": "absolute / off (v03)",
+      "seed": 42,
+      "best_val_ce": 3.1925799548625946,
+      "final_val_acc1": 0.19254386611282825
+    },
+    {
+      "label": "absolute / off (v03)",
+      "seed": 43,
+      "best_val_ce": 3.190282791852951,
+      "final_val_acc1": 0.19254386611282825
+    },
+    {
+      "label": "absolute / off (v03)",
+      "seed": 44,
+      "best_val_ce": 3.192771315574646,
+      "final_val_acc1": 0.19254386611282825
+    }
+  ],
+  "bar_png": "wikitext08_input_schemes_20260402_105547.png"
+}

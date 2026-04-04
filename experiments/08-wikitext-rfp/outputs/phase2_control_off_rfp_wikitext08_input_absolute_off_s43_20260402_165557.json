@@ -1,0 +1,74 @@
+[
+  {
+    "epoch": 1,
+    "train_ce_mean": 5.324100375175476,
+    "train_rc_mean": 0.9988026022911072,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.324229717254639,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.9988026022911072,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.324229717254639,
+    "global_step": 4
+  },
+  {
+    "epoch": 2,
+    "train_ce_mean": 5.083427429199219,
+    "train_rc_mean": 0.9987448453903198,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.0855841636657715,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.9987448453903198,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.0855841636657715,
+    "global_step": 8
+  },
+  {
+    "epoch": 3,
+    "train_ce_mean": 4.876906514167786,
+    "train_rc_mean": 0.9987183809280396,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.86150598526001,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.9987183809280396,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.86150598526001,
+    "global_step": 12
+  },
+  {
+    "epoch": 4,
+    "train_ce_mean": 4.668535113334656,
+    "train_rc_mean": 0.9987416863441467,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.653148412704468,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.9987416863441467,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.653148412704468,
+    "global_step": 16
+  },
+  {
+    "epoch": 5,
+    "train_ce_mean": 4.444449424743652,
+    "train_rc_mean": 0.998767614364624,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.4616663455963135,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.998767614364624,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 4.4616663455963135,
+    "global_step": 20
+  },
+  {
+    "epoch": 6,
+    "train_ce_mean": 4.305093169212341,
+    "train_rc_mean": 0.9987771511077881,
+    "train_energy_mean": 0.0,
+    "val_ce": 4.288257122039795,
+    "val_acc1": 0.029255318455398083,
+    "val_rc": 0.9987771511077881,
+    "spike_rate": 0.02083333395421505,
+    "best_val_ce_so_far": 4.288257122039795,
+    "global_step": 24
+  }
+]

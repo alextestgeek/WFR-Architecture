@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0 -- /home/alex1/Desktop/WFR-Memory-Test/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/alex1/Desktop/WFR-Memory-Test
+collecting ... collected 5 items
+
+experiments/06-rfp-protocol-tests/test_protocol.py::test_tier_c_fails_on_flat_val_ce PASSED [ 20%]
+experiments/06-rfp-protocol-tests/test_protocol.py::test_tier_c_passes_on_varying_series PASSED [ 40%]
+experiments/06-rfp-protocol-tests/test_protocol.py::test_tier_b_rc_threshold PASSED [ 60%]
+experiments/06-rfp-protocol-tests/test_protocol.py::test_tier_a_grad_cap PASSED [ 80%]
+experiments/06-rfp-protocol-tests/test_protocol.py::test_fresh_batch_generators_differ_per_epoch PASSED [100%]
+
+============================== 5 passed in 2.25s ===============================

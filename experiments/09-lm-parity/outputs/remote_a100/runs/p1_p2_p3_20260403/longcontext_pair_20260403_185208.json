@@ -1,0 +1,212 @@
+{
+  "experiment": "09-lm-parity-D1-draft",
+  "roadmap": "docs/12-wfr-llm-breakthrough-roadmap.md §D.1",
+  "seq_lens_requested": [
+    96,
+    512
+  ],
+  "runs": [
+    {
+      "seq_len": 96,
+      "parity_payload": {
+        "experiment": "09-lm-parity-A2",
+        "roadmap": "docs/12-wfr-llm-breakthrough-roadmap.md section A2",
+        "shared": {
+          "epochs": 48,
+          "seq_len": 96,
+          "batch_size": 8,
+          "num_train_batches": 20,
+          "num_val_batches": 8,
+          "init_seed": 42,
+          "train_seed": 42,
+          "val_seed": 4242,
+          "readout_feat_dim": 32,
+          "readout_mlp_hidden": null,
+          "content_neighbor_mix": false,
+          "phase_causal_kernel": 1,
+          "readout_wave_kernel": 1,
+          "corpus_val_sha256_fingerprint": "609aef4ed2864599ab2d3cf08dfd440dcbfe8eec48c71ad6f9f36715e2950162"
+        },
+        "fairness_notes": {
+          "wfr_objective": "ce_only, no RFP (matches next-token CE only)",
+          "transformer_objective": "cross_entropy only",
+          "optimizer": "WFRLM: AdamW (betas 0.9/0.95, wd 0.1) + clip 1.0; Transformer: то же; общий LR (--tf-lr)",
+          "lr_transformer": 0.0003,
+          "lr_wfr_lm": 0.0003,
+          "match_lr_flag": false,
+          "match_optimizer_flag": true,
+          "capacity_match": {
+            "enabled": true,
+            "readout_feat_dim": 32,
+            "readout_mlp_hidden": null,
+            "content_neighbor_mix": false,
+            "phase_causal_kernel": 1,
+            "readout_wave_kernel": 1,
+            "min_d_model": 8,
+            "wfr_trainable_params_target": 12696,
+            "transformer_trainable_params": 12648,
+            "param_ratio_transformer_over_wfr": 0.996219281663516,
+            "chosen": {
+              "d_model": 8,
+              "nhead": 1,
+              "nlayers": 3,
+              "dim_feedforward": 128
+            }
+          }
+        },
+        "transformer": {
+          "best_val_ce": 3.180202543735504,
+          "final_val_ce": 3.180202543735504,
+          "epochs": 48,
+          "d_model": 8,
+          "nhead": 1,
+          "nlayers": 3,
+          "dim_feedforward": 128,
+          "num_params": 12648,
+          "train_seed": 42,
+          "val_seed": 4242,
+          "init_seed": 42,
+          "epoch_log_tail": [
+            {
+              "epoch": 46,
+              "val_ce": 3.214299589395523,
+              "best_so_far": 3.214299589395523
+            },
+            {
+              "epoch": 47,
+              "val_ce": 3.1965672373771667,
+              "best_so_far": 3.1965672373771667
+            },
+            {
+              "epoch": 48,
+              "val_ce": 3.180202543735504,
+              "best_so_far": 3.180202543735504
+            }
+          ]
+        },
+        "wfr_lm": {
+          "best_val_ce": 3.0960887372493744,
+          "final_val_rc": 0.7097600698471069,
+          "mean_spike_rate_end": 0.1687825582921505,
+          "mode": "baseline_wikitext_ce_only_train",
+          "num_trainable_params": 12696,
+          "max_grad_l2": 1.001231206549653
+        },
+        "comparison": {
+          "delta_best_val_ce_wfr_minus_transformer": -0.08411380648612976,
+          "trainable_params_transformer": 12648,
+          "trainable_params_wfr_lm": 12696,
+          "param_ratio_transformer_over_wfr": 0.996219281663516,
+          "interpretation": "положительно → WFR хуже baseline TF по best val CE при этом протоколе; отрицательно → WFR лучше (редко при первых прогонах).",
+          "capacity_warning": null
+        }
+      },
+      "d1_metrics": {
+        "wall_seconds_full_pair": 54.689,
+        "peak_cuda_mib": 23.644,
+        "cuda_available": true
+      }
+    },
+    {
+      "seq_len": 512,
+      "parity_payload": {
+        "experiment": "09-lm-parity-A2",
+        "roadmap": "docs/12-wfr-llm-breakthrough-roadmap.md section A2",
+        "shared": {
+          "epochs": 48,
+          "seq_len": 512,
+          "batch_size": 8,
+          "num_train_batches": 20,
+          "num_val_batches": 8,
+          "init_seed": 42,
+          "train_seed": 42,
+          "val_seed": 4242,
+          "readout_feat_dim": 32,
+          "readout_mlp_hidden": null,
+          "content_neighbor_mix": false,
+          "phase_causal_kernel": 1,
+          "readout_wave_kernel": 1,
+          "corpus_val_sha256_fingerprint": "c40dec856520b12fae42baa6b488e58bb82ae21b58e320d2cc077f8febb40e97"
+        },
+        "fairness_notes": {
+          "wfr_objective": "ce_only, no RFP (matches next-token CE only)",
+          "transformer_objective": "cross_entropy only",
+          "optimizer": "WFRLM: AdamW (betas 0.9/0.95, wd 0.1) + clip 1.0; Transformer: то же; общий LR (--tf-lr)",
+          "lr_transformer": 0.0003,
+          "lr_wfr_lm": 0.0003,
+          "match_lr_flag": false,
+          "match_optimizer_flag": true,
+          "capacity_match": {
+            "enabled": true,
+            "readout_feat_dim": 32,
+            "readout_mlp_hidden": null,
+            "content_neighbor_mix": false,
+            "phase_causal_kernel": 1,
+            "readout_wave_kernel": 1,
+            "min_d_model": 8,
+            "wfr_trainable_params_target": 12696,
+            "transformer_trainable_params": 12712,
+            "param_ratio_transformer_over_wfr": 1.0012602394454946,
+            "chosen": {
+              "d_model": 8,
+              "nhead": 1,
+              "nlayers": 3,
+              "dim_feedforward": 64
+            }
+          }
+        },
+        "transformer": {
+          "best_val_ce": 3.135086476802826,
+          "final_val_ce": 3.135086476802826,
+          "epochs": 48,
+          "d_model": 8,
+          "nhead": 1,
+          "nlayers": 3,
+          "dim_feedforward": 64,
+          "num_params": 12712,
+          "train_seed": 42,
+          "val_seed": 4242,
+          "init_seed": 42,
+          "epoch_log_tail": [
+            {
+              "epoch": 46,
+              "val_ce": 3.171233117580414,
+              "best_so_far": 3.171233117580414
+            },
+            {
+              "epoch": 47,
+              "val_ce": 3.15263968706131,
+              "best_so_far": 3.15263968706131
+            },
+            {
+              "epoch": 48,
+              "val_ce": 3.135086476802826,
+              "best_so_far": 3.135086476802826
+            }
+          ]
+        },
+        "wfr_lm": {
+          "best_val_ce": 3.064168155193329,
+          "final_val_rc": 0.6863874867558479,
+          "mean_spike_rate_end": 0.162628173828125,
+          "mode": "baseline_wikitext_ce_only_train",
+          "num_trainable_params": 12696,
+          "max_grad_l2": 0.9599871427359313
+        },
+        "comparison": {
+          "delta_best_val_ce_wfr_minus_transformer": -0.07091832160949707,
+          "trainable_params_transformer": 12712,
+          "trainable_params_wfr_lm": 12696,
+          "param_ratio_transformer_over_wfr": 1.0012602394454946,
+          "interpretation": "положительно → WFR хуже baseline TF по best val CE при этом протоколе; отрицательно → WFR лучше (редко при первых прогонах).",
+          "capacity_warning": null
+        }
+      },
+      "d1_metrics": {
+        "wall_seconds_full_pair": 56.628,
+        "peak_cuda_mib": 55.55,
+        "cuda_available": true
+      }
+    }
+  ]
+}
