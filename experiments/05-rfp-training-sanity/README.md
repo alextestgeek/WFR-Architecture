@@ -1,7 +1,7 @@
 # Experiment 05 — RFP Training Sanity (Phase 1, первый проверочный тест)
 
 **Дата:** 31 марта 2026  
-**Статус:** Активный (точка входа в Phase 1)
+**Статус:** Короткий GPU-прогон (Test 3) **пройден** — см. таблицу ниже и [`docs/07-experiment-plan.md`](../../docs/07-experiment-plan.md); скрипты остаются **точкой входа / регрессии** Phase 1
 
 **Краткий итог прогона 2026-03-31:** enhanced, `--epochs 30`, GPU A100 — precheck OK, **PASS** (снижение val total/CE); полная таблица и ссылка на `docs/07-experiment-plan.md` (Test 3) — ниже в разделе про удалённый GPU.
 
