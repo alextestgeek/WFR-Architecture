@@ -28,7 +28,7 @@ sys.path.insert(0, str(ROOT / "experiments" / "00-smoke-test"))
 sys.path.insert(0, str(ROOT / "experiments" / "06-rfp-v0"))
 
 from phase0_best_config import PHASE0_FREQ_BALANCED  # noqa: E402
-from wfr_core import WFRNetwork  # noqa: E402
+from wfr.core import WFRNetwork  # noqa: E402
 from wfr_lm import WFRLM  # noqa: E402
 
 from composite_loss import wfra2_composite_loss  # noqa: E402

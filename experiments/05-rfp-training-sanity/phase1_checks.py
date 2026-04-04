@@ -14,12 +14,15 @@ from pathlib import Path
 import torch
 
 _root = Path(__file__).resolve().parent
+_repo_root = Path(__file__).resolve().parents[2]
+if str(_repo_root) not in sys.path:
+    sys.path.insert(0, str(_repo_root))
 sys.path.insert(0, str(_root))
 _smoke = _root.parent / "00-smoke-test"
 sys.path.insert(0, str(_smoke))
 
 from phase0_best_config import assert_wfr_matches_phase0
-from wfr_core import TheoreticalResonanceLayer
+from wfr.core import TheoreticalResonanceLayer
 
 from wfr_losses import compute_loss, energy_cost, rc_penalty, task_loss_ce
 
@@ -49,7 +52,7 @@ def check_homeostatic_negative_feedback(device: torch.device) -> tuple[bool, str
         return (
             False,
             "homeostatic: ожидалось снижение порога при недостаточной активности спайков; "
-            f"threshold {thr_before:.6f} -> {thr_after:.6f}. Проверьте знак (r_real - r_target) в wfr_core.",
+            f"threshold {thr_before:.6f} -> {thr_after:.6f}. Проверьте знак (r_real - r_target) в wfr.core.",
         )
     return True, "homeostatic sign OK (порог снизился при r_real < r_target)"
 

@@ -1,7 +1,7 @@
 ## Experiment 06 — LLM Trainability (content-conditioned WFR)
 
 **Дата:** 31 марта 2026  
-**Статус:** В работе
+**Статус:** В работе (отдельный toy-пайплайн; **char WikiText-2 и единый протокол окон** — в [`experiments/08-wikitext-rfp/README.md`](../08-wikitext-rfp/README.md) / parity в Exp 09)
 
 ### Цель
 

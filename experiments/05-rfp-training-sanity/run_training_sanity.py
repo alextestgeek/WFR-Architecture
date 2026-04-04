@@ -29,11 +29,14 @@ import torch
 import torch.nn as nn
 
 _root = Path(__file__).resolve().parent
+_repo_root = Path(__file__).resolve().parents[2]
+if str(_repo_root) not in sys.path:
+    sys.path.insert(0, str(_repo_root))
 sys.path.insert(0, str(_root))
 _smoke = _root.parent / "00-smoke-test"
 sys.path.insert(0, str(_smoke))
 from phase0_best_config import PHASE0_FREQ_BALANCED
-from wfr_core import WFRNetwork
+from wfr.core import WFRNetwork
 
 from wfr_losses import compute_loss, energy_cost, rc_penalty, task_loss_ce
 

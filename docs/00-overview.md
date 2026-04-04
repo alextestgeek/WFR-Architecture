@@ -1,8 +1,8 @@
 # 00. Overview — Текущая Архитектура WFR
 
-**Версия документа:** 0.6  
-**Дата:** 31 марта 2026  
-**Статус:** Архитектура v2.1; Phase 0 (viability) завершён
+**Версия документа:** 0.8.1  
+**Дата:** 3 апреля 2026  
+**Статус:** Архитектура v2.1; Phase 0 (viability) завершён; §2.5 — роль токенов во WFRLM
 
 ---
 
@@ -37,6 +37,10 @@
 ### 2.4 Memory Mechanism
 - Информация хранится в **паттернах стоячих волн** в многомерном фазовом пространстве.
 
+### 2.5 Токены в языковой оболочке (WFRLM)
+
+В **языковой** задаче символ не кодируется отдельным «толстым» вектором скрытого состояния, как в классическом Transformer: он задаёт **обучаемый сдвиг фаз** (тор \( [0,2\pi)^M \)) на каждой позиции, который **складывается** с волновым позиционным кодированием WPE. Дальше тот же резонансный стек строит стоячую волну; **выход в словарь** — через узкий readout от амплитуды волны, RC и энергии спайков. Подробная цепочка, таблица сравнения с Transformer и следствия для экспериментов: [`03-theory.md`](03-theory.md) **§10**.
+
 ## 3. Механизм обучения
 
 **Название:** Resonant Field Plasticity (RFP)
@@ -48,7 +52,7 @@
   L = \alpha \cdot \text{TaskLoss} + \beta \cdot (1 - \text{AvgRC}) + \gamma \cdot \text{EnergyCost}
   $$
 
-### 2.5 Механизмы стабильности v2.1
+### 2.6 Механизмы стабильности v2.1
 
 - **Phase-Locking (WPE-L)**: фазовая синхронизация каждые 4 частоты — устраняет дрейф когерентности
 - **Homeostatic regulation**: адаптивный порог спайка (целевая частота 10%)
@@ -70,6 +74,7 @@
   - Все 4 стратегии распределения частот работают одинаково хорошо
   - Подробные результаты: `experiments/02-layer-scaling-test/`
 - **Phase 0 (viability, итог):** Long Context Stability, Basic Pattern Formation — папки `experiments/03-long-context-stability/`, `experiments/04-basic-pattern-formation/`; мастер-план [`08-phase-0-plan.md`](08-phase-0-plan.md)
+- **LM / parity (Exp 09):** WFRLM vs минимальный causal Transformer на том же char WikiText-2 и протоколе окон; узкое место **readout** подтверждено sweep’ом на GPU; локальность фаз/волны даёт тонкие сдвигы. Срез «теория × практика» и матрица гипотез: [`13-project-status-snapshot.md`](13-project-status-snapshot.md) (в т.ч. **§7**), [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md).
 
 ---
 
@@ -82,5 +87,7 @@
 - **v0.5** — Layer Scaling Test: 32 слоя, homeostatic bugfix
 - **v0.6** — Phase 0 закрыт: Test 1 (Long Context), Test 2 (Basic Pattern Formation)
 - **v0.7** — Phase 1 открыт: план [`10-phase-1-plan.md`](10-phase-1-plan.md); Experiment 05 — короткий прогон **enhanced** на GPU (2026-03-31): precheck OK, снижение val total/CE, **PASS**; детали [`07-experiment-plan.md`](07-experiment-plan.md) Test 3, артефакты в [`experiments/05-rfp-training-sanity/outputs/`](../experiments/05-rfp-training-sanity/README.md)
+- **v0.8** — §2.5: токены как фазовые сдвиги в WFRLM; ссылка на [`03-theory.md`](03-theory.md) §10
+- **v0.8.1** — §4: статус LM parity (Exp 09) + ссылка на [`13-project-status-snapshot.md`](13-project-status-snapshot.md) §7
 
-**Следующие документы:** [07-experiment-plan.md](07-experiment-plan.md) · [08-phase-0-plan.md](08-phase-0-plan.md) · [10-phase-1-plan.md](10-phase-1-plan.md)
+**Следующие документы:** [07-experiment-plan.md](07-experiment-plan.md) · [08-phase-0-plan.md](08-phase-0-plan.md) · [10-phase-1-plan.md](10-phase-1-plan.md) · [03-theory.md §10](03-theory.md) (токены и волновая фрактальная цепочка)

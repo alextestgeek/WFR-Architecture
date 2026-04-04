@@ -1,0 +1,74 @@
+[
+  {
+    "epoch": 1,
+    "train_ce_mean": 5.448355317115784,
+    "train_rc_mean": 0.6677052229642868,
+    "train_energy_mean": 0.026692708022892475,
+    "val_ce": 5.4666595458984375,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.6696913242340088,
+    "spike_rate": 0.05989583395421505,
+    "best_val_ce_so_far": 5.4666595458984375,
+    "global_step": 4
+  },
+  {
+    "epoch": 2,
+    "train_ce_mean": 5.241513013839722,
+    "train_rc_mean": 0.7035506367683411,
+    "train_energy_mean": 0.0032552082557231188,
+    "val_ce": 5.251478910446167,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.701083242893219,
+    "spike_rate": 0.0026041667442768812,
+    "best_val_ce_so_far": 5.251478910446167,
+    "global_step": 8
+  },
+  {
+    "epoch": 3,
+    "train_ce_mean": 5.055855751037598,
+    "train_rc_mean": 0.7282118052244186,
+    "train_energy_mean": 0.0,
+    "val_ce": 5.038151979446411,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.7303681075572968,
+    "spike_rate": 0.0,
+    "best_val_ce_so_far": 5.038151979446411,
+    "global_step": 12
+  },
+  {
+    "epoch": 4,
+    "train_ce_mean": 4.816916823387146,
+    "train_rc_mean": 0.7584962099790573,
+    "train_energy_mean": 0.020182291511446238,
+    "val_ce": 4.82317590713501,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.7598257958889008,
+    "spike_rate": 0.046875,
+    "best_val_ce_so_far": 4.82317590713501,
+    "global_step": 16
+  },
+  {
+    "epoch": 5,
+    "train_ce_mean": 4.625112533569336,
+    "train_rc_mean": 0.7867321819067001,
+    "train_energy_mean": 0.03190104122040793,
+    "val_ce": 4.618898391723633,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.7870845198631287,
+    "spike_rate": 0.08203125,
+    "best_val_ce_so_far": 4.618898391723633,
+    "global_step": 20
+  },
+  {
+    "epoch": 6,
+    "train_ce_mean": 4.430761098861694,
+    "train_rc_mean": 0.8109415769577026,
+    "train_energy_mean": 0.08528645895421505,
+    "val_ce": 4.42149543762207,
+    "val_acc1": 0.059840425848960876,
+    "val_rc": 0.8132481276988983,
+    "spike_rate": 0.09375,
+    "best_val_ce_so_far": 4.42149543762207,
+    "global_step": 24
+  }
+]

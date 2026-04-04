@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { CoreScene3D } from './CoreScene3D.tsx'
 import { Play, RotateCcw, Zap, FlaskConical, Sun, Moon } from 'lucide-react'
 import { motion } from 'framer-motion'
+
+const LIVE_WS =
+  (import.meta as { env?: { VITE_WFR_LIVE_WS?: string } }).env?.VITE_WFR_LIVE_WS ??
+  'ws://127.0.0.1:8765/ws'
 
 // ─────────────────────────────────────────────────────
 // WFR CORE — Real implementation (mirrors wfr_core.py)
@@ -146,6 +151,8 @@ const themes = {
 
 type ThemeKey = keyof typeof themes
 
+type ThemePalette = (typeof themes)[ThemeKey]
+
 const LAYER_COLORS = ['#818cf8', '#34d399', '#fbbf24', '#f87171', '#a78bfa', '#2dd4bf', '#fb923c', '#e879f9']
 const CTX_LENGTHS = [512, 2048, 8192]
 
@@ -162,7 +169,7 @@ function initCanvas(canvas: HTMLCanvasElement) {
   return { ctx, w: canvas.clientWidth, h: canvas.clientHeight, dpr }
 }
 
-function drawStandingWave(canvas: HTMLCanvasElement, result: WFRResult, t: typeof themes.dark) {
+function drawStandingWave(canvas: HTMLCanvasElement, result: WFRResult, t: ThemePalette) {
   const { ctx, w, h } = initCanvas(canvas)
   ctx.fillStyle = t.canvasBg; ctx.fillRect(0, 0, w, h)
 
@@ -242,7 +249,7 @@ function drawPhaseMap(canvas: HTMLCanvasElement, result: WFRResult, themeKey: Th
   for (let p = 0; p < nPh; p += labelStep) c.fillText(String(p), 16 / dpr, ((p + 0.6) * cH) / dpr)
 }
 
-function drawActivityBars(canvas: HTMLCanvasElement, result: WFRResult, t: typeof themes.dark, themeKey: ThemeKey) {
+function drawActivityBars(canvas: HTMLCanvasElement, result: WFRResult, t: ThemePalette, themeKey: ThemeKey) {
   const { ctx, w, h } = initCanvas(canvas)
   ctx.fillStyle = t.canvasBg; ctx.fillRect(0, 0, w, h)
 
@@ -276,7 +283,7 @@ function drawActivityBars(canvas: HTMLCanvasElement, result: WFRResult, t: typeo
   ctx.fillText('ACTIVE (amber) vs SILENT (grey)', pad, 16)
 }
 
-function drawResonanceAmplitudes(canvas: HTMLCanvasElement, result: WFRResult, t: typeof themes.dark) {
+function drawResonanceAmplitudes(canvas: HTMLCanvasElement, result: WFRResult, t: ThemePalette) {
   const { ctx, w, h } = initCanvas(canvas)
   const pad = { top: 28, right: 16, bottom: 28, left: 44 }
   const plotW = w - pad.left - pad.right, plotH = h - pad.top - pad.bottom
@@ -328,7 +335,7 @@ function drawResonanceAmplitudes(canvas: HTMLCanvasElement, result: WFRResult, t
 // Single context panel (4 charts like Python subplot 2x2)
 // ─────────────────────────────────────────────────────
 
-function ContextPanel({ result, theme, t }: { result: WFRResult; theme: ThemeKey; t: typeof themes.dark }) {
+function ContextPanel({ result, theme, t }: { result: WFRResult; theme: ThemeKey; t: ThemePalette }) {
   const waveRef = useRef<HTMLCanvasElement>(null)
   const phaseRef = useRef<HTMLCanvasElement>(null)
   const activityRef = useRef<HTMLCanvasElement>(null)
@@ -402,6 +409,65 @@ function ContextPanel({ result, theme, t }: { result: WFRResult; theme: ThemeKey
 // ─────────────────────────────────────────────────────
 
 const App = () => {
+  const [liveOn, setLiveOn] = useState(false)
+  const [liveResult, setLiveResult] = useState<WFRResult | null>(null)
+  const [liveStatus, setLiveStatus] = useState<'off' | 'connecting' | 'live' | 'err'>('off')
+
+  const liveCloseOkRef = useRef(true)
+
+  useEffect(() => {
+    if (!liveOn) {
+      setLiveStatus('off')
+      setLiveResult(null)
+      return
+    }
+    setLiveStatus('connecting')
+    liveCloseOkRef.current = false
+    const ws = new WebSocket(LIVE_WS)
+    ws.onopen = () => setLiveStatus('live')
+    ws.onmessage = (ev) => {
+      try {
+        const d = JSON.parse(ev.data as string)
+        if (d.type !== 'telemetry') return
+        const lr = d.layers.map((L: {
+          level: number
+          spikeRate: number
+          silentPct: number
+          avgAmplitude: number
+          resonances: number[]
+          spikes: boolean[]
+        }) => ({
+          level: L.level,
+          spikeRate: L.spikeRate,
+          silentPct: L.silentPct,
+          avgAmplitude: L.avgAmplitude,
+          resonances: L.resonances,
+          spikes: L.spikes,
+        }))
+        setLiveResult({
+          phases: d.phases,
+          layers: lr,
+          rc: d.rc,
+          standingWave: d.standingWave,
+          contextLength: d.contextLength,
+        })
+      } catch {
+        setLiveStatus('err')
+      }
+    }
+    ws.onerror = () => setLiveStatus('err')
+    ws.onclose = () => {
+      if (!liveCloseOkRef.current) {
+        setLiveStatus('err')
+        setLiveOn(false)
+      }
+    }
+    return () => {
+      liveCloseOkRef.current = true
+      ws.close()
+    }
+  }, [liveOn])
+
   const [theme, setTheme] = useState<ThemeKey>('dark')
   const [numLevels, setNumLevels] = useState(4)
   const [numPhases, setNumPhases] = useState(16)
@@ -443,6 +509,23 @@ const App = () => {
               className="p-2.5 rounded-xl transition-colors" style={{ background: t.cardBg, border: `1px solid ${t.border}` }}>
               {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
+            <button
+              type="button"
+              onClick={() => setLiveOn((v) => !v)}
+              className="px-3 py-2 rounded-xl text-[11px] font-mono transition-colors"
+              style={{
+                background: liveOn ? 'rgba(34,211,238,0.15)' : t.cardBg,
+                border: `1px solid ${liveOn ? 'rgba(34,211,238,0.5)' : t.border}`,
+                color: liveOn ? t.accent : t.textMuted,
+              }}
+            >
+              {liveOn ? 'LIVE: Py core' : 'Live off'}
+            </button>
+            {liveOn && (
+              <span className="text-[10px] font-mono" style={{ color: t.textDim }}>
+                {liveStatus === 'live' ? 'stream' : liveStatus}
+              </span>
+            )}
             <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>
               <FlaskConical className="h-3.5 w-3.5 text-emerald-500" />
               <span className="text-[11px] font-mono text-emerald-500 tracking-wide">REAL WFR ENGINE</span>
@@ -506,6 +589,16 @@ const App = () => {
 
           {/* Main — 3 context panels */}
           <div className="flex-1 p-6 space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 72px)' }}>
+            {liveOn && liveResult && (
+              <div className="space-y-3">
+                <div className="text-[11px] font-mono" style={{ color: t.textMuted }}>
+                  Поток с <b>wfr.core.WFRNetwork</b> (синтетические positions), ~8 Hz
+                </div>
+                <CoreScene3D result={liveResult} theme={{ bg: t.canvasBg, border: t.border, accent: t.accent }} />
+                <ContextPanel result={liveResult} theme={theme} t={t} />
+              </div>
+            )}
+
             {results.map(r => (
               <motion.div key={r.contextLength}
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}

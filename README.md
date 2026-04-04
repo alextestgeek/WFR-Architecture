@@ -32,7 +32,15 @@ WFR takes a different path: instead of matrix multiplication, information is enc
 
 - **Learning at scale** — toy next-token training and **RFP v0** (Adam + composite loss + plasticity step on frequencies / phase_bias / decay) are implemented (`wfr_lm.py`, `wfr_rfp.py`, [`experiments/06-rfp-v0/`](experiments/06-rfp-v0/), [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md)); strong CE gains vs baseline and long-run criteria are still **Phase 2** work.
 - **Speed** — still ~O(n) in practice, not sub-linear.
-- **Head-to-head with transformers** — no benchmark comparison yet.
+- **Head-to-head with transformers** — **partially**: char WikiText-2, fair parity vs a minimal **matched** causal Transformer (Experiment 09); the **readout / head width** is the main CE lever; synthesis [`docs/13-project-status-snapshot.md`](docs/13-project-status-snapshot.md) (§7), matrix [`docs/14-core-readiness-and-breakthrough-matrix.md`](docs/14-core-readiness-and-breakthrough-matrix.md).
+
+### Training: synthetic evidence and next step (April 2026)
+
+**Established on synthetic / toy runs** (Exp 05–07, protocol tests on GPU): the stack **can train** — gradients flow; Adam + composite loss + RFP (and related precursors) run without collapsing. That supports **Phase 1** engineering closure in [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) (sanity, explicit loss, reproducible scripts).
+
+**Not established there:** a proof of large CE improvement or RFP dominance — small vocab and toy sampling often keep val CE near \(\ln V\); that is a **weak task signal**, not a verdict on the architecture at scale.
+
+**Next step:** a small **real** text corpus for calibration — e.g. **WikiText-2** raw via [`data/hf/download_wikitext2.py`](data/hf/download_wikitext2.py) ([`data/hf/README.md`](data/hf/README.md)). That is **Phase 2+** exploration, not standard LM leaderboards.
 
 > **One-sentence analogy:** WFR replaces "a calculator with giant spreadsheets" (transformer) with "a room full of tuning forks" where information travels through wave resonance, not number crunching.
 
@@ -85,11 +93,11 @@ $$
 
 3. **Multi-scale Surrogate Gradient** — differentiable spiking with level-dependent scaling (γ=0.92 on key levels, 0.98 otherwise) to prevent vanishing gradients across fractal depth.
 
-### Learning (Planned): Resonant Field Plasticity (RFP)
+### Learning: Resonant Field Plasticity (RFP)
 
-- Two modes: real-time (online) and accelerated (offline)
-- Loss function balances task performance, resonance confidence (RC), and energy cost
-- Learning adjusts frequencies and phases, not classical weight matrices
+- **Implemented** for toy next-token (`wfr_rfp.py`, Exp 06; spec [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md)); online/offline-style stepping on frequencies, `phase_bias`, decay.
+- Loss balances task CE, \((1-\text{RC})\), and energy; **strong gains and full theory** remain Phase 2+.
+- Plasticity adjusts frequencies and phases, not classical weight matrices.
 
 ## Experimental Results (NVIDIA A100 80GB)
 
@@ -151,7 +159,7 @@ RC is stable across depths: ~0.97 (512 tokens), ~0.846 (8K), ~0.712 (131K) — i
 ### What is not confirmed
 
 - **Time complexity** remains ~O(n), not sub-linear as theorized
-- **Learning (RFP)** — not yet implemented; only forward pass tested
+- **Learning (RFP)** — forward + toy training tested (`wfr_rfp.py`, Exp 05–07); **large-scale** learning and benchmarks are **Phase 2+**
 - **Comparison with existing architectures** — not yet conducted
 
 Full results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md)
@@ -159,23 +167,30 @@ Full results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexi
 ## Project Structure
 
 ```
+wfr/                Каноническое ядро (`core.py`, `losses.py`) — `pip install -e .` или корень репо в PYTHONPATH
 docs/               Theory and documentation
 experiments/        Test code and results
-  00-smoke-test/              Smoke Test + core implementation (wfr_core.py)
+  00-smoke-test/              Smoke Test + phase0_best_config (ядро — в `wfr/`)
   01-memory-complexity-test/  Memory & Complexity Test (up to 100M tokens)
   02-layer-scaling-test/      Layer Scaling Test (up to 32 layers)
   03-long-context-stability/  Long Context Stability Test
   04-basic-pattern-formation/  Basic Pattern Formation (theory, section 5)
   05-rfp-training-sanity/      Phase 1: training sanity (precheck, full L; short GPU run 2026-03-31 PASS)
+  06-rfp-v0/                   RFP v0–v0.3, A/B and grids
+  06-rfp-protocol-tests/       Fresh-train / fixed-val protocol + tier checks
+  07-wfra2-precursor/          Composite loss + warm-up (WFRA-2 precursor)
+data/hf/                     Small real corpus (WikiText-2) — see README there
 tools/              Utilities (interactive visualizer)
 ```
+
+From the repo root, run **`pip install -e .`** for an editable install of the `wfr` package plus `wfr_lm` / `wfr_rfp`, so imports always track your working tree.
 
 ## Documentation
 
 1. [`docs/00-overview.md`](docs/00-overview.md) — Architecture overview
 2. [`docs/02-architecture.md`](docs/02-architecture.md) — Components and data flow
 3. [`docs/08-phase-0-plan.md`](docs/08-phase-0-plan.md) — Phase 0 master plan (viability, exit criteria)
-4. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms
+4. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms + **§10 (tokens in WFRLM / wave-fractal chain)**
 5. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
 6. [`experiments/04-basic-pattern-formation/README.md`](experiments/04-basic-pattern-formation/README.md) — Basic Pattern Formation (Phase 0, Test 2): protocol, metrics, verdict
 7. [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) — Phase 1 (training, RFP): criteria, caveats, experiment registry

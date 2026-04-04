@@ -1,0 +1,24 @@
+{
+  "metrics": {
+    "best_val_ce": 2.877700289090474,
+    "final_val_rc": 0.9395185137788454,
+    "mean_spike_rate": 0.21573893229166666,
+    "max_grad_l2": 970.6967297362868,
+    "epochs": 200,
+    "mode": "rfp_every_8_v03_wikitext",
+    "corr_delta_pb_delta_ce": -0.1923445705016857,
+    "rescue_step_fraction": 1.0
+  },
+  "vocab_size": 256,
+  "ln_vocab": 5.545177444479562,
+  "final_train_ce": 2.8952253721654415,
+  "final_train_rc": 0.939829514361918,
+  "final_train_energy": 0.21480846405029297,
+  "val_batches_sha256": "e6abd99c3228270c87613766dba86a182a2cb937c544fbeb1c582cca1171afe2",
+  "artifacts": {
+    "epoch_log": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_wikipush_epoch_20260402_175128.json",
+    "epoch_csv": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_wikipush_epochs_20260402_175128.csv",
+    "manifest_json": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_wikipush_manifest_20260402_175128.json",
+    "vocab_meta": "/home/alex1/Desktop/WFR-Memory-Test/experiments/08-wikitext-rfp/outputs/wikitext08_vocab_meta.json"
+  }
+}

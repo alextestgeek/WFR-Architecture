@@ -6,6 +6,7 @@ WFR Parameter Search Tool — 4 Layers Focus
 Цель: понять реальное поведение теории.
 """
 
+import sys
 import torch
 import json
 from pathlib import Path
@@ -13,7 +14,11 @@ from dataclasses import dataclass
 from typing import List, Dict
 from datetime import datetime
 
-from wfr_core import WFRNetwork
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from wfr.core import WFRNetwork
 
 
 @dataclass

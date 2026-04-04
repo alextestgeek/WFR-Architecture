@@ -1,0 +1,47 @@
+{
+  "rfp_version": "v03",
+  "epochs": 2,
+  "rfp_interval": 8,
+  "online_rfp": false,
+  "spike_rate_target": 0.25,
+  "correlation_delta_phase_bias_vs_delta_ce": null,
+  "series_delta_pb": [],
+  "series_delta_ce": [],
+  "log_every_epochs": 4,
+  "entries": [
+    {
+      "epoch": 2,
+      "val_ce": 3.4767006238301597,
+      "val_rc": 0.8288859923680624,
+      "mean_spike_rate": 0.0,
+      "per_layer_spike_rate": [
+        0.0,
+        0.0,
+        0.0,
+        0.0338541679084301
+      ],
+      "per_layer_rc_share": [
+        0.065265953540802,
+        0.12852419912815094,
+        0.07568392157554626,
+        0.7305259704589844
+      ],
+      "min_max_frequency": {
+        "min": 1.2970073223114014,
+        "max": 5.26540994644165
+      },
+      "min_max_decay": {
+        "min": 2.0411252975463867,
+        "max": 2.19494891166687
+      },
+      "delta_ce_since_last_log": 0.0,
+      "sum_abs_delta_phase_bias_interval": 0.5767102837562561
+    }
+  ],
+  "eta_f_v03": 0.00012,
+  "eta_theta_v03": 0.0003,
+  "eta_alpha_v03": 8e-06,
+  "rescue_threshold_v03": 0.12,
+  "rescue_factor_v03": 0.45,
+  "rescue_step_fraction": 1.0
+}

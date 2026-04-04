@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0 -- /home/alex1/Desktop/WFR-Memory-Test/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/alex1/Desktop/WFR-Memory-Test
+plugins: anyio-4.13.0
+collecting ... collected 2 items
+
+experiments/08-wikitext-rfp/test_wikitext_smoke.py::test_corpus_vocab_and_windows PASSED [ 50%]
+experiments/08-wikitext-rfp/test_wikitext_smoke.py::test_one_optimizer_step_cuda_if_available PASSED [100%]
+
+============================== 2 passed in 8.26s ===============================

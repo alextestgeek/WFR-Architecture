@@ -1,0 +1,93 @@
+{
+  "epochs": 8,
+  "seq_len": 64,
+  "num_train_batches": 6,
+  "num_val_batches": 3,
+  "minutes": 0,
+  "long": false,
+  "seeds": [
+    42
+  ],
+  "schemes": "full",
+  "rows": [
+    {
+      "mode": "absolute / normal (v03)",
+      "best_val_ce_mean": 3.574547529220581,
+      "best_val_ce_std": 0.0,
+      "final_val_acc1_mean": 0.08818342039982477,
+      "final_val_acc1_std": 0.0
+    },
+    {
+      "mode": "absolute_modV / normal (v03)",
+      "best_val_ce_mean": 3.574547529220581,
+      "best_val_ce_std": 0.0,
+      "final_val_acc1_mean": 0.08818342039982477,
+      "final_val_acc1_std": 0.0
+    },
+    {
+      "mode": "token_as_pos / normal (v03)",
+      "best_val_ce_mean": 3.6261058648427325,
+      "best_val_ce_std": 0.0,
+      "final_val_acc1_mean": 0.09700176368157068,
+      "final_val_acc1_std": 0.0
+    },
+    {
+      "mode": "absolute / normal x0.5 (v03)",
+      "best_val_ce_mean": 3.715684096018473,
+      "best_val_ce_std": 0.0,
+      "final_val_acc1_mean": 0.051146384328603745,
+      "final_val_acc1_std": 0.0
+    },
+    {
+      "mode": "absolute / off (v03)",
+      "best_val_ce_mean": 3.5401917298634844,
+      "best_val_ce_std": 0.0,
+      "final_val_acc1_mean": 0.09611992786327997,
+      "final_val_acc1_std": 0.0
+    }
+  ],
+  "per_run": [
+    {
+      "label": "absolute / normal (v03)",
+      "seed": 42,
+      "best_val_ce": 3.574547529220581,
+      "final_val_acc1": 0.08818342039982477,
+      "dynamics_png": "wikitext08_input_absolute_normal_s42_20260402_110339_dynamics.png",
+      "epoch_csv": "wikitext08_input_absolute_normal_s42_20260402_110339.csv"
+    },
+    {
+      "label": "absolute_modV / normal (v03)",
+      "seed": 42,
+      "best_val_ce": 3.574547529220581,
+      "final_val_acc1": 0.08818342039982477,
+      "dynamics_png": "wikitext08_input_absolute_modV_normal_s42_20260402_110339_dynamics.png",
+      "epoch_csv": "wikitext08_input_absolute_modV_normal_s42_20260402_110339.csv"
+    },
+    {
+      "label": "token_as_pos / normal (v03)",
+      "seed": 42,
+      "best_val_ce": 3.6261058648427325,
+      "final_val_acc1": 0.09700176368157068,
+      "dynamics_png": "wikitext08_input_token_as_pos_normal_s42_20260402_110339_dynamics.png",
+      "epoch_csv": "wikitext08_input_token_as_pos_normal_s42_20260402_110339.csv"
+    },
+    {
+      "label": "absolute / normal x0.5 (v03)",
+      "seed": 42,
+      "best_val_ce": 3.715684096018473,
+      "final_val_acc1": 0.051146384328603745,
+      "dynamics_png": "wikitext08_input_absolute_normal_cs0p5_s42_20260402_110339_dynamics.png",
+      "epoch_csv": "wikitext08_input_absolute_normal_cs0p5_s42_20260402_110339.csv"
+    },
+    {
+      "label": "absolute / off (v03)",
+      "seed": 42,
+      "best_val_ce": 3.5401917298634844,
+      "final_val_acc1": 0.09611992786327997,
+      "dynamics_png": "wikitext08_input_absolute_off_s42_20260402_110339_dynamics.png",
+      "epoch_csv": "wikitext08_input_absolute_off_s42_20260402_110339.csv"
+    }
+  ],
+  "bar_png": "wikitext08_input_schemes_20260402_110339.png",
+  "dynamics_note": "Each run: *_dynamics.png (val CE, acc@1, train CE, RC/spike by epoch)"
+}

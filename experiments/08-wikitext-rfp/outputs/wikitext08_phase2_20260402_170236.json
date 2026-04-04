@@ -1,0 +1,409 @@
+{
+  "protocol": "Exp08 theory phase2",
+  "order": [
+    "ab_rfp",
+    "h2h_pos",
+    "control_off"
+  ],
+  "hypotheses": {
+    "H1": "RFP улучшает или стабилизирует val CE относительно Adam-only при той же входной схеме.",
+    "H2": "Корректная разметка позиций (absolute) не хуже token_as_pos при достаточной длине обучения.",
+    "H3": "Отключение content (off) даёт контролируемую деградацию; улучшение CE без катастрофы RC/spike."
+  },
+  "success_criteria": {
+    "numerical": "Нет NaN; best_val_ce заметно ниже ln(V); различия между режимами воспроизводимы по нескольким сидам.",
+    "wave_health": "На эпохе минимума val CE spike и RC не выглядят тривиально «мёртвыми» (см. wave_health_*)."
+  },
+  "epochs": 36,
+  "seq_len": 96,
+  "num_train_batches": 16,
+  "num_val_batches": 8,
+  "minutes_total": 90,
+  "n_runs": 11,
+  "seeds_main": [
+    42,
+    43,
+    44
+  ],
+  "seeds_control_off": [
+    42,
+    43
+  ],
+  "sections": {
+    "ab_rfp": [
+      {
+        "mode": "Adam only | absolute/normal (v03 stack)",
+        "best_val_ce_mean": 2.9601838092009225,
+        "best_val_ce_std": 0.02531249396165603,
+        "n": 3
+      },
+      {
+        "mode": "Adam+RFP v03 | absolute/normal",
+        "best_val_ce_mean": 2.9750298162301383,
+        "best_val_ce_std": 0.03025017510471097,
+        "n": 3
+      }
+    ],
+    "h2h_pos": [
+      {
+        "mode": "absolute/normal + RFP v03 (from phase ab_rfp)",
+        "best_val_ce_mean": 2.9750298162301383,
+        "best_val_ce_std": 0.03025017510471097,
+        "n": 3
+      },
+      {
+        "mode": "token_as_pos/normal + RFP v03",
+        "best_val_ce_mean": 2.96872149904569,
+        "best_val_ce_std": 0.013467782217924785,
+        "n": 3
+      }
+    ],
+    "control_off": [
+      {
+        "mode": "absolute/off + RFP v03 (control)",
+        "best_val_ce_mean": 3.190823420882225,
+        "best_val_ce_std": 0.0008457750082015991,
+        "n": 2
+      }
+    ]
+  },
+  "per_run": [
+    {
+      "phase": "ab_rfp",
+      "label": "Adam only | absolute/normal (v03 stack)",
+      "seed": 42,
+      "best_val_ce": 2.9958170354366302,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 35,
+        "val_ce_at_best": 2.9958170354366302,
+        "val_rc_at_best": 0.9365844503045082,
+        "spike_at_best": 0.3879123367369175,
+        "train_ce_at_best": 2.9823270440101624,
+        "final_val_ce": 3.058161109685898,
+        "final_val_rc": 0.9379065409302711,
+        "final_spike": 0.3008897639811039
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s42_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s42_20260402_170236.csv"
+    },
+    {
+      "phase": "ab_rfp",
+      "label": "Adam+RFP v03 | absolute/normal",
+      "seed": 42,
+      "best_val_ce": 3.0178093016147614,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 14,
+        "val_ce_at_best": 3.0178093016147614,
+        "val_rc_at_best": 0.9093788042664528,
+        "spike_at_best": 0.4082031361758709,
+        "train_ce_at_best": 2.9854510724544525,
+        "final_val_ce": 3.0928012430667877,
+        "final_val_rc": 0.9336731657385826,
+        "final_spike": 0.12825521174818277
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s42_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s42_20260402_170236.csv"
+    },
+    {
+      "phase": "ab_rfp",
+      "label": "Adam only | absolute/normal (v03 stack)",
+      "seed": 43,
+      "best_val_ce": 2.9394026696681976,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 35,
+        "val_ce_at_best": 2.9394026696681976,
+        "val_rc_at_best": 0.9454456865787506,
+        "spike_at_best": 0.3785807304084301,
+        "train_ce_at_best": 2.9201463013887405,
+        "final_val_ce": 2.967876583337784,
+        "final_val_rc": 0.9437879472970963,
+        "final_spike": 0.3281250037252903
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s43_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s43_20260402_170236.csv"
+    },
+    {
+      "phase": "ab_rfp",
+      "label": "Adam+RFP v03 | absolute/normal",
+      "seed": 43,
+      "best_val_ce": 2.9538553953170776,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 33,
+        "val_ce_at_best": 2.9538553953170776,
+        "val_rc_at_best": 0.9485099986195564,
+        "spike_at_best": 0.4235026054084301,
+        "train_ce_at_best": 2.920501559972763,
+        "final_val_ce": 2.959812879562378,
+        "final_val_rc": 0.9524296894669533,
+        "final_spike": 0.3015407994389534
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s43_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s43_20260402_170236.csv"
+    },
+    {
+      "phase": "ab_rfp",
+      "label": "Adam only | absolute/normal (v03 stack)",
+      "seed": 44,
+      "best_val_ce": 2.94533172249794,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 32,
+        "val_ce_at_best": 2.94533172249794,
+        "val_rc_at_best": 0.9519691467285156,
+        "spike_at_best": 0.2076822929084301,
+        "train_ce_at_best": 2.9119084775447845,
+        "final_val_ce": 3.183919131755829,
+        "final_val_rc": 0.9498201459646225,
+        "final_spike": 0.0
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": false,
+        "rc_not_collapsed": true,
+        "healthy_guess": false
+      },
+      "dynamics_png": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s44_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_adam_wikitext08_input_absolute_normal_s44_20260402_170236.csv"
+    },
+    {
+      "phase": "ab_rfp",
+      "label": "Adam+RFP v03 | absolute/normal",
+      "seed": 44,
+      "best_val_ce": 2.9534247517585754,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 33,
+        "val_ce_at_best": 2.9534247517585754,
+        "val_rc_at_best": 0.9461931809782982,
+        "spike_at_best": 0.2031250037252903,
+        "train_ce_at_best": 2.9278026819229126,
+        "final_val_ce": 2.9635342955589294,
+        "final_val_rc": 0.94920514523983,
+        "final_spike": 0.3674045167863369
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s44_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_ab_rfp_rfp_wikitext08_input_absolute_normal_s44_20260402_170236.csv"
+    },
+    {
+      "phase": "h2h_pos",
+      "label": "token_as_pos/normal + RFP v03",
+      "seed": 42,
+      "best_val_ce": 2.9875211119651794,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 26,
+        "val_ce_at_best": 2.9875211119651794,
+        "val_rc_at_best": 0.9121474027633667,
+        "spike_at_best": 0.2526041716337204,
+        "train_ce_at_best": 2.9443461298942566,
+        "final_val_ce": 3.0012475848197937,
+        "final_val_rc": 0.9088026657700539,
+        "final_spike": 0.3170572929084301
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s42_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s42_20260402_170236.csv"
+    },
+    {
+      "phase": "h2h_pos",
+      "label": "token_as_pos/normal + RFP v03",
+      "seed": 43,
+      "best_val_ce": 2.961967945098877,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 36,
+        "val_ce_at_best": 2.961967945098877,
+        "val_rc_at_best": 0.9306138083338737,
+        "spike_at_best": 0.5543619766831398,
+        "train_ce_at_best": 2.923270061612129,
+        "final_val_ce": 2.961967945098877,
+        "final_val_rc": 0.9306138083338737,
+        "final_spike": 0.5543619766831398
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": false,
+        "rc_not_collapsed": true,
+        "healthy_guess": false
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": false,
+        "rc_not_collapsed": true,
+        "healthy_guess": false
+      },
+      "dynamics_png": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s43_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s43_20260402_170236.csv"
+    },
+    {
+      "phase": "h2h_pos",
+      "label": "token_as_pos/normal + RFP v03",
+      "seed": 44,
+      "best_val_ce": 2.9566754400730133,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 36,
+        "val_ce_at_best": 2.9566754400730133,
+        "val_rc_at_best": 0.9620375484228134,
+        "spike_at_best": 0.2026909738779068,
+        "train_ce_at_best": 2.930160477757454,
+        "final_val_ce": 2.9566754400730133,
+        "final_val_rc": 0.9620375484228134,
+        "final_spike": 0.2026909738779068
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s44_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_h2h_pos_rfp_wikitext08_input_token_as_pos_normal_s44_20260402_170236.csv"
+    },
+    {
+      "phase": "control_off",
+      "label": "absolute/off + RFP v03 (control)",
+      "seed": 42,
+      "best_val_ce": 3.1916691958904266,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 36,
+        "val_ce_at_best": 3.1916691958904266,
+        "val_rc_at_best": 0.9972528219223022,
+        "spike_at_best": 0.06380208162590861,
+        "train_ce_at_best": 3.1613269597291946,
+        "final_val_ce": 3.1916691958904266,
+        "final_val_rc": 0.9972528219223022,
+        "final_spike": 0.06380208162590861
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": true,
+        "rc_not_collapsed": true,
+        "healthy_guess": true
+      },
+      "dynamics_png": "phase2_control_off_rfp_wikitext08_input_absolute_off_s42_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_control_off_rfp_wikitext08_input_absolute_off_s42_20260402_170236.csv"
+    },
+    {
+      "phase": "control_off",
+      "label": "absolute/off + RFP v03 (control)",
+      "seed": 43,
+      "best_val_ce": 3.1899776458740234,
+      "metrics_at_min_val_ce": {
+        "epoch_min_val_ce": 36,
+        "val_ce_at_best": 3.1899776458740234,
+        "val_rc_at_best": 0.9972794055938721,
+        "spike_at_best": 0.96875,
+        "train_ce_at_best": 3.1596628576517105,
+        "final_val_ce": 3.1899776458740234,
+        "final_val_rc": 0.9972794055938721,
+        "final_spike": 0.96875
+      },
+      "wave_health_at_best": {
+        "spike_target": 0.25,
+        "spike_in_band": false,
+        "rc_not_collapsed": true,
+        "healthy_guess": false
+      },
+      "wave_health_final": {
+        "spike_target": 0.25,
+        "spike_in_band": false,
+        "rc_not_collapsed": true,
+        "healthy_guess": false
+      },
+      "dynamics_png": "phase2_control_off_rfp_wikitext08_input_absolute_off_s43_20260402_170236_dynamics.png",
+      "epoch_csv": "phase2_control_off_rfp_wikitext08_input_absolute_off_s43_20260402_170236.csv"
+    }
+  ],
+  "bar_png": {
+    "ab_rfp": "wikitext08_phase2_bar_ab_rfp_20260402_170236.png",
+    "h2h_pos": "wikitext08_phase2_bar_h2h_pos_20260402_170236.png",
+    "control_off": "wikitext08_phase2_bar_control_off_20260402_170236.png"
+  },
+  "artifacts_note": "phase2_*dynamics.png — CE/acc/train/RC/spike; phase2_bar_* — сравнение средних best_val_ce по меткам.",
+  "dedup_note": "Фаза h2h_pos не дублирует прогон absolute/normal+RFP: метрики absolute берутся из фазы ab_rfp."
+}

@@ -13,6 +13,7 @@ WFR-Architecture — Test 0: Smoke Test
   5. Resonance Confidence вычисляется
 """
 
+import sys
 import torch
 import numpy as np
 import matplotlib
@@ -20,7 +21,11 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-from wfr_core import WFRNetwork
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from wfr.core import WFRNetwork
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 OUTPUT_DIR = Path(__file__).parent / "outputs"

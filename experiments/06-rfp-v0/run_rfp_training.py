@@ -20,7 +20,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import torch
-import torch.nn.functional as F
 
 ROOT = Path(__file__).resolve().parents[2]
 _EXP_DIR = Path(__file__).resolve().parent
@@ -28,7 +27,8 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "experiments" / "00-smoke-test"))
 
 from phase0_best_config import PHASE0_FREQ_BALANCED  # noqa: E402
-from wfr_core import WFRNetwork  # noqa: E402
+from wfr.losses import ALPHA, BETA, GAMMA, composite_training_loss, next_token_cross_entropy  # noqa: E402
+from wfr.core import WFRNetwork  # noqa: E402
 from wfr_lm import WFRLM  # noqa: E402
 from wfr_rfp import apply_rfp_deltas, rfp_step, rfp_step_v01, rfp_step_v02, rfp_step_v03  # noqa: E402
 
@@ -38,9 +38,6 @@ VOCAB_SIZE = 32
 SEQ_LEN = 48
 BATCH_SIZE = 16
 SEED = 42
-ALPHA = 1.0
-BETA = 0.15
-GAMMA = 0.1
 
 
 def pearson_r(x: list[float], y: list[float]) -> Optional[float]:
@@ -98,10 +95,7 @@ def evaluate(
     n = 0
     for batch in batches:
         state = model(batch, batch)
-        ce = F.cross_entropy(
-            state.logits[:, :-1].reshape(-1, state.logits.size(-1)),
-            batch[:, 1:].reshape(-1),
-        )
+        ce = next_token_cross_entropy(state.logits, batch)
         rc = state.rc
         if rc.dim() > 0:
             rc = rc.mean()
@@ -133,10 +127,7 @@ def evaluate_detailed(
 
     for batch in batches:
         state = model(batch, batch)
-        ce = F.cross_entropy(
-            state.logits[:, :-1].reshape(-1, state.logits.size(-1)),
-            batch[:, 1:].reshape(-1),
-        )
+        ce = next_token_cross_entropy(state.logits, batch)
         rc = state.rc
         if rc.dim() > 0:
             rc = rc.mean()
@@ -185,18 +176,26 @@ def plot_training_curves(
     history_val_ce: list[float],
     history_val_rc: list[float],
     history_spike: list[float],
-    vocab_size: int,
     path_png: Path,
     title_suffix: str = "",
+    *,
+    vocab_size: Optional[int] = None,
+    history_train_ce: Optional[list[float]] = None,
 ) -> None:
-    """Val CE / RC / spike rate по эпохам + линия ln(V) для CE (как в Exp 05)."""
+    """Val CE / RC / spike rate по эпохам + линия ln(V) для CE (как в Exp 05).
+
+    ``history_train_ce`` (опционально): средний train CE по эпохам — рисуется вместе с val на первой панели.
+    """
     if not history_val_ce:
         return
     path_png.parent.mkdir(parents=True, exist_ok=True)
     epochs = list(range(1, len(history_val_ce) + 1))
-    ln_v = math.log(vocab_size)
+    v = vocab_size if vocab_size is not None else VOCAB_SIZE
+    ln_v = math.log(v)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
+    if history_train_ce is not None and len(history_train_ce) == len(history_val_ce):
+        axes[0].plot(epochs, history_train_ce, color="#9333ea", label="train CE (epoch mean)", alpha=0.85)
     axes[0].plot(epochs, history_val_ce, color="#16a34a", label="val CE")
     axes[0].axhline(ln_v, color="gray", linestyle=":", label=f"ln V = {ln_v:.3f}")
     axes[0].set_ylabel("CE")
@@ -225,6 +224,8 @@ def plot_ab_modes_bar(
     rows: list[dict[str, Any]],
     path_png: Path,
     title: str = "Experiment 06 — A/B best val CE",
+    *,
+    vocab_size: Optional[int] = None,
 ) -> None:
     """Столбчатая диаграмма best val CE по режимам."""
     if not rows:
@@ -240,7 +241,8 @@ def plot_ab_modes_bar(
     ax.set_ylabel("best val CE")
     ax.set_title(title)
     ax.grid(True, axis="y", alpha=0.3)
-    ln_v = math.log(VOCAB_SIZE)
+    v = vocab_size if vocab_size is not None else VOCAB_SIZE
+    ln_v = math.log(v)
     ax.axhline(ln_v, color="gray", linestyle=":", label=f"ln V = {ln_v:.3f}")
     ax.legend(loc="upper right", fontsize=8)
     for i, (b, v) in enumerate(zip(bars, ces)):
@@ -341,12 +343,10 @@ def train_run(
             global_step += 1
             opt.zero_grad(set_to_none=True)
             state = model(batch, batch)
-            ce_loss = F.cross_entropy(
-                state.logits[:, :-1].reshape(-1, state.logits.size(-1)),
-                batch[:, 1:].reshape(-1),
+            total, ce_loss, _ = composite_training_loss(
+                state.logits, batch, state.rc, state.energy,
+                alpha=ALPHA, beta=BETA, gamma=GAMMA,
             )
-            rc_term = 1.0 - state.rc if state.rc.dim() == 0 else (1.0 - state.rc).mean()
-            total = ALPHA * ce_loss + BETA * rc_term + GAMMA * state.energy
             total.backward()
             g2 = total_grad_l2_norm(model)
             max_g = max(max_g, g2)
@@ -482,9 +482,9 @@ def train_run(
             history_val_ce,
             history_val_rc,
             history_spike,
-            VOCAB_SIZE,
             png_out,
             title_suffix=f" ({mode})",
+            vocab_size=VOCAB_SIZE,
         )
 
     rescue_frac: Optional[float] = (

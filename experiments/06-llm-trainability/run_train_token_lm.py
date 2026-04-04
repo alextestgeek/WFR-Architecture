@@ -31,13 +31,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+_repo_root = Path(__file__).resolve().parents[2]
+if str(_repo_root) not in sys.path:
+    sys.path.insert(0, str(_repo_root))
 _root = Path(__file__).resolve().parent
 sys.path.insert(0, str(_root))
 _smoke = _root.parent / "00-smoke-test"
 sys.path.insert(0, str(_smoke))
 
 from phase0_best_config import PHASE0_FREQ_BALANCED  # noqa: E402
-from wfr_core import WFRNetwork  # noqa: E402
+from wfr.core import WFRNetwork  # noqa: E402
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 OUT_DIR = _root / "outputs"
@@ -166,20 +169,20 @@ class WFRTokenLM(nn.Module):
         content = self.token_phase_offset(token_ids) % (2 * math.pi)
         phases = (base + content) % (2 * math.pi)
 
-        # run resonance stack manually to keep wfr_core untouched
+        # run resonance stack manually (ядро не трогаем)
         layer_resonances = []
         layer_spikes = []
         for layer in self.wfr.resonance_layers:
             resonance = layer(phases, target_mode=self.wfr.target_mode)
             spikes = torch.abs(resonance).detach() * 0.0  # placeholder overwritten below
-            # Use the same surrogate function as in wfr_core via layer forward already created spikes internally,
+            # Use the same surrogate function as in wfr.core via layer forward already created spikes internally,
             # but it doesn't return it; we approximate energy by threshold crossings from resonance here.
-            # This is a pragmatic proxy until wfr_core returns spikes explicitly in resonance layer outputs.
+            # This is a pragmatic proxy until the core returns spikes explicitly in resonance layer outputs.
             spikes = (torch.abs(resonance) > layer.spike_threshold).float()
             layer_resonances.append(resonance)
             layer_spikes.append(spikes)
 
-        # RC as in wfr_core
+        # RC as in wfr.core
         rc = self.wfr.confidence(phases)
         standing_wave = torch.stack(layer_resonances, dim=0).mean(dim=0)
 

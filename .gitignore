@@ -38,6 +38,7 @@ remote-gpu-secrets.*
 # Project rules and local docs (internal, not for public repo)
 RULES.md
 README.ru.md
+Мысли.md
 
 # Experiment outputs — только тяжёлые бинарники; логи/JSON экспериментов коммитим как артефакты исследований
 experiments/**/outputs/*.bin
@@ -48,3 +49,6 @@ experiments/**/outputs/*.onnx
 experiments/06-rfp-protocol-tests/outputs/_*.json
 experiments/06-rfp-protocol-tests/outputs/rfp_*_protocol_*.json
 experiments/07-wfra2-precursor/outputs/_*.json
+
+# Hugging Face — локальная копия датасета (восстановить: python data/hf/download_wikitext2.py)
+data/hf/wikitext-2-raw-v1/

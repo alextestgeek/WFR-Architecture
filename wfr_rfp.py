@@ -1,7 +1,7 @@
 """
 Resonant Field Plasticity (RFP) v0 — шаги поверх Adam + composite loss.
 
-Параметры ядра: experiments/00-smoke-test/wfr_core.py
+Параметры ядра: :mod:`wfr.core` (TheoreticalResonanceLayer и др.).
 """
 
 from __future__ import annotations

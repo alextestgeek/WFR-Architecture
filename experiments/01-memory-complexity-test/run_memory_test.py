@@ -18,13 +18,10 @@ import json
 from datetime import datetime
 
 import sys
-_root = Path(__file__).resolve().parent
-_smoke = _root.parent / "00-smoke-test"
-if _smoke.is_dir():
-    sys.path.insert(0, str(_smoke))
-else:
-    sys.path.insert(0, str(_root))
-from wfr_core import WFRNetwork
+_repo_root = Path(__file__).resolve().parents[2]
+if str(_repo_root) not in sys.path:
+    sys.path.insert(0, str(_repo_root))
+from wfr.core import WFRNetwork
 
 # ==================== КОНФИГУРАЦИЯ ====================
 

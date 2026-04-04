@@ -1,17 +1,10 @@
 """
-WFR-Architecture Core Components v2.0
+WFR-Architecture — каноническое ядро (v2.0).
 
-Компоненты:
-  1. WavePhaseEncoder (WPE) + Phase-Locking (WPE-L)
-  2. FractalResonanceLayer / TheoreticalResonanceLayer
-  3. ResonanceTriggeredSpike + Homeostatic regulation
-  4. ResonanceConfidence
-  5. SurrogateSpikeFunction (Multi-scale surrogate gradient)
+Физика волн, резонанс, спайки, RC, surrogate gradient, WFRNetwork.
 
-v2.0 additions (31 марта 2026):
-  - Phase-Locking: глобальная фазовая синхронизация каждые 4 частоты
-  - Homeostatic regulation: адаптивный порог спайка
-  - Multi-scale surrogate gradient: дифференцируемый спайкинг
+Единственная копия ядра в репозитории: импорт ``from wfr.core import ...``.
+Запуск скриптов из корня или ``pip install -e .`` (см. ``pyproject.toml``).
 """
 
 from __future__ import annotations
@@ -21,6 +14,7 @@ from typing import Optional
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class WavePhaseEncoder(nn.Module):
@@ -351,9 +345,24 @@ class WFRNetwork(nn.Module):
         spike_rate_target: float = 0.10,
         homeostatic_eta: float = 0.01,
         homeostatic_always_on: bool = False,
+        phase_causal_kernel: int = 1,
     ):
         super().__init__()
         self.encoder = WavePhaseEncoder(num_phases, num_fractal_levels)
+        if phase_causal_kernel < 1:
+            raise ValueError("phase_causal_kernel must be >= 1 (1 = выключена каузальная смесь по времени)")
+        self.phase_causal_kernel = phase_causal_kernel
+        self._phase_causal_dw: Optional[nn.Conv1d] = None
+        if phase_causal_kernel > 1:
+            self._phase_causal_dw = nn.Conv1d(
+                num_phases,
+                num_phases,
+                kernel_size=phase_causal_kernel,
+                padding=0,
+                groups=num_phases,
+                bias=False,
+            )
+            nn.init.zeros_(self._phase_causal_dw.weight)
 
         if layer_frequencies is None:
             layer_frequencies = [1.0 + i * 0.5 for i in range(num_resonance_layers)]
@@ -391,11 +400,17 @@ class WFRNetwork(nn.Module):
         returns: dict с полной диагностикой
         
         Теперь используем теоретически корректный путь:
-        WPE → TheoreticalResonanceLayer (с PhaseInterference внутри)
+        WPE → (опц.) каузальная depthwise-смесь фаз по времени → TheoreticalResonanceLayer …
         """
         phases = self.encoder(positions)
         if content_delta is not None:
             phases = phases + content_delta
+        if self._phase_causal_dw is not None:
+            k = self.phase_causal_kernel
+            x = phases.transpose(1, 2)
+            x = F.pad(x, (k - 1, 0))
+            x = self._phase_causal_dw(x)
+            phases = phases + x.transpose(1, 2)
 
         layer_resonances = []
         layer_spikes = []

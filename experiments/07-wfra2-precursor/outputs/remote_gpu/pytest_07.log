@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0 -- /home/alex1/Desktop/WFR-Memory-Test/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/alex1/Desktop/WFR-Memory-Test
+collecting ... collected 3 items
+
+experiments/07-wfra2-precursor/test_composite_loss.py::test_resonance_in_0_1_range PASSED [ 33%]
+experiments/07-wfra2-precursor/test_composite_loss.py::test_wfra2_backward PASSED [ 66%]
+experiments/07-wfra2-precursor/test_composite_loss.py::test_energy_homeostat PASSED [100%]
+
+============================== 3 passed in 1.66s ===============================

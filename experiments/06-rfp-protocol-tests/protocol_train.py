@@ -1,7 +1,7 @@
 """
 Обучение с протоколом «свежие train-батчи каждую эпоху + фиксированный val holdout».
 
-Не изменяет ядро (wfr_core / wfr_lm / wfr_rfp): только схема сэмплирования данных и вызов тех же шагов, что в run_rfp_training.train_run.
+Не изменяет ядро (wfr.core / wfr_lm / wfr_rfp): только схема сэмплирования данных и вызов тех же шагов, что в run_rfp_training.train_run.
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ sys.path.insert(0, str(ROOT / "experiments" / "00-smoke-test"))
 sys.path.insert(0, str(_EXP06))
 
 from phase0_best_config import PHASE0_FREQ_BALANCED  # noqa: E402
-from wfr_core import WFRNetwork  # noqa: E402
+from wfr.core import WFRNetwork  # noqa: E402
 from wfr_lm import WFRLM  # noqa: E402
 from wfr_rfp import apply_rfp_deltas, rfp_step, rfp_step_v01, rfp_step_v02, rfp_step_v03  # noqa: E402
 
@@ -314,9 +314,9 @@ def train_run_fresh_epochs(
             history_val_ce,
             history_val_rc,
             history_spike,
-            VOCAB_SIZE,
             png_out,
             title_suffix=f" ({plot_title_prefix}, {mode})",
+            vocab_size=VOCAB_SIZE,
         )
 
     rescue_frac: Optional[float] = (

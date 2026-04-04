@@ -1,0 +1,50 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+{
+  "experiment": "07-wfra2-precursor",
+  "note": "Сравнение CE-only vs композитный лосс WFRA-2 (без полного RFP v1 по слоям).",
+  "hyper": {
+    "epochs": 24,
+    "warmup_epochs": 8,
+    "train_seed": 42,
+    "val_seed": 4242,
+    "lr": 0.02,
+    "lr_warmup": 0.05,
+    "alpha": 0.3,
+    "beta": 0.1,
+    "gamma": 0.05,
+    "out_json": "experiments/07-wfra2-precursor/outputs/remote_gpu/wfra2_precursor_24ep.json"
+  },
+  "baseline_ce_only": {
+    "mode": "ce_only",
+    "best_val_ce": 3.465519905090332,
+    "final_val_ce": 3.469046711921692,
+    "max_grad": 9.0737998123191,
+    "warmup_epochs": 8,
+    "epochs": 24,
+    "loss_parts_last": null
+  },
+  "wfra2_composite": {
+    "mode": "wfra2_composite",
+    "best_val_ce": 3.4661601781845093,
+    "final_val_ce": 3.467264413833618,
+    "max_grad": 14.154458164768347,
+    "warmup_epochs": 8,
+    "epochs": 24,
+    "loss_parts_last": {
+      "l_task": 3.4652161598205566,
+      "l_res": 0.4638627767562866,
+      "l_energy": 0.08229167014360428,
+      "l_phase": 0.5618659853935242
+    }
+  },
+  "delta_final_val_ce": 0.0017822980880737305
+}
+
+Wrote experiments/07-wfra2-precursor/outputs/remote_gpu/wfra2_precursor_24ep.json

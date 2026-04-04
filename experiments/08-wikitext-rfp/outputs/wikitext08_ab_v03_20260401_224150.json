@@ -1,0 +1,42 @@
+{
+  "epochs": 6,
+  "seq_len": 48,
+  "batch_size": 8,
+  "vocab_size": 256,
+  "baseline_best_val_ce": 4.346905469894409,
+  "rows": [
+    {
+      "mode": "Adam only (WikiText char)",
+      "best_val_ce": 4.346905469894409
+    },
+    {
+      "mode": "Adam + RFP v03 (WikiText char)",
+      "best_val_ce": 4.276404619216919
+    }
+  ],
+  "metrics_baseline": {
+    "best_val_ce": 4.346905469894409,
+    "final_val_rc": 0.7095177173614502,
+    "mean_spike_rate": 0.0,
+    "max_grad_l2": 0.9776859832061299,
+    "epochs": 6,
+    "mode": "baseline_wikitext",
+    "corr_delta_pb_delta_ce": null,
+    "rescue_step_fraction": null
+  },
+  "metrics_rfp": {
+    "best_val_ce": 4.276404619216919,
+    "final_val_rc": 0.8072410523891449,
+    "mean_spike_rate": 0.26953125,
+    "max_grad_l2": 2.964216987585884,
+    "epochs": 6,
+    "mode": "rfp_every_8_v03_wikitext",
+    "corr_delta_pb_delta_ce": 1.0,
+    "rescue_step_fraction": 1.0
+  },
+  "artifacts": {
+    "ab_bar_png": "wikitext08_ab_bar_20260401_224150.png",
+    "curves_baseline": "wikitext08_curves_baseline_20260401_224150.png",
+    "curves_rfp": "wikitext08_curves_rfp_v03_20260401_224150.png"
+  }
+}

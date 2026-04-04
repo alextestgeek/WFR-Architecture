@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wfr-architecture"
+version = "0.1.0"
+description = "Wave-Fractal-Resonant LLM research stack"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wfr*"]
+
+[tool.setuptools]
+py-modules = ["wfr_lm", "wfr_rfp"]
+
+[project.optional-dependencies]
+viz = ["fastapi>=0.100", "uvicorn[standard]>=0.22"]
+
