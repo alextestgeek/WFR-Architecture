@@ -2,8 +2,8 @@
 
 **Wave-Fractal-Resonant Architecture**
 
-**Версия:** 0.6  
-**Дата:** 31 марта 2026
+**Версия:** 0.6.1  
+**Дата:** 30 апреля 2026
 
 Это официальная папка документации проекта WFR.
 
@@ -20,7 +20,7 @@
 | [`04-comparison.md`](04-comparison.md) | Сравнение с другими архитектурами                | Обновлено (O(n) вместо O(log n)) |
 | [`05-roadmap.md`](05-roadmap.md)       | План развития проекта                            | — |
 | [`06-visualizer.md`](06-visualizer.md) | Описание интерактивного визуализатора            | — |
-| [`07-experiment-plan.md`](07-experiment-plan.md) | План и статус экспериментов; **Phase 3+** четыре опоры; **чеклист из 10 шагов** перед PR (`core` / `wfr_lm`) | v0.6, 2026-04-03 |
+| [`07-experiment-plan.md`](07-experiment-plan.md) | План и статус экспериментов; **Phase 3+** четыре опоры; **чеклист из 10 шагов** перед PR (`core` / `wfr_lm`) | **v0.6.1, 2026-04-30** (см. шапку файла) |
 | [`08-phase-0-plan.md`](08-phase-0-plan.md) | **Мастер-план Phase 0** (viability, критерии выхода) | Phase 0 закрыт |
 | [`09-memory-complexity-test-plan.md`](09-memory-complexity-test-plan.md) | Результаты теста памяти (100M токенов) | Завершён |
 | [`10-phase-1-plan.md`](10-phase-1-plan.md) | **Phase 1 — обучение, RFP**, критерии, оговорки | Phase 1 закрыт; Phase 2 в работе |
