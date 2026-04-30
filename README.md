@@ -30,17 +30,18 @@ WFR takes a different path: instead of matrix multiplication, information is enc
 
 ### What's not proven yet
 
-- **Learning at scale** — toy next-token training and **RFP v0** (Adam + composite loss + plasticity step on frequencies / phase_bias / decay) are implemented (`wfr_lm.py`, `wfr_rfp.py`, [`experiments/06-rfp-v0/`](experiments/06-rfp-v0/), [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md)); strong CE gains vs baseline and long-run criteria are still **Phase 2** work.
-- **Speed** — still ~O(n) in practice, not sub-linear.
-- **Head-to-head with transformers** — **partially**: char WikiText-2, fair parity vs a minimal **matched** causal Transformer (Experiment 09); the **readout / head width** is the main CE lever; synthesis [`docs/13-project-status-snapshot.md`](docs/13-project-status-snapshot.md) (§7), matrix [`docs/14-core-readiness-and-breakthrough-matrix.md`](docs/14-core-readiness-and-breakthrough-matrix.md).
+- **Learning at scale / RFP for LM dominance** — toy next-token training and **RFP v0** (Adam + composite loss + plasticity on frequencies / `phase_bias` / decay) are implemented (`wfr_lm.py`, `wfr_rfp.py`, [`experiments/06-rfp-v0/`](experiments/06-rfp-v0/), [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md)). On **real** text (WikiText-2 char), **fair parity vs a matched causal Transformer** is already measured (Experiment 09); **RFP** as a necessary step for LM quality remains a **separate hypothesis** after CE parity is tightened — see roadmap stage **E** in [`docs/12-wfr-llm-breakthrough-roadmap.md`](docs/12-wfr-llm-breakthrough-roadmap.md).
+- **Speed** — still ~O(n) time in practice on GPU, not sub-linear.
+- **Head-to-head with transformers** — **measured under a stated protocol, not «SOTA won»**: char WikiText-2, **`--fair-parity`**, match-capacity, shared val. **Outcome:** narrow readout is the main CE gap; at **`readout_feat_dim=32`** WFRLM is **competitive / slightly ahead** on best val CE vs the matched baseline in long A100 runs; **stage D.1** (paired context lengths **96 / 512**) shows **Δ(WFR−TF) &lt; 0 at T=512** in two independent A100 JSONs — **Δ at T=96 is seed-sensitive** (`H6` in [`docs/14-core-readiness-and-breakthrough-matrix.md`](docs/14-core-readiness-and-breakthrough-matrix.md)). Full snapshot: [`docs/13-project-status-snapshot.md`](docs/13-project-status-snapshot.md).
+- Still open: **BPE / subword**, longer training budgets, sliding-window Transformer baseline parity, combo sweeps — [`docs/16-next-phases-verified.md`](docs/16-next-phases-verified.md).
 
-### Training: synthetic evidence and next step (April 2026)
+### Training: evidence and LM calibration (April 2026)
 
-**Established on synthetic / toy runs** (Exp 05–07, protocol tests on GPU): the stack **can train** — gradients flow; Adam + composite loss + RFP (and related precursors) run without collapsing. That supports **Phase 1** engineering closure in [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) (sanity, explicit loss, reproducible scripts).
+**Established on synthetic / toy runs** (Exp 05–07, protocol tests): the stack **can train** — gradients flow; Adam + composite loss + RFP (and precursors) run without collapsing ([`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md)).
 
-**Not established there:** a proof of large CE improvement or RFP dominance — small vocab and toy sampling often keep val CE near \(\ln V\); that is a **weak task signal**, not a verdict on the architecture at scale.
+**Established on real text (WikiText-2 char):** **`wfr_lm` + Experiment 09** implements **honest parity** vs a minimal **matched** causal Transformer (same corpus splits, **`--fair-parity`**, match-capacity, matched optimizer family). Scripts and GPU artifacts live under **[`experiments/09-lm-parity/`](experiments/09-lm-parity/README.md)** → see [`experiments/09-lm-parity/README.md`](experiments/09-lm-parity/README.md), [`docs/13-project-status-snapshot.md`](docs/13-project-status-snapshot.md), [`docs/14-core-readiness-and-breakthrough-matrix.md`](docs/14-core-readiness-and-breakthrough-matrix.md).
 
-**Next step:** a small **real** text corpus for calibration — e.g. **WikiText-2** raw via [`data/hf/download_wikitext2.py`](data/hf/download_wikitext2.py) ([`data/hf/README.md`](data/hf/README.md)). That is **Phase 2+** exploration, not standard LM leaderboards.
+**Still not established:** RFP dominance on LM CE at scale; BPE-era benchmarks; parity vs industry-scale LLMs. Small-vocab toy runs often track \(\ln V\) — that remains a **weak task signal**.
 
 > **One-sentence analogy:** WFR replaces "a calculator with giant spreadsheets" (transformer) with "a room full of tuning forks" where information travels through wave resonance, not number crunching.
 
@@ -158,11 +159,11 @@ RC is stable across depths: ~0.97 (512 tokens), ~0.846 (8K), ~0.712 (131K) — i
 
 ### What is not confirmed
 
-- **Time complexity** remains ~O(n), not sub-linear as theorized
-- **Learning (RFP)** — forward + toy training tested (`wfr_rfp.py`, Exp 05–07); **large-scale** learning and benchmarks are **Phase 2+**
-- **Comparison with existing architectures** — not yet conducted
+- **Time complexity** remains ~O(n) on GPU, not sub-linear as once hoped for naive implementations.
+- **RFP vs CE-only parity on LM** — RFP stacks work in toy settings; LM **fair-parity CE** vs Transformer is tracked **without requiring RFP** (Exp 09). Whether RFP adds **predictable** lift after parity is roadmap **E**.
+- **Comparison with transformers (LM)** — **done under Experiment 09’s protocol only** (char WikiText-2, matched Tiny causal TF). Claims like «beats general transformers» or SOTA benchmarks are **out of scope** of that experiment.
 
-Full results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md)
+Full memory results: [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md)
 
 ## Project Structure
 
@@ -179,6 +180,8 @@ experiments/        Test code and results
   06-rfp-v0/                   RFP v0–v0.3, A/B and grids
   06-rfp-protocol-tests/       Fresh-train / fixed-val protocol + tier checks
   07-wfra2-precursor/          Composite loss + warm-up (WFRA-2 precursor)
+  08-wikitext-rfp/             WikiText-2 char training modes (CE-only / full L / twin), RFP online-offline helpers
+  09-lm-parity/                Fair parity WFRLM vs matched causal Transformer; A100 sweeps + D.1 long-context pair JSON (`run_longcontext_pair.py`)
 data/hf/                     Small real corpus (WikiText-2) — see README there
 tools/              Utilities (interactive visualizer)
 ```
@@ -193,8 +196,14 @@ From the repo root, run **`pip install -e .`** for an editable install of the `w
 4. [`docs/03-theory.md`](docs/03-theory.md) — Mathematical foundations + v2.0 stability mechanisms + **§10 (tokens in WFRLM / wave-fractal chain)**
 5. [`docs/09-memory-complexity-test-plan.md`](docs/09-memory-complexity-test-plan.md) — Test results with v1.0 vs v2.0 comparison
 6. [`experiments/04-basic-pattern-formation/README.md`](experiments/04-basic-pattern-formation/README.md) — Basic Pattern Formation (Phase 0, Test 2): protocol, metrics, verdict
-7. [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) — Phase 1 (training, RFP): criteria, caveats, experiment registry
-8. [`experiments/05-rfp-training-sanity/README.md`](experiments/05-rfp-training-sanity/README.md) — Phase 1 sanity (gradients, full \(L\), val); short run recorded in [`docs/07-experiment-plan.md`](docs/07-experiment-plan.md) Test 3
+7. [`docs/10-phase-1-plan.md`](docs/10-phase-1-plan.md) — Phase 1 (training, RFP): criteria, caveats, experiment registry  
+8. [`experiments/05-rfp-training-sanity/README.md`](experiments/05-rfp-training-sanity/README.md) — Phase 1 sanity (gradients, full \(L\), val); short run recorded in [`docs/07-experiment-plan.md`](docs/07-experiment-plan.md) Test 3  
+9. [`docs/11-rfp-v0-spec.md`](docs/11-rfp-v0-spec.md) — RFP v0 interfaces and metrics  
+10. [`docs/12-wfr-llm-breakthrough-roadmap.md`](docs/12-wfr-llm-breakthrough-roadmap.md) — roadmap to LM breakthrough (**A–F**)  
+11. [`docs/13-project-status-snapshot.md`](docs/13-project-status-snapshot.md) — current synthesis: proved vs hypothesis vs LM parity  
+12. [`docs/14-core-readiness-and-breakthrough-matrix.md`](docs/14-core-readiness-and-breakthrough-matrix.md) — core checklist + hypothesis matrix **H1–H8**  
+13. [`experiments/09-lm-parity/README.md`](experiments/09-lm-parity/README.md) — **Experiment 09** fair parity protocols and GPU artifacts (`remote_gpu_*.sh`, D.1 `longcontext_pair_*.json`)  
+14. [`docs/07-experiment-plan.md`](docs/07-experiment-plan.md) — full experiment plan and PR readiness checklist  
 
 ## License
 
