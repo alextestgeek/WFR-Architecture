@@ -1,6 +1,6 @@
 # 13. Срез состояния проекта (теория × эксперимент × LM)
 
-**Дата:** 3 апреля 2026  
+**Дата:** 30 апреля 2026  
 **Назначение:** одна страница «где мы»: что уже зафиксировано измерениями, что остаётся гипотезой, что это значит для **прорывной языковой модели** на WFR.
 
 **Живая дорожная карта LLM:** [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md).  
@@ -40,6 +40,7 @@
   - при узком readout (**3**) WFRLM сильно хуже по val CE при сопоставимом числе параметров;  
   - при росте readout (**до 32**) зазор сужается, при **32** WFRLM **чуть лучше** matched baseline по best val CE — см. [`experiments/09-lm-parity/README.md`](../experiments/09-lm-parity/README.md).  
   Это **не** «победа над индустрией», а доказательство, что узкая голова/readout были главным инженерным зазором на этом корпусе и бюджете.
+- **D.1 / длинный контекст (Exp 09):** два независимых A100-прогона `run_longcontext_pair.py` при fair-parity (readout 32, пары длин 96/512, batch 8): [`runs/p1_p2_p3_20260403/longcontext_pair_20260403_185208.json`](../experiments/09-lm-parity/outputs/remote_a100/runs/p1_p2_p3_20260403/longcontext_pair_20260403_185208.json) (сиды 42) и [`runs/longcontext_d32_seed43_20260406/longcontext_pair_20260406_181502.json`](../experiments/09-lm-parity/outputs/remote_a100/runs/longcontext_d32_seed43_20260406/longcontext_pair_20260406_181502.json) (сиды 43). При **T=512** в обоих случаях Δ(WFR−TF)&lt;0; при **T=96** знак Δ меняется между сидами. Профиль peak CUDA по длинам сопоставим (~24 → ~56 MiB). Подробности — строка **H6** в [`14`](14-core-readiness-and-breakthrough-matrix.md).
 
 ---
 

@@ -1,7 +1,7 @@
 # 07. Experiment Plan — План проверки теории
 
-**Версия:** 0.6  
-**Дата:** 3 апреля 2026  
+**Версия:** 0.6.1  
+**Дата:** 30 апреля 2026  
 **Статус:** Утверждён
 
 **Сводный план Phase 0 (цели, соответствие теории, критерии выхода):** [`08-phase-0-plan.md`](08-phase-0-plan.md)
@@ -178,7 +178,7 @@
 |--------|------------------------|-------------------------------|-----------|---------|
 | **1. Модель работает** | Forward стабилен, выходы конечны, ядро + WFRLM собираются на целевом железе; регрессия не ломает Phase 0. | Smoke OK; при правках `wfr/core.py` — повтор `00-smoke-test` (+ по времени один тест из 01–02); для LM: один `--quick` parity или train без OOM. | `experiments/00-smoke-test/run_smoke_test.py`; `python -m pytest` по тестам репо; `run_parity_pair.py --quick --fair-parity` | **Постоянно** перед длинными GPU-прогонами |
 | **2. Контекст формирует волну** | Длина/содержание входа **изменяет** наблюдаемое поле (фазы, стоячая волна, RC) предсказуемо; с токенами — отличие режима «есть контент» vs «только позиции». | Phase 0: стабильность префикса между длинами контекста (Exp 03), различимость синтетических порядков (Exp 04). LM-слой: `content_delta` off даёт иной профиль волны/CE чем on; при одном префиксе волна в зоне префикса близка (диагностика по желанию в JSON). | `experiments/03-long-context-stability/`; `experiments/04-basic-pattern-formation/`; Exp 08 абляция `content`; Exp 09/08 логи слоёв при необходимости | **Уже частично закрыто** (0–4); для LM — **короткий чеклист** после каждого крупного изменения readout/ядра |
-| **3. Точность (LM)** | На **одном** корпусе и val CE модель не «ломается» относительно честного baseline при сопоставимом бюджете параметров. | Таблица fair-parity: Δ(WFR−TF); **B1** закрыт — [`runs/04_b1_mlp_matrix_20260403`](../experiments/09-lm-parity/outputs/remote_a100/runs/04_b1_mlp_matrix_20260403). Далее: этап **D** (**D.1** в [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md)). | Exp 09, `remote_gpu_*` | **Сейчас:** combo B3 при D=32; реализация замеров D |
+| **3. Точность (LM)** | На **одном** корпусе и val CE модель не «ломается» относительно честного baseline при сопоставимом бюджете параметров. | Таблица fair-parity: Δ(WFR−TF); **B1** закрыт — [`runs/04_b1_mlp_matrix_20260403`](../experiments/09-lm-parity/outputs/remote_a100/runs/04_b1_mlp_matrix_20260403). Этап **D.1** (пара длин контекста): два A100 JSON и **H6** в [`14` §3](14-core-readiness-and-breakthrough-matrix.md) (`runs/p1_p2_p3_…`, `runs/longcontext_d32_seed43_…`). См. также [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md) для этапов C–F. | Exp 09, `remote_gpu_*` | **Сейчас:** combo B3 при D=32; следующий слой замеров D — другие \(T_1,T_2\), второй сид, при необходимости скользящее окно у TF |
 | **4. Обучаемость** | Градиенты проходят; CE (или согласованная цель) **падает** на фиксированных батчах/корпусе, без обвала RC «в ноль» как единственного объяснения. | Exp 05: ненулевой градиент, снижение val; Exp 08: кривые эпох; parity: лучший val CE лучше случайного уровня; при необходимости `--match-lr` / длиннее эпохи до вывода. | `experiments/05-rfp-training-sanity/`; `run_wikitext_train.py`; Exp 09 | **Параллельно** с B1; не путать с «прорывом RFP» |
 
 **Сквозной порядок работ (практический):**
@@ -210,6 +210,19 @@
 | 10 | Если меняется **контракт** (новый флаг CLI, новая вводная в ядро): один абзац в PR + при необходимости патч [`03-theory.md`](03-theory.md) / README эксперимента | Ревьюер видит связь код ↔ док |
 
 **Заметка:** шаг 4 уже покрывает **обучаемость** и **точность** в микро-бюджете; он **не** заменяет длинный A100-прогон для итоговой таблицы Δ.
+
+### Сессия агента — удалённый GPU и правила (2026-04-04)
+
+- В [`.cursor/rules/wfr-agent-continuous-manifest.mdc`](../.cursor/rules/wfr-agent-continuous-manifest.mdc), [`docs/17-agent-continuous-work-manifest.md`](17-agent-continuous-work-manifest.md) и [`docs/19-autonomous-research-agent-branch-a.md`](19-autonomous-research-agent-branch-a.md) зафиксировано: для **ветки A** и тяжёлых Exp 09 агент **обязан** следовать локальному **`RULES.md` §§6–8** (и при необходимости `remote_sync_wikitext.ps1`); итоговые выводы — по GPU-артефактам.
+- Проверка связи с сервером из Cursor: `plink` → `~/Desktop/WFR-Memory-Test`, `.venv/bin/python -c 'import torch; …'` → **`torch.cuda.is_available() == True`** (внутренний контур).
+
+### Сессия агента TASK-P3-D1 (2026-04-04, ветка B)
+
+Выполнено по [`18-agent-task-p3-d1-longcontext.md`](18-agent-task-p3-d1-longcontext.md): локальный `--quick --fair-parity` на `seq_lens=96,128` → [`longcontext_pair_20260404_192930.json`](../experiments/09-lm-parity/outputs/longcontext_pair_20260404_192930.json) (readout 3, 6 ep, CPU, `peak_mib=None`). `verify_longcontext_artifacts.py` на каталоге `outputs/` — **PASS**. Микро-метрики: при seq 96 Δ≈+0.089, при 128 Δ≈+0.115 (WFR хуже TF на этом бюджете; **не** использовать для **H6**). Канон GPU D.1: [`p1_p2_p3_20260403/longcontext_pair_20260403_185208.json`](../experiments/09-lm-parity/outputs/remote_a100/runs/p1_p2_p3_20260403/longcontext_pair_20260403_185208.json) (CUDA).
+
+### Сессия агента TASK-P3-D1 (2026-04-06, ветка A, A100)
+
+`remote_sync_wikitext.ps1 -Direction upload`, затем на `10.100.9.10` в `~/Desktop/WFR-Memory-Test`: `bash experiments/09-lm-parity/remote_gpu_longcontext_d32.sh` с `PARITY_INIT_SEED=43`, `PARITY_TRAIN_SEED=43` (batch 8 по умолчанию скрипта). GPU: NVIDIA A100 80GB. Артефакт скачан: [`experiments/09-lm-parity/outputs/remote_a100/runs/longcontext_d32_seed43_20260406/longcontext_pair_20260406_181502.json`](../experiments/09-lm-parity/outputs/remote_a100/runs/longcontext_d32_seed43_20260406/longcontext_pair_20260406_181502.json). `verify_longcontext_artifacts.py` — **PASS**. Метрики: seq 96 — Δ≈+0.0049; seq 512 — Δ≈−0.0314; peak_cuda_mib 23.644 и 55.55. В паре с прогоном от 2026-04-03 (сиды 42) обновлена строка **H6** в [`14`](14-core-readiness-and-breakthrough-matrix.md) §3.
 
 ---
 

@@ -4,7 +4,7 @@
 
 Запуск из корня:
   python experiments/09-lm-parity/run_longcontext_pair.py --fair-parity --seq-lens 96,512 \\
-    --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 16
+    --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 8 --readout-feat-dim 32
 
 С `--quick` эпохи и батчи ужимаются как в run_parity_pair.
 

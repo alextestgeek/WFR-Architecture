@@ -29,6 +29,9 @@
 | [`13-project-status-snapshot.md`](13-project-status-snapshot.md) | **Срез состояния:** доказано / гипотезы / LM-прорыв | Обновлять по этапам B–C |
 | [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md) | **Ядро: регрессия** + **матрица узких мест / гипотез** (H1–H8) | Ведение §3 после каждого снимка A100 |
 | [`16-next-phases-verified.md`](16-next-phases-verified.md) | **Проверка тезисов U1–U6** + **план этапов P1–P5** (после parity) | Активный runbook-уровень |
+| [`17-agent-continuous-work-manifest.md`](17-agent-continuous-work-manifest.md) | **Манифест для ИИ-агентов:** инварианты ядра, анти-дрейф в «обычный LLM», цикл экспериментов, **RFC** для фундаментальных правил | Обязателен для автономных циклов |
+| [`18-agent-task-p3-d1-longcontext.md`](18-agent-task-p3-d1-longcontext.md) | **Готовая задача для агента:** этап D.1 — long context parity + peak CUDA (**H6** / **U6**) | Запуск по ветке A (GPU) или B (локально) |
+| [`19-autonomous-research-agent-branch-a.md`](19-autonomous-research-agent-branch-a.md) | **Автономный исследовательский агент (ветка A):** роли E/T/K/X, цикл до **BR-1/2/3**, RFC для новой математики, стоп-условия | Долгие сессии до измеримого прорыва |
 | [`strategy-fractal-layers.md`](strategy-fractal-layers.md) | Стратегия параметров (4 слоя)         | Частично устарел (см. exp.04) |
 
 ---
@@ -44,7 +47,10 @@
 7. `11-rfp-v0-spec.md` — спецификация и метрики RFP v0 (Experiment 06)
 8. `12-wfr-llm-breakthrough-roadmap.md` — путь к прорывной LLM на WFR (parity → масштаб)
 9. `13-project-status-snapshot.md`, `14-core-readiness-and-breakthrough-matrix.md`, `16-next-phases-verified.md` — срез, матрица H*, следующие фазы после проверки тезисов
-10. Остальные документы — по мере необходимости
+10. `17-agent-continuous-work-manifest.md` — если работу ведёт ИИ-агент много сессий подряд  
+11. `18-agent-task-p3-d1-longcontext.md` — конкретное задание с критериями готовности (этап D.1 / H6)
+12. `19-autonomous-research-agent-branch-a.md` — протокол автономного агента (ветка A, ядро, теория, критерии прорыва)
+13. Остальные документы — по мере необходимости
 
 ---
 

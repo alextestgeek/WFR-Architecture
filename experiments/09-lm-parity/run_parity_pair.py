@@ -276,6 +276,11 @@ def run_parity_train_payload(args: argparse.Namespace, wfr_lr: float, corpus: Wi
             "corpus_val_sha256_fingerprint": wfr.val_fingerprint,
         },
         "fairness_notes": {
+            "baseline_transformer_attention": (
+                "Causal TransformerEncoder with full attention over the sampled segment "
+                f"(length seq_len={args.seq_len}); positional Embedding max_len=seq_len+32. "
+                "No fixed sliding window smaller than seq_len (Exp 09 TinyCausalTransformer)."
+            ),
             "wfr_objective": "ce_only, no RFP (matches next-token CE only)",
             "transformer_objective": "cross_entropy only",
             "optimizer": (

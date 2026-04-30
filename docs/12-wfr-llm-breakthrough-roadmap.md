@@ -71,7 +71,7 @@
 5. **Предсказание до прогона:** WFR не хуже TF по CE при более выгодном соотношении память/время на \(T_2\) — либо формулировка опровержима (хуже по обоим — пересмотр заявки этапа D).
 
 Кодовая база (черновик): [`run_longcontext_pair.py`](../experiments/09-lm-parity/run_longcontext_pair.py) — несколько `--seq-lens`, для каждого полный fair-parity прогон, в JSON **`d1_metrics`**: `wall_seconds_full_pair`, `peak_cuda_mib` (если CUDA). Пример:  
-`python experiments/09-lm-parity/run_longcontext_pair.py --fair-parity --seq-lens 96,512 --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 16 --readout-feat-dim 32`  
+`python experiments/09-lm-parity/run_longcontext_pair.py --fair-parity --seq-lens 96,512 --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 8 --readout-feat-dim 32` — batch **8** выровнен с каноническим A100 JSON `runs/p1_p2_p3_20260403/longcontext_pair_20260403_185208.json` (больше VRAM: `--batch-size 16`).  
 Проверка структуры сохранённых JSON: [`verify_longcontext_artifacts.py`](../experiments/09-lm-parity/verify_longcontext_artifacts.py).
 
 ---

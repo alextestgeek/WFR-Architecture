@@ -1,6 +1,6 @@
 # 16. Проверка тезисов (U1–U6, Phase 0, LM parity) и план следующих этапов
 
-**Дата:** 31 марта 2026  
+**Дата:** 30 апреля 2026  
 **Связь:** [`12-wfr-llm-breakthrough-roadmap.md`](12-wfr-llm-breakthrough-roadmap.md), [`14-core-readiness-and-breakthrough-matrix.md`](14-core-readiness-and-breakthrough-matrix.md), [`experiments/09-lm-parity/README.md`](../experiments/09-lm-parity/README.md).
 
 Этот документ **сверяет** с репозиторием формулировки про узкие места U1–U6 и «что уже доказано», затем даёт **один согласованный порядок работ** (без дублирования таблиц A100 — они остаются в Exp 09 и §14).
@@ -16,7 +16,7 @@
 | **U3** | `phase_causal_kernel`, `content_neighbor_mix`, `readout_wave_kernel` при нормальном readout дают **тонкие** эффекты относительно расширения головы | **Согласуется с A100 B3** | Таблица подтверждения в Exp 09 README; **H3** ≈ ничья; **H4** слабое улучшение; локальный CPU quick может **не** совпадать по знаку Δ — в README явно предупреждено. |
 | **U4** | Цель обучения: full L vs CE — нельзя смешивать выводы | **Да** | Принципы в [`12` §0 п.3](12-wfr-llm-breakthrough-roadmap.md); parity Exp 09 — `ce_only` для сравнения с TF. |
 | **U5** | Бюджет эпох/данных — отдельный рычаг; малый бюджет не опровергает архитектуру | **Да** | **H5** / этап **C** в очереди [`14` §4](14-core-readiness-and-breakthrough-matrix.md). |
-| **U6** | Дифференциация на длинном контексте требует протокола **D** (пары T, память TF, время) | **Частично реализовано в коде** | [`run_longcontext_pair.py`](../experiments/09-lm-parity/run_longcontext_pair.py) пишет JSON с `d1_metrics` (wall, peak CUDA); **полный отчёт D** (окно у TF, идентичный бюджет шагов) — ещё не сведён к каноничному «итоговому» прогону в `runs/`. |
+| **U6** | Дифференциация на длинном контексте требует протокола **D** (пары T, память TF, время) | **Измерено для D.1 (пара T)** | Два независимых A100 JSON в `experiments/09-lm-parity/outputs/remote_a100/runs/…`, строка **H6** в [`14` §3](14-core-readiness-and-breakthrough-matrix.md): CE, Δ, peak CUDA, правило TinyTF («полный» сегмент — см. `baseline_transformer_attention` в JSON). Полный протокол **D** со **скользящим окном** у TF при том же качестве — отдельная постановка, в очереди. |
 
 **Вывод:** формулировки **U1, U3, U4, U5** хорошо опираются на уже имеющиеся артефакты; **U2** и **полная D-картина (U6)** остаются **очередью с явной постановкой**, а не «доказанностью».
 
@@ -30,7 +30,7 @@
 | O(1) памяти на токен (постановка Memory Test) | [`09-memory-complexity-test-plan.md`](09-memory-complexity-test-plan.md); время ~O(n) не отменяется. |
 | Homeostatic bugfix | `03-theory.md` §8 + Exp 02. |
 | LM parity A2 (честный TF vs WFRLM) | Exp 09 + таблицы A100; узкий readout, sweep D, MLP при D=16 vs D=32 — в README Exp 09 и **H2** в §14. |
-| Этап D (черновик) | Скрипт есть; примеры `longcontext_pair_*.json` в `experiments/09-lm-parity/outputs/` — **интерпретировать как черновик**, пока нет полного runbook в `remote_a100/runs/`. |
+| Этап D.1 | Канон: [`runs/p1_p2_p3_20260403/`](../experiments/09-lm-parity/outputs/remote_a100/runs/p1_p2_p3_20260403/) и [`runs/longcontext_d32_seed43_20260406/`](../experiments/09-lm-parity/outputs/remote_a100/runs/longcontext_d32_seed43_20260406/) + [`verify_longcontext_artifacts.py`](../experiments/09-lm-parity/verify_longcontext_artifacts.py). Локальные `--quick` JSON в корне `outputs/` — только регрессия скриптов (не для **H6**). |
 
 ---
 
@@ -51,9 +51,9 @@
 
 ### Этап P3 — D (длинный контекст, U6)
 
-1. Зафиксировать пару \(T_1, T_2\) (например 96 и 512) и правило для TF: полный attention vs скользящее окно — **явно в JSON**.
-2. Прогон [`run_longcontext_pair.py`](../experiments/09-lm-parity/run_longcontext_pair.py) на A100 с `--fair-parity`, сохранить артефакт в `outputs/remote_a100/runs/…` по аналогии с sweep.
-3. Отчёт: `best_val_ce`, `peak_cuda_mib`, `wall_seconds_full_pair` (уже в JSON).
+1. ~~Зафиксировать пару \(T_1, T_2\) (96 / 512) и правило для TF~~ — для D.1 **сделано** (два GPU-отчёта, **H6**); см. задачу [`18`](18-agent-task-p3-d1-longcontext.md).
+2. ~~Прогон на A100~~ — см. каталоги `runs/p1_p2_p3_20260403/`, `runs/longcontext_d32_seed43_20260406/`.
+3. Дальнейшая очередь: второй \(T\) (например 1024), больше сидов по правилу [`14` §4 п.6](14-core-readiness-and-breakthrough-matrix.md); при необходимости — постановка TF со **скользящим окном** и тем же качеством.
 
 ### Этап P4 — B2 (опционально, U2)
 
@@ -65,7 +65,7 @@
 
 ---
 
-## 4. Реализация в репозитории (что сделано этим коммитом)
+## 4. Основные связанные артефакты в репозитории
 
 | Артефакт | Назначение |
 |----------|------------|
@@ -73,6 +73,7 @@
 | [`experiments/09-lm-parity/NEXT_PHASE_RUNBOOK.md`](../experiments/09-lm-parity/NEXT_PHASE_RUNBOOK.md) | Короткий runbook: команды копипастой для GPU (ссылки на существующие скрипты). |
 | [`experiments/09-lm-parity/verify_longcontext_artifacts.py`](../experiments/09-lm-parity/verify_longcontext_artifacts.py) | Регрессия схемы JSON **D.1** после скачивания `longcontext_pair_*.json`. |
 | [`experiments/09-lm-parity/run_local_pr_checklist.ps1`](../experiments/09-lm-parity/run_local_pr_checklist.ps1) | Локальный чеклист [`07-experiment-plan.md`](07-experiment-plan.md) (шаги 1–6 + verify); перед GPU по [`NEXT_PHASE_RUNBOOK.md`](../experiments/09-lm-parity/NEXT_PHASE_RUNBOOK.md). |
+| [`docs/17-agent-continuous-work-manifest.md`](17-agent-continuous-work-manifest.md), [`docs/18-agent-task-p3-d1-longcontext.md`](18-agent-task-p3-d1-longcontext.md), [`docs/19-autonomous-research-agent-branch-a.md`](19-autonomous-research-agent-branch-a.md) | Манифест агента, тактический блок **H6** / D.1, долгий автономный режим (**BR-1…**). |
 
 Обновляйте **§3 таблицу H*** в [`14`](14-core-readiness-and-breakthrough-matrix.md) после каждого нового JSON; этот документ — **навигация по смыслу**, а не дублирование цифр.
 

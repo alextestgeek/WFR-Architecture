@@ -33,14 +33,14 @@ chmod +x experiments/09-lm-parity/remote_gpu_longcontext_d32.sh
 bash experiments/09-lm-parity/remote_gpu_longcontext_d32.sh
 ```
 
-По умолчанию: `LONGCONTEXT_SEQ_LENS=96,512`, `PARITY_READOUT_DIM=32`, бюджет как у parity (`PARITY_EPOCHS=48`, …). При OOM: `PARITY_BATCH=8 bash …`. JSON копируется в `outputs/remote_a100/runs/longcontext_d32_<ts>/`.
+По умолчанию: `LONGCONTEXT_SEQ_LENS=96,512`, `PARITY_READOUT_DIM=32`, `PARITY_BATCH=8` (выровнено с каноническим JSON `runs/p1_p2_p3_20260403/…185208.json`). Больше VRAM: `PARITY_BATCH=16 bash …`. Бюджет: `PARITY_EPOCHS=48`, … . Второй прогон (другие сиды): `PARITY_INIT_SEED=43 PARITY_TRAIN_SEED=43` (и при необходимости `PARITY_VAL_SEED`). JSON копируется в `outputs/remote_a100/runs/longcontext_d32_<ts>/`.
 
 **Локально / один в один CLI:**
 
 ```bash
 python experiments/09-lm-parity/run_longcontext_pair.py \
   --fair-parity --seq-lens 96,512 \
-  --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 16 \
+  --epochs 48 --num-train-batches 20 --num-val-batches 8 --batch-size 8 \
   --readout-feat-dim 32
 ```
 

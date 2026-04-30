@@ -1,0 +1,11 @@
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+seq_len=96 delta=0.004933595657348633 wall_s=45.843 peak_mib=23.644
+  Layer 0: freq=1.00, threshold=0.200
+  Layer 1: freq=1.80, threshold=0.250
+  Layer 2: freq=3.00, threshold=0.300
+  Layer 3: freq=5.00, threshold=0.400
+seq_len=512 delta=-0.03142401576042175 wall_s=49.026 peak_mib=55.55
+Wrote /home/alex1/Desktop/WFR-Memory-Test/experiments/09-lm-parity/outputs/longcontext_pair_20260406_181502.json
